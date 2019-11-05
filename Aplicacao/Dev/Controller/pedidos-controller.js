@@ -1,6 +1,6 @@
 'use-strict'
 const repository_pedidos = require('../Model/Repository/pedidos-repository'); //O repository só vai ser usado para métodos simples que não possuem regras de negócio.
-const services_pagamentos = require('../Model/Services/pedidos-services')
+const services_pedidos = require('../Model/Services/pedidos-services')
 
 
 exports.get = (req, res, next) => {

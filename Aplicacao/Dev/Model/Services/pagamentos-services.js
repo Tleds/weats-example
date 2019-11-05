@@ -4,6 +4,7 @@ const repository_restaurantes = require('../Repository/restaurantes-repository')
 const repository_mesas = require('../Repository/mesas-repository');
 const repository_pedidos = require('../Repository/pedidos-repository');
 const repository_formas_pagamento = require('../Repository/formas_pagamento-repository');
+const repository_pagamentos = require('../Repository/pagamentos-repository')
 
 exports.validaUsuario = function(pagamento) {
     repository_usuarios.readById(pagamento.id_usuario).then(result => {
@@ -48,5 +49,41 @@ exports.validaFormaPagamento = function(pagamento) {
         } else {
             return false;
         }
+    });
+}
+exports.create = function(pagamento) {
+    return repository_pagamentos.create(pagamento).then(() => {
+        return true;
+    }).catch(error => {
+        return error;
+    })
+}
+exports.all = function() {
+    return repository_pagamentos.all().then(result => {
+            return result;
+        })
+        .catch(error => {
+            return error;
+        })
+}
+exports.put = function(req) {
+    return repository_pagamentos.update(req).then(result => {
+            return true;
+        })
+        .catch(error => {
+            return error;
+        })
+}
+exports.delete = function(req) {
+    return repository_pagamentos.delete(req).then(result => {
+            return true;
+        })
+        .catch(error => {
+            return error;
+        })
+}
+exports.all = function() {
+    return repository_pagamentos.all().then(result => {
+        return result; //retorna o json com os pagamentos
     });
 }

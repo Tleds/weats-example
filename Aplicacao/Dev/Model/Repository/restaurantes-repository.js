@@ -4,7 +4,12 @@ const repository_enderecos = require('./enderecos-repository');
 exports.all = function() {
     return restaurantes.findAll({ raw: true });
 };
-
+exports.VerificaEmail = function(restaurante) {
+    return restaurantes.count({ where: { email: restaurante.email }, raw: true });
+}
+exports.VerificaCNPJ = function(restaurante) {
+    return restaurantes.count({ where: { cnpj: restaurante.cnpj }, raw: true });
+}
 exports.create = function Salvar(restaurante) {
     return restaurantes.create({
         nome: restaurante.nome,
@@ -15,12 +20,10 @@ exports.create = function Salvar(restaurante) {
     });
 }
 exports.readById = function(id) {
-    return restaurantes.findOne({
-        where: { id: id },
-        raw: true
-    });
+    return restaurantes.findByPk(id);
 }
 exports.update = function Atualizar(req) {
+    let restaurante = req.body;
     return restaurantes.findOne({
         where: {
             id: req.params.id

@@ -13,6 +13,9 @@ const menus = require('./Controller/router/menus-route');
 const restaurantes = require('./Controller/router/restaurantes-route');
 const pagamentos = require('./Controller/router/pagamentos-route');
 const pedidos = require('./Controller/router/pedidos-route');
+//Convém analisar a necessidade
+const mesas = require('./Controller/router/mesa-route');
+const forma_pagamento = require('./Controller/router/forma_pagamento-route');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -24,6 +27,9 @@ app.use('/menus', menus);
 app.use('/restaurantes', restaurantes);
 app.use('/pagamentos', pagamentos);
 app.use('/pedidos', pedidos);
+//Convém analisar a necessidade
+app.use('/mesas', mesas);
+app.use('/formas_pagamento', forma_pagamento);
 
 
 module.exports = app;

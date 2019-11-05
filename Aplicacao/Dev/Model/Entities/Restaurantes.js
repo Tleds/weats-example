@@ -21,7 +21,7 @@ const Restaurante = db.sequelize.define('restaurantes', {
     },
     celular: {
         type: db.Sequelize.STRING(100),
-        allowNull: false
+        allowNull: true
     }
 });
 /*db.sequelize.query("SET FOREIGN_KEY_CHECKS=0").then(() => {

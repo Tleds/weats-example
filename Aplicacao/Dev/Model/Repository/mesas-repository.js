@@ -1,20 +1,23 @@
 const mesas = require('../Entities/Mesas');
-const repository_restaurantes = require('./restaurantes-repository');
 
 exports.all = function() {
     return mesas.findAll({ raw: true });
 };
 
-exports.create = function Salvar(mesas) {
+exports.create = function Salvar(mesa) {
     return mesas.create({
-        id_restaurante: mesas.id_restaurante,
-        descricao: mesas.descricao
-    })
+            id_restaurante: mesa.id_restaurante,
+            descricao: mesa.descricao
+        })
+        .catch(error => {
+            return error;
+        })
 }
-exports.read = function verificaRestaurante(mesas) {
-    return mesas.findOne({ where: { id_restaurante: mesas.id_restaurante }, raw: true });
+exports.read = function verificaRestaurante(mesa) {
+    return mesas.findOne({ where: { id_restaurante: mesa.id_restaurante }, raw: true });
 }
 exports.update = function Atualizar(req) {
+    let mesa = req.body;
     return mesas.findOne({
         where: {
             id: req.params.id
@@ -23,8 +26,8 @@ exports.update = function Atualizar(req) {
     }).then(id => {
         if (typeof id != "undefined") {
             mesas.update({
-                id_restaurante: mesas.id_restaurante,
-                descricao: mesas.descricao
+                id_restaurante: mesa.id_restaurante,
+                descricao: mesa.descricao
             }, {
                 where: { id: id.id }
             })
@@ -35,11 +38,7 @@ exports.update = function Atualizar(req) {
 
 }
 exports.delete = function Deletar(req) {
-    return restaurantes.destroy({
-        where: { id_usuario: req.params.ident }
-    }).then(() => {
-        mesas.destroy({
-            where: { id: req.params.ident }
-        })
+    return mesas.destroy({
+        where: { id: req.params.ident }
     })
 }

@@ -1,20 +1,33 @@
 'use-strict'
 const repository_restaurantes = require('../Repository/restaurantes-repository');
 exports.validaCnpjRestaurante = function(restaurante) {
-    repository_restaurantes.VerificaCNPJ(restaurante.cnpj).then(result => {
-        if (typeof result == "undefined") {
-            return true;
-        } else {
-            return false;
-        }
+    return repository_restaurantes.VerificaCNPJ(restaurante).then(result => {
+        return result;
     });
 }
 exports.validaEmailRestaurante = function(restaurante) {
-    repository_restaurantes.VerificaEmail(restaurante.email).then(result => {
-        if (typeof result == "undefined") {
-            return true;
-        } else {
-            return false;
-        }
+    return repository_restaurantes.VerificaEmail(restaurante).then(result => {
+        return result;
+    });
+}
+exports.create = function(restaurante) {
+    return repository_restaurantes.create(restaurante).then(() => {
+        return true;
+    }).catch(error => {
+        return error;
+    });
+}
+exports.atualiza = function(req) {
+    return repository_restaurantes.update(req).then(() => {
+        return true;
+    }).catch(error => {
+        return error
+    });
+}
+exports.delete = function(req) {
+    return repository_restaurantes.delete(req).then(() => {
+        return true;
+    }).catch(error => {
+        return error;
     });
 }

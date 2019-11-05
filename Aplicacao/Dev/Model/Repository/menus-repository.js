@@ -5,8 +5,7 @@ exports.all = function() {
     return menus.findAll({ raw: true });
 };
 
-exports.create = function Salvar(req) {
-    let menu = req.body;
+exports.create = function Salvar(menu) {
     return menus.create({
         id_restaurante: menu.id_restaurante,
         produto: menu.produto,
