@@ -1,7 +1,7 @@
 const usuarios = require('../Entities/Usuarios');
 
 exports.all = function() {
-    return usuarios.findAll({ raw: true });
+    return usuarios.findAll({ raw: true }, { attributes: ['id', 'nome', 'email', 'telefone', 'cpf'] });
 };
 
 exports.create = function Salvar(usuario) {
