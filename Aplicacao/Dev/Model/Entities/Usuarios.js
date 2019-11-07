@@ -20,7 +20,7 @@ const Usuario = db.sequelize.define('usuarios', {
         allowNull: false
     },
     cpf: {
-        type: db.Sequelize.DATE,
+        type: db.Sequelize.STRING(11),
         allowNull: false
     }
 });

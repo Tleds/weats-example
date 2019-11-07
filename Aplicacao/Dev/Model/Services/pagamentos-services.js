@@ -53,37 +53,56 @@ exports.validaFormaPagamento = function(pagamento) {
 }
 exports.create = function(pagamento) {
     return repository_pagamentos.create(pagamento).then(() => {
-        return true;
+        return {
+            "message": "Pagamento cadastrado com sucesso",
+            "result": true
+        };
     }).catch(error => {
-        return error;
+        return {
+            "message": error,
+            "result": false
+        };
     })
 }
 exports.all = function() {
     return repository_pagamentos.all().then(result => {
-            return result;
+            return {
+                "message": result,
+                "result": true
+            };
         })
         .catch(error => {
-            return error;
+            return {
+                "message": error,
+                "result": false
+            };
         })
 }
 exports.put = function(req) {
     return repository_pagamentos.update(req).then(result => {
-            return true;
+            return {
+                "message": "Pagamento alterado com sucesso",
+                "result": true
+            };
         })
         .catch(error => {
-            return error;
+            return {
+                "message": error,
+                "result": false
+            };
         })
 }
 exports.delete = function(req) {
     return repository_pagamentos.delete(req).then(result => {
-            return true;
+            return {
+                "message": "Pagamento deletado com sucesso",
+                "result": true
+            };
         })
         .catch(error => {
-            return error;
+            return {
+                "message": error,
+                "result": false
+            };
         })
-}
-exports.all = function() {
-    return repository_pagamentos.all().then(result => {
-        return result; //retorna o json com os pagamentos
-    });
 }

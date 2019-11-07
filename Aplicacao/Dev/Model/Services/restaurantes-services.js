@@ -12,22 +12,40 @@ exports.validaEmailRestaurante = function(restaurante) {
 }
 exports.create = function(restaurante) {
     return repository_restaurantes.create(restaurante).then(() => {
-        return true;
+        return {
+            "message": "Restaurante cadastrado com sucesso",
+            "result": true
+        };
     }).catch(error => {
-        return error;
+        return {
+            "message": error,
+            "result": false
+        };
     });
 }
 exports.atualiza = function(req) {
     return repository_restaurantes.update(req).then(() => {
-        return true;
+        return {
+            "message": "Restaurante alterado com sucesso",
+            "result": true
+        };
     }).catch(error => {
-        return error
+        return {
+            "message": error,
+            "result": false
+        };
     });
 }
 exports.delete = function(req) {
     return repository_restaurantes.delete(req).then(() => {
-        return true;
+        return {
+            "message": "Restaurante deletado com sucesso",
+            "result": true
+        };
     }).catch(error => {
-        return error;
+        return {
+            "message": error,
+            "result": false
+        };
     });
 }

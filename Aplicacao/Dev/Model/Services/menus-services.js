@@ -11,30 +11,54 @@ exports.validaRestaurante = function(menu) {
     });
 }
 exports.all = function() {
-    return repository_menus.all().then(function(menu) {
-        return { menu: menu }
+    return repository_menus.all().then(menu => {
+        return {
+            "message": menu,
+            "result": true
+        };
     }).catch(error => {
-        return { "message": error }
+        return {
+            "message": error,
+            "result": false
+        };
     });
 }
 exports.create = function(menu) {
     return repository_menus.create(menu).then(() => {
-        return true;
+        return {
+            "message": "Menu cadastrado com sucesso",
+            "result": true
+        };
     }).catch(error => {
-        return { "message": error };
+        return {
+            "message": error,
+            "result": false
+        };
     })
 }
 exports.update = function(req) {
     return repository_menus.update(req).then(() => {
-        return true
+        return {
+            "message": "Menu alterado com sucesso",
+            "result": true
+        };
     }).catch(error => {
-        return error;
+        return {
+            "message": error,
+            "result": false
+        };
     });
 }
 exports.delete = function(req) {
     return repository_menus.delete(req).then(() => {
-        return true;
+        return {
+            "message": "Menu deletado com sucesso",
+            "result": true
+        };
     }).catch(error => {
-        return error;
+        return {
+            "message": error,
+            "result": false
+        };
     });
 }

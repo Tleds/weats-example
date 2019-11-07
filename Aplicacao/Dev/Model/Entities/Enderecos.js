@@ -9,7 +9,8 @@ const Enderecos = db.sequelize.define('enderecos', {
             model: 'restaurantes',
             key: 'id'
         },
-        allowNull: false
+        allowNull: false,
+        onDelete: 'cascade'
     },
     rua: {
         type: db.Sequelize.STRING(255),

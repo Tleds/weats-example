@@ -9,7 +9,8 @@ const Pedido = db.sequelize.define('pedidos', {
             model: 'restaurantes',
             key: 'id'
         },
-        allowNull: false
+        allowNull: false,
+        onDelete: 'cascade'
     },
     id_mesa: {
         type: db.Sequelize.INTEGER,
@@ -17,7 +18,8 @@ const Pedido = db.sequelize.define('pedidos', {
             model: 'mesas',
             key: 'id'
         },
-        allowNull: false
+        allowNull: false,
+        onDelete: 'cascade'
     },
     id_usuario: {
         type: db.Sequelize.INTEGER,
@@ -25,7 +27,8 @@ const Pedido = db.sequelize.define('pedidos', {
             model: 'usuarios',
             key: 'id'
         },
-        allowNull: false
+        allowNull: false,
+        onDelete: 'cascade'
     },
     produto: {
         type: db.Sequelize.STRING(50),

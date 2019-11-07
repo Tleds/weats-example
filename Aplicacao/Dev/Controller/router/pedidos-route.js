@@ -2,14 +2,15 @@
 const express = require('express');
 const router = express.Router();
 const pedidos_controller = require('../pedidos-controller');
+const jwt = require('./jwt-authentication');
 
 //GET
-router.get('/', pedidos_controller.get)
+router.get('/', jwt.verifyJWT, pedidos_controller.get)
     //POST
-router.post('/', pedidos_controller.post)
+router.post('/', jwt.verifyJWT, pedidos_controller.post)
     //PUT
-router.put('/:id', pedidos_controller.put)
+router.put('/:id', jwt.verifyJWT, pedidos_controller.put)
     //DELETE
-router.delete('/:ident', pedidos_controller.delete)
+router.delete('/:ident', jwt.verifyJWT, pedidos_controller.delete)
 
 module.exports = router;

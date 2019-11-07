@@ -15,6 +15,9 @@ const Forma_Pagamento = db.sequelize.define('formas_pagamento', {
         type: db.Sequelize.STRING(255),
         allowNull: false
     }
+}, {
+    freezeTableName: true,
+    tableName: 'formas_pagamento'
 });
 /*db.sequelize.query("SET FOREIGN_KEY_CHECKS=0").then(() => {
     Forma_Pagamento.sync({ force: true });

@@ -2,14 +2,15 @@
 const express = require('express');
 const router = express.Router();
 const mesas_controller = require('../mesas-controller')
+const jwt = require('./jwt-authentication');
 
 //GET
-router.get('/', mesas_controller.get)
+router.get('/', jwt.verifyJWT, mesas_controller.get)
     //POST
 router.post('/', mesas_controller.post)
     //PUT
-router.put('/:id', mesas_controller.put)
+router.put('/:id', jwt.verifyJWT, mesas_controller.put)
     //DELETE
-router.delete('/:ident', mesas_controller.delete)
+router.delete('/:ident', jwt.verifyJWT, mesas_controller.delete)
 
 module.exports = router;

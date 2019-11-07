@@ -8,7 +8,8 @@ const Mesas = db.sequelize.define('mesas', {
         references: {
             model: 'restaurantes',
             key: 'id'
-        }
+        },
+        onDelete: 'cascade'
     },
     descricao: {
         type: db.Sequelize.STRING(100),

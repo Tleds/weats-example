@@ -17,7 +17,8 @@ const Pagamento = db.sequelize.define('pagamentos', {
             model: 'usuarios',
             key: 'id'
         },
-        allowNull: false
+        allowNull: false,
+        onDelete: 'cascade'
     },
     id_restaurante: {
         type: db.Sequelize.INTEGER,
@@ -25,7 +26,8 @@ const Pagamento = db.sequelize.define('pagamentos', {
             model: 'restaurantes',
             key: 'id'
         },
-        allowNull: false
+        allowNull: false,
+        onDelete: 'cascade'
     },
     id_mesa: {
         type: db.Sequelize.INTEGER,
@@ -33,7 +35,8 @@ const Pagamento = db.sequelize.define('pagamentos', {
             model: 'mesas',
             key: 'id'
         },
-        allowNull: false
+        allowNull: false,
+        onDelete: 'cascade'
     },
     id_pedido: {
         type: db.Sequelize.INTEGER,
@@ -41,7 +44,8 @@ const Pagamento = db.sequelize.define('pagamentos', {
             model: 'pedidos',
             key: 'id'
         },
-        allowNull: false
+        allowNull: false,
+        onDelete: 'cascade'
     },
     preco_final: {
         type: db.Sequelize.DECIMAL(10, 2),

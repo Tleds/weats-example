@@ -1,7 +1,5 @@
 const pedidos = require('../Entities/Pedidos');
-const repository_usuarios = require('./usuarios-repository');
-const repository_restaurantes = require('./restaurantes-repository');
-const reopsitory_mesas = require('./mesas-repository');
+
 
 exports.all = function() {
     return pedidos.findAll({ raw: true });
@@ -15,7 +13,7 @@ exports.create = function Salvar(pedido) {
         descricao_produto: pedido.descricao_produto,
         tipo_produto: pedido.tipo_produto,
         quantidade: pedido.quantidade,
-        preco_pedido: pedido.preco_pedido,
+        preco_pedido: pedido.preco_pedido
     })
 }
 exports.update = function Atualizar(req) {
@@ -44,7 +42,7 @@ exports.update = function Atualizar(req) {
     })
 }
 exports.delete = function Deletar(req) {
-    pedidos.destroy({
+    return pedidos.destroy({
         where: { id: req.params.ident }
     })
 }
