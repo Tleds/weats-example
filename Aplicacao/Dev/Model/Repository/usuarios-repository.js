@@ -17,7 +17,7 @@ exports.validaEmailUsuario = function verificaEmail(usuario) {
     return usuarios.findAll({ where: { email: usuario.email }, raw: true });
 }
 exports.verifica_login = function(usuario) {
-    return usuarios.findOne({ where: { email: usuario.email, senha: usuario.senha }, attributes: ['id'] });
+    return usuarios.findOne({ where: { email: usuario.email, senha: usuario.senha }, attributes: ['id', 'id_access'] });
 }
 exports.update = function Atualizar(req) {
 

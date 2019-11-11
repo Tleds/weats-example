@@ -7,7 +7,7 @@ exports.ValidarEmail = function validaemail(req) {
 }
 exports.verificalogin = function(usuario) {
     return repository_usuarios.verifica_login(usuario).then(result => {
-            result = result.id
+            result = result.dataValues
             let token = jwt.sign({ result }, process.env.SECRET, {
                 expiresIn: 1440 //24H
             })

@@ -1,7 +1,21 @@
 'use-strict'
-const repository_usuarios = require('../Model/Repository/usuarios-repository'); //O repository só vai ser usado para métodos simples que não possuem regras de negócio.
 const services_usuarios = require('../Model/Services/usuarios-services');
 
+function verificaNulo(usuario) {
+    if (usuario.nome != "" &&
+        usuario.email != "" &&
+        usuario.senha != "" &&
+        usuario.telefone != "" &&
+        usuario.cpf != "") {
+        if (typeof usuario.nome != 'undefined' &&
+            typeof usuario.email != 'undefined' &&
+            typeof usuario.senha != 'undefined' &&
+            typeof usuario.telefone != 'undefined' &&
+            typeof usuario.cpf != 'undefined') {
+            return true;
+        }
+    } else { return false; }
+}
 
 exports.get = (req, res, next) => {
     services_usuarios.all().then(user => {
@@ -12,13 +26,34 @@ exports.get = (req, res, next) => {
         })
 }
 exports.post = (req, res, next) => {
-    services_usuarios.ValidarEmail(req.body).then(email => {
-        if (typeof email[0] != "undefined") {
-            res.status(404).json({ "message": "E-mail já cadastrado" });
-        }
-        if (typeof email[0] == "undefined") {
+    let usuario = req.body;
+    console.log(verificaNulo(usuario))
+    if (verificaNulo(usuario)) {
+        services_usuarios.ValidarEmail(usuario).then(email => {
+            if (typeof email[0] != "undefined") {
+                res.status(404).json({ "message": "E-mail já cadastrado" });
+            }
+            if (typeof email[0] == "undefined") {
+                if (services_usuarios.validarcpf(usuario.cpf)) {
+                    services_usuarios.create(usuario).then(result => {
+                        res.status(200).json(result);
+                    }).catch(error => {
+                        res.status(404).json(error);
+                    });
+                } else {
+                    res.status(404).json({ "message": "CPF inválido" });
+                }
+            }
+        });
+    } else {
+        res.status(500).json({ "message": "Erro : O atributo não pode ser nulo" });
+    }
+}
+exports.put = (req, res, next) => { //request, responde e next
+    if (typeof req.params.id != "undefined") { //verificando o parâmetro da requisição
+        if (verificaNulo(usuario)) {
             if (services_usuarios.validarcpf(req.body.cpf)) {
-                services_usuarios.create(req.body).then(result => {
+                services_usuarios.update(req).then(result => {
                     res.status(200).json(result);
                 }).catch(error => {
                     res.status(404).json(error);
@@ -26,19 +61,8 @@ exports.post = (req, res, next) => {
             } else {
                 res.status(404).json({ "message": "CPF inválido" });
             }
-        }
-    });
-}
-exports.put = (req, res, next) => { //request, responde e next
-    if (typeof req.params.id != "undefined") { //verificando o parâmetro da requisição
-        if (services_usuarios.validarcpf(req.body.cpf)) {
-            services_usuarios.update(req).then(result => {
-                res.status(200).json(result);
-            }).catch(error => {
-                res.status(404).json(error);
-            });
         } else {
-            res.status(404).json({ "message": "CPF inválido" });
+            res.status(500).json({ "message": "Erro : O atributo não pode ser nulo" });
         }
     } else {
         res.status(404).json({ "message": "Identificador inválido" });

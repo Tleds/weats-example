@@ -1,9 +1,9 @@
 'use strict' //Força o js a ser mais criterioso com o código
 require("dotenv-safe").config();
-const jwt = require('jsonwebtoken');
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+
 
 //Carregar as rotas
 const user = require('./Controller/router/usuarios-route');
@@ -16,6 +16,7 @@ const pedidos = require('./Controller/router/pedidos-route');
 //Convém analisar a necessidade
 const mesas = require('./Controller/router/mesa-route');
 const forma_pagamento = require('./Controller/router/forma_pagamento-route');
+const esqueci_senha = require('./Controller/router/esqueci-senha-route')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -30,6 +31,7 @@ app.use('/pedidos', pedidos);
 //Convém analisar a necessidade
 app.use('/mesas', mesas);
 app.use('/formas_pagamento', forma_pagamento);
+app.use('/esqueci_senha', esqueci_senha);
 
 
 module.exports = app;
