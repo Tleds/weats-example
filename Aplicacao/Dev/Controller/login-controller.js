@@ -14,11 +14,16 @@ function verificaNulo(login) {
 exports.post = (req, res, next) => {
     if (verificaNulo(req.body)) {
         services_user.verificalogin(req.body).then(result => {
-            if (result != null) {
+            if (result.result == true) {
                 res.status(200).json(result);
-            } else {
-                res.status(500).json({ "message": "Login ou senha inválidos" });
             }
+            if(result.result === '' && result.message === undefined){
+                res.status(500).json({ "message": "Login ou senha inválidos", "result":false});
+            }
+            if((result.result == false && result.error !== undefined))
+            {
+                res.status(500).json(result)
+            } 
         }).catch(error => {
             res.status(404).json({ "message": error });
         });

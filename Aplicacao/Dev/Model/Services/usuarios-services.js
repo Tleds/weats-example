@@ -7,14 +7,19 @@ exports.ValidarEmail = function validaemail(req) {
 }
 exports.verificalogin = function(usuario) {
     return repository_usuarios.verifica_login(usuario).then(result => {
+        if(result != null)
+        {
             result = result.dataValues
             let token = jwt.sign({ result }, process.env.SECRET, {
                 expiresIn: 1440 //24H
             })
-            return { "token": token };
+            return { "token": token, "result":true};
+        }else{
+            return {"result":""};
+        }
         })
         .catch(error => {
-            return error;
+            return {"error":error, "result":false};
         })
 }
 exports.validarcpf = function(cpf) {
