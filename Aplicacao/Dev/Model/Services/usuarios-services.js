@@ -75,3 +75,11 @@ exports.delete = function(req) {
             return { "message": error, "result": false }
         })
 }
+exports.ReadById = function (usuario){
+    return repository_usuarios.ReadById(usuario).then(user => {
+            return { "message": user, "result": true }
+        })
+        .catch(error => {
+            return { "message": error, "result": false }
+        })
+}

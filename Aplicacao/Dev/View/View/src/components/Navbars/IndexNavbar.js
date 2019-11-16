@@ -51,12 +51,13 @@ function IndexNavbar() {
           }}
         />
       ) : null}
-      <Navbar className={"fixed-top " + navbarColor} expand="lg" color="info">
+      <Navbar className={"fixed-top " + navbarColor} expand="lg" color="warning">
         <Container>
           <div className="navbar-translate">
             <NavbarBrand
               target="_blank"
               id="navbar-brand"
+              href="#"
             >
               Zeats
             </NavbarBrand>

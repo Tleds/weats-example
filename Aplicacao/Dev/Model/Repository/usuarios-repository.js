@@ -3,7 +3,9 @@ const usuarios = require('../Entities/Usuarios');
 exports.all = function() {
     return usuarios.findAll({ attributes: ['id', 'nome', 'email', 'telefone', 'cpf'], raw: true });
 };
-
+exports.ReadById = function(usuario) {
+    return usuarios.findByPk(id);
+};
 exports.create = function Salvar(usuario) {
     return usuarios.create({
         nome: usuario.nome,

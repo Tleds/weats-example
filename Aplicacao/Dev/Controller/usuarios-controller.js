@@ -16,7 +16,14 @@ function verificaNulo(usuario) {
         }
     } else { return false; }
 }
-
+exports.getId = (req, res, next) => {
+    services_usuarios.ReadById(req.userId).then(user => {
+            res.status(200).json(user); //retorna o json com os usuários
+        })
+        .catch(error => {
+            res.status(404).json(error);
+        })
+}
 exports.get = (req, res, next) => {
     services_usuarios.all().then(user => {
             res.status(200).json(user); //retorna o json com os usuários

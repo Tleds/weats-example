@@ -13,7 +13,7 @@ import DarkFooter from "components/Footers/DarkFooter.js";
 import Images from "./index-sections/Images.js";
 import BasicElements from "./index-sections/BasicElements.js";
 import Navbars from "./index-sections/Navbars.js";
-import Tabs from "./index-sections/Tabs.js";
+import Tabs from "./index-sections/Tabs.js"; 
 import Pagination from "./index-sections/Pagination.js";
 import Notifications from "./index-sections/Notifications.js";
 import Typography from "./index-sections/Typography.js";
@@ -44,7 +44,7 @@ function Index() {
         <IndexHeader />
         <div className="main">
           <Images />
-          <BasicElements />
+          {/*<BasicElements />
           <Navbars />
           <Tabs />
           <Pagination />
@@ -55,7 +55,7 @@ function Index() {
           <NucleoIcons />
           <CompleteExamples />
           <SignUp />
-          <Examples />
+          <Examples />*/}
          {/*<Download />*/}
         </div>
         <DarkFooter />
