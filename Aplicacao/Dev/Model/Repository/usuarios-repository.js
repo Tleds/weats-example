@@ -4,7 +4,7 @@ exports.all = function() {
     return usuarios.findAll({ attributes: ['id', 'nome', 'email', 'telefone', 'cpf'], raw: true });
 };
 exports.ReadById = function(usuario) {
-    return usuarios.findByPk(usuario);
+    return usuarios.findByPk(usuario, {attributes: ['id', 'nome', 'email', 'telefone', 'cpf']});
 };
 exports.create = function Salvar(usuario) {
     return usuarios.create({
