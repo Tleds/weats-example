@@ -10,7 +10,7 @@ router.get('/', jwt.verifyJWT, user_controller.getId)
     //POST
 router.post('/', user_controller.post)
     //PUT
-router.put('/:id', jwt.verifyJWT, user_controller.put)
+router.put('/', jwt.verifyJWT, user_controller.put)
     //DELETE
 router.delete('/:ident', jwt.verifyJWT, user_controller.delete)
 

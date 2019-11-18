@@ -26,7 +26,7 @@ exports.update = function Atualizar(req) {
     var usuario = req.body;
     return usuarios.findOne({
         where: {
-            id: req.params.id
+            id: req.userId
         },
         raw: true
     }).then(id => {

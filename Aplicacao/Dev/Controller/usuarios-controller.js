@@ -57,9 +57,10 @@ exports.post = (req, res, next) => {
     }
 }
 exports.put = (req, res, next) => { //request, responde e next
-    if (typeof req.params.id != "undefined") { //verificando o parâmetro da requisição
+    let usuario = req.body;
+    if (typeof req.userId != "undefined") { //verificando o parâmetro da requisição
         if (verificaNulo(usuario)) {
-            if (services_usuarios.validarcpf(req.body.cpf)) {
+            if (services_usuarios.validarcpf(usuario.cpf)) {
                 services_usuarios.update(req).then(result => {
                     res.status(200).json(result);
                 }).catch(error => {
