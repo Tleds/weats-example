@@ -12,31 +12,30 @@ function TransparentFooter() {
           <ul>
             <li>
               <a
-                href="https://www.creative-tim.com?ref=nukr-transparent-footer"
-                target="_blank"
+                href="/index"
               >
-                Creative Tim
+                Zeats
               </a>
             </li>
             <li>
               <a
-                href="http://presentation.creative-tim.com?ref=nukr-transparent-footer"
+                href="/index#Sobre"
                 target="_blank"
               >
-                About Us
+                Sobre
               </a>
             </li>
             <li>
               <a
-                href="http://blog.creative-tim.com?ref=nukr-transparent-footer"
+                href="/index#BaixeAplicativo"
                 target="_blank"
               >
-                Blog
+                Baixe o aplicativo
               </a>
             </li>
           </ul>
         </nav>
-        <div className="copyright" id="copyright">
+        {/*<div className="copyright" id="copyright">
           © {new Date().getFullYear()}, Designed by{" "}
           <a
             href="https://www.invisionapp.com?ref=nukr-transparent-footer"
@@ -52,7 +51,7 @@ function TransparentFooter() {
             Creative Tim
           </a>
           .
-        </div>
+  </div>*/}
       </Container>
     </footer>
   );

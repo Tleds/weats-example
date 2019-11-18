@@ -15,31 +15,29 @@ function DefaultFooter() {
             <ul>
               <li>
                 <a
-                  href="https://www.creative-tim.com?ref=nukr-default-footer"
-                  target="_blank"
+                  href="/index"
                 >
-                  Creative Tim
+                  Zeats
                 </a>
               </li>
               <li>
                 <a
-                  href="http://presentation.creative-tim.com?ref=nukr-default-footer"
-                  target="_blank"
+                  href="/index#Sobre"
                 >
-                  About Us
+                  Sobre
                 </a>
               </li>
               <li>
                 <a
-                  href="http://blog.creative-tim.com?ref=nukr-default-footer"
+                  href="/index#BaixeAplicativo"
                   target="_blank"
                 >
-                  Blog
+                  Baixe o aplicativo
                 </a>
               </li>
             </ul>
           </nav>
-          <div className="copyright" id="copyright">
+          {/*<div className="copyright" id="copyright">
             © {new Date().getFullYear()}, Designed by{" "}
             <a
               href="https://www.invisionapp.com?ref=nukr-default-footer"
@@ -55,7 +53,7 @@ function DefaultFooter() {
               Creative Tim
             </a>
             .
-          </div>
+  </div>*/}
         </Container>
       </footer>
     </>

@@ -25,7 +25,7 @@ function ProfilePageHeader() {
     <>
       <div
         className="page-header clear-filter page-header-small"
-        filter-color="blue"
+        filter-color="white"
       >
         <div
           className="page-header-image"
@@ -38,20 +38,20 @@ function ProfilePageHeader() {
           <div className="photo-container">
             <img alt="..." src={require("assets/img/ryan.jpg")}></img>
           </div>
-          <h3 className="title">Ryan Scheinder</h3>
-          <p className="category">Photographer</p>
+          <h3 className="title">Tiago Luca</h3>
+          <p className="category">Outback Steakhouse - Savassi - 12345678912</p>
           <div className="content">
             <div className="social-description">
-              <h2>26</h2>
-              <p>Comments</p>
+              <h2>3202</h2>
+              <p>Atendimentos</p>
             </div>
             <div className="social-description">
-              <h2>26</h2>
-              <p>Comments</p>
+              <h2>15</h2>
+              <p>Cupons</p>
             </div>
             <div className="social-description">
-              <h2>48</h2>
-              <p>Bookmarks</p>
+              <h2>1800</h2>
+              <p>Avaliações</p>
             </div>
           </div>
         </Container>

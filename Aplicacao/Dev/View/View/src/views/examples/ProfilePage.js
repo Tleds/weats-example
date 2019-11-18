@@ -7,6 +7,7 @@ import {
   NavLink,
   Nav,
   TabContent,
+  Table,
   TabPane,
   Container,
   Row,
@@ -16,6 +17,7 @@ import {
 
 // core components
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
+import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 import DefaultFooter from "components/Footers/DefaultFooter.js";
 
@@ -32,12 +34,12 @@ function ProfilePage() {
   });
   return (
     <>
-      <ExamplesNavbar />
+      <IndexNavbar />
       <div className="wrapper">
         <ProfilePageHeader />
         <div className="section">
           <Container>
-            <div className="button-container">
+            {/*<div className="button-container">
               <Button className="btn-round" color="info" size="lg">
                 Follow
               </Button>
@@ -63,17 +65,16 @@ function ProfilePage() {
               <UncontrolledTooltip delay={0} target="tooltip340339231">
                 Follow me on Instagram
               </UncontrolledTooltip>
-            </div>
-            <h3 className="title">About me</h3>
+            </div>*/}
+            <h3 className="title">Últimas vendas</h3>
             <h5 className="description">
-              An artist of considerable range, Ryan — the name taken by
-              Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
-              and records all of his own music, giving it a warm, intimate feel
-              with a solid groove structure. An artist of considerable range.
+              <p>Theo - Bloomin’ Onion - R$49,90</p>
+              <p>Samuel - Aussie Cheese Fries - R$52,50</p>
+              <p>Sarah - Kookaburra Wings - R$52,50</p>
             </h5>
             <Row>
               <Col className="ml-auto mr-auto" md="6">
-                <h4 className="title text-center">My Portfolio</h4>
+                <h4 className="title text-center">Menu</h4>
                 <div className="nav-align-center">
                   <Nav
                     className="nav-pills-info nav-pills-just-icons"
@@ -89,7 +90,8 @@ function ProfilePage() {
                           setPills("1");
                         }}
                       >
-                        <i className="now-ui-icons design_image"></i>
+                        {/*<i className="now-ui-icons design_image"></i>*/}
+                        <i class="fas fa-beer"></i>
                       </NavLink>
                     </NavItem>
                     <NavItem>
@@ -101,7 +103,8 @@ function ProfilePage() {
                           setPills("2");
                         }}
                       >
-                        <i className="now-ui-icons location_world"></i>
+                        {/*<i className="now-ui-icons design_image"></i>*/}
+                        <i class="fas fa-bacon"></i>
                       </NavLink>
                     </NavItem>
                     <NavItem>
@@ -113,105 +116,162 @@ function ProfilePage() {
                           setPills("3");
                         }}
                       >
-                        <i className="now-ui-icons sport_user-run"></i>
+                        {/*<i className="now-ui-icons location_world"></i>*/}
+                        <i class="fas fa-drumstick-bite"></i>
+                      </NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <NavLink
+                        className={pills === "4" ? "active" : ""}
+                        href="#pablo"
+                        onClick={e => {
+                          e.preventDefault();
+                          setPills("4");
+                        }}
+                      >
+                        {/*<i className="now-ui-icons sport_user-run"></i>*/}
+                        <i class="fas fa-ice-cream"></i>
                       </NavLink>
                     </NavItem>
                   </Nav>
                 </div>
               </Col>
+              </Row>
               <TabContent className="gallery" activeTab={"pills" + pills}>
                 <TabPane tabId="pills1">
-                  <Col className="ml-auto mr-auto" md="10">
-                    <Row className="collections">
-                      <Col md="6">
-                        <img
-                          alt="..."
-                          className="img-raised"
-                          src={require("assets/img/bg1.jpg")}
-                        ></img>
-                        <img
-                          alt="..."
-                          className="img-raised"
-                          src={require("assets/img/bg3.jpg")}
-                        ></img>
+                  <Row >
+                      <Col >
+                      <Table>
+                        <thead>
+                          <tr>
+                            <th>Produto</th>
+                            <th>Descrição</th>
+                            <th>Tipo do produto</th>
+                            <th>Preço</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Coca-cola</td>
+                            <td>Garrafa com 600ml</td>
+                            <td>Bebida não alcoólica</td>
+                            <td>R$4,00</td>
+                          </tr>
+                          <tr>
+                            <td>Backer - Capitao Senra</td>
+                            <td>Garrafa com 600ml</td>
+                            <td>Bebida alcoólica</td>
+                            <td>R$12,00</td>
+                          </tr>
+                          <tr>
+                            <td>Wals - X wals</td>
+                            <td>Garrafa com 600ml</td>
+                            <td>Bebida alcoólica</td>
+                            <td>R$9,00</td>
+                          </tr>
+                        </tbody>
+                      </Table>
                       </Col>
-                      <Col md="6">
-                        <img
-                          alt="..."
-                          className="img-raised"
-                          src={require("assets/img/bg8.jpg")}
-                        ></img>
-                        <img
-                          alt="..."
-                          className="img-raised"
-                          src={require("assets/img/bg7.jpg")}
-                        ></img>
-                      </Col>
-                    </Row>
-                  </Col>
+                      </Row>
                 </TabPane>
+                
                 <TabPane tabId="pills2">
-                  <Col className="ml-auto mr-auto" md="10">
-                    <Row className="collections">
-                      <Col md="6">
-                        <img
-                          alt="..."
-                          className="img-raised"
-                          src={require("assets/img/bg6.jpg")}
-                        ></img>
-                        <img
-                          alt="..."
-                          className="img-raised"
-                          src={require("assets/img/bg11.jpg")}
-                        ></img>
+                <Row >
+                      <Col >
+                      <Table>
+                        <thead>
+                          <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Username</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                          </tr>
+                          <tr>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                          </tr>
+                          <tr>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td>@twitter</td>
+                          </tr>
+                        </tbody>
+                      </Table>
                       </Col>
-                      <Col md="6">
-                        <img
-                          alt="..."
-                          className="img-raised"
-                          src={require("assets/img/bg7.jpg")}
-                        ></img>
-                        <img
-                          alt="..."
-                          className="img-raised"
-                          src={require("assets/img/bg8.jpg")}
-                        ></img>
-                      </Col>
-                    </Row>
-                  </Col>
+                      </Row>
                 </TabPane>
                 <TabPane tabId="pills3">
-                  <Col className="ml-auto mr-auto" md="10">
-                    <Row className="collections">
-                      <Col md="6">
-                        <img
-                          alt="..."
-                          className="img-raised"
-                          src={require("assets/img/bg3.jpg")}
-                        ></img>
-                        <img
-                          alt="..."
-                          className="img-raised"
-                          src={require("assets/img/bg8.jpg")}
-                        ></img>
+                <Row >
+                  <Col >
+                    <Table>
+                        <thead>
+                          <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Username</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                          </tr>
+                          <tr>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                          </tr>
+                          <tr>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td>@twitter</td>
+                          </tr>
+                        </tbody>
+                      </Table>
                       </Col>
-                      <Col md="6">
-                        <img
-                          alt="..."
-                          className="img-raised"
-                          src={require("assets/img/bg7.jpg")}
-                        ></img>
-                        <img
-                          alt="..."
-                          className="img-raised"
-                          src={require("assets/img/bg6.jpg")}
-                        ></img>
+                      </Row>
+                </TabPane>
+                <TabPane tabId="pills4">
+                <Row >
+                  <Col >
+                    <Table>
+                        <thead>
+                          <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Username</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                          </tr>
+                          <tr>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                          </tr>
+                          <tr>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                            <td>@twitter</td>
+                          </tr>
+                        </tbody>
+                      </Table>
                       </Col>
-                    </Row>
-                  </Col>
+                      </Row>
                 </TabPane>
               </TabContent>
-            </Row>
           </Container>
         </div>
         <DefaultFooter />

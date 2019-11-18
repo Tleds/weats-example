@@ -55,9 +55,8 @@ function IndexNavbar() {
         <Container>
           <div className="navbar-translate">
             <NavbarBrand
-              target="_blank"
               id="navbar-brand"
-              href="#"
+              href="/index"
             >
               Zeats
             </NavbarBrand>
