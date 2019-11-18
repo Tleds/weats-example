@@ -34,7 +34,6 @@ exports.update = function Atualizar(req) {
             usuarios.update({
                 nome: usuario.nome,
                 email: usuario.email,
-                senha: usuario.senha,
                 telefone: usuario.telefone,
                 cpf: usuario.cpf
             }, {

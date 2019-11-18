@@ -4,12 +4,10 @@ const services_usuarios = require('../Model/Services/usuarios-services');
 function verificaNulo(usuario) {
     if (usuario.nome != "" &&
         usuario.email != "" &&
-        usuario.senha != "" &&
         usuario.telefone != "" &&
         usuario.cpf != "") {
         if (typeof usuario.nome != 'undefined' &&
             typeof usuario.email != 'undefined' &&
-            typeof usuario.senha != 'undefined' &&
             typeof usuario.telefone != 'undefined' &&
             typeof usuario.cpf != 'undefined') {
             return true;
