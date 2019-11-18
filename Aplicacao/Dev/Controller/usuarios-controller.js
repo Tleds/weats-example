@@ -80,7 +80,7 @@ exports.put = (req, res, next) => { //request, responde e next
     }
 }
 exports.delete = (req, res, next) => { //request, responde e next   
-    if (typeof req.params.ident != "undefined") { //verificando o parâmetro da requisição
+    if (typeof req.userId != "undefined") { //verificando o parâmetro da requisição
         services_usuarios.delete(req).then(result => {
             res.status(200).json(result);
         }).catch(error => {

@@ -46,6 +46,6 @@ exports.update = function Atualizar(req) {
 }
 exports.delete = function Deletar(req) {
     return usuarios.destroy({
-        where: { id: req.params.ident }
+        where: { id: req.userId }
     });
 }
