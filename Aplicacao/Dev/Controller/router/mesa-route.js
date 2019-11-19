@@ -7,10 +7,10 @@ const jwt = require('./jwt-authentication');
 //GET
 router.get('/:restaurante/:mesa', jwt.verifyJWT, mesas_controller.get)
     //POST
-router.post('/', mesas_controller.post)
+router.post('/:restaurante', mesas_controller.post)
     //PUT
-router.put('/:id', jwt.verifyJWT, mesas_controller.put)
+router.put('/:restaurante/:mesa', jwt.verifyJWT, mesas_controller.put)
     //DELETE
-router.delete('/:ident', jwt.verifyJWT, mesas_controller.delete)
+router.delete('/:restaurante/:mesa', jwt.verifyJWT, mesas_controller.delete)
 
 module.exports = router;

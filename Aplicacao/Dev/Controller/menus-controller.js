@@ -24,14 +24,14 @@ function verificaNulo(menu) {
     }
 }
 exports.get = (req, res, next) => {
-    services_menus.all().then(result => {
+    services_menus.all(req).then(result => {
         res.status(200).json(result);
     }).catch(result => {
         res.status(404).json(result)
     })
 }
 exports.post = (req, res, next) => {
-    if (req.userAccess == 1) {
+    if (req.userAccess == 1 || req.userAccess == 10) {
         let menu = req.body;
         if (verificaNulo(menu)) {
             services_menus.validaRestaurante(menu).then(restaurante => {
@@ -53,8 +53,9 @@ exports.post = (req, res, next) => {
     }
 }
 exports.put = (req, res, next) => { //request, responde e next
-    if (req.userAccess == 1) {
-        if (req.params.id != "") { //verificando o parâmetro da requisição
+    let menu = req.body;
+    if (req.userAccess == 1 || req.userAccess == 10) {
+        if (req.params.menu != "") { //verificando o parâmetro da requisição
             if (verificaNulo(menu)) {
                 services_menus.update(req).then(result => {
                         res.status(200).json(result);
@@ -73,7 +74,7 @@ exports.put = (req, res, next) => { //request, responde e next
     }
 }
 exports.delete = (req, res, next) => { //request, responde e next   
-    if (req.userAccess == 1) {
+    if (req.userAccess == 1 || req.userAccess == 10) {
         if (req.params.ident != "") { //verificando o parâmetro da requisição
             services_menus.delete(req).then(result => {
                     res.status(200).json(result);

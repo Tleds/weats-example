@@ -10,8 +10,8 @@ exports.validaRestaurante = function(menu) {
         }
     });
 }
-exports.all = function() {
-    return repository_menus.all().then(menu => {
+exports.all = function(req) {
+    return repository_menus.all(req).then(menu => {
         return {
             "message": menu,
             "result": true

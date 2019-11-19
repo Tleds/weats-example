@@ -13,7 +13,7 @@ function verificaNulo(mesa) {
     }
 }
 exports.get = (req, res, next) => {
-    if (req.userAccess == 0) {
+    if (req.userAccess == 0 || req.userAccess == 1 || req.userAccess == 10) {
         services_mesas.all(req).then(function(mesas) {
                 res.status(200).json(mesas); //retorna o json com as mesas
             })
@@ -25,7 +25,7 @@ exports.get = (req, res, next) => {
     }
 }
 exports.post = (req, res, next) => {
-    if (req.userAccess == 1) {
+    if (req.userAccess == 1 || req.userAccess == 10) {
         let mesa = req.body;
         if (verificaNulo(mesa)) {
             services_mesas.create(mesa).then(result => {
@@ -41,7 +41,7 @@ exports.post = (req, res, next) => {
     }
 }
 exports.put = (req, res, next) => { //request, responde e next
-    if (req.userAccess == 1) {
+    if (req.userAccess == 1 || req.userAccess == 10) {
         if (typeof req.params.id != "undefined") { //verificando o parâmetro da requisição
             if (verificaNulo(mesa)) {
                 services_mesas.update(req).then(result => {
@@ -60,7 +60,7 @@ exports.put = (req, res, next) => { //request, responde e next
     }
 }
 exports.delete = (req, res, next) => { //request, responde e next   
-    if (req.userAccess == 1) {
+    if (req.userAccess == 1 || req.userAccess == 10) {
         if (typeof req.params.ident != "undefined") { //verificando o parâmetro da requisição
             services_mesas.delete(req).then(result => {
                 res.status(200).json(result);
