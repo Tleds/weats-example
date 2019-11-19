@@ -15,6 +15,10 @@ const Restaurante = db.sequelize.define('restaurantes', {
         type: db.Sequelize.STRING(100),
         allowNull: false
     },
+    senha: {
+        type: db.Sequelize.STRING(20),
+        allowNull:false
+    },
     telefone: {
         type: db.Sequelize.STRING(100),
         allowNull: false

@@ -8,6 +8,7 @@ const app = express();
 //Carregar as rotas
 const user = require('./Controller/router/usuarios-route');
 const login = require('./Controller/router/login-route');
+const login_restaurante = require('./Controller/router/login_restaurantes-route');
 const logout = require('./Controller/router/logout-route');
 const menus = require('./Controller/router/menus-route');
 const restaurantes = require('./Controller/router/restaurantes-route');
@@ -32,6 +33,6 @@ app.use('/pedidos', pedidos);
 app.use('/mesas', mesas);
 app.use('/formas_pagamento', forma_pagamento);
 app.use('/esqueci_senha', esqueci_senha);
-
+app.use('/login_restaurante',login_restaurante);
 
 module.exports = app;

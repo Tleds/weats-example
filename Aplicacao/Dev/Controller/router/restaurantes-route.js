@@ -9,8 +9,8 @@ router.get('/', jwt.verifyJWT, restaurantes_controller.getId)
     //POST
 router.post('/', restaurantes_controller.post)
     //PUT
-router.put('/:id', jwt.verifyJWT, restaurantes_controller.put)
+router.put('/', jwt.verifyJWT, restaurantes_controller.put)
     //DELETE
-router.delete('/:ident', jwt.verifyJWT, restaurantes_controller.delete)
+router.delete('/', jwt.verifyJWT, restaurantes_controller.delete)
 
 module.exports = router;

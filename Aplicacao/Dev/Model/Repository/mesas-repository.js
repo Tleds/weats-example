@@ -1,7 +1,7 @@
 const mesas = require('../Entities/Mesas');
 
-exports.all = function() {
-    return mesas.findAll({ raw: true });
+exports.all = function(req) {
+    return mesas.findAll({where:{ id_restaurante : req.params.restaurante, id:req.params.mesa}},{ raw: true });
 };
 
 exports.create = function Salvar(mesa) {

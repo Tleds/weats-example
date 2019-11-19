@@ -6,13 +6,11 @@ function verificaNulo(restaurante) {
     if (restaurante.nome != "" &&
         restaurante.cnpj != "" &&
         restaurante.email != "" &&
-        restaurante.telefone != "" &&
-        restaurante.celular != "") {
+        restaurante.telefone != "") {
         if (typeof restaurante.nome != "undefined" &&
             typeof restaurante.cnpj != "undefined" &&
             typeof restaurante.email != "undefined" &&
-            typeof restaurante.telefone != "undefined" &&
-            typeof restaurante.celular != "undefined") {
+            typeof restaurante.telefone != "undefined") {
             return true;
         } else { return false; }
     } else {
@@ -41,7 +39,7 @@ exports.getId = (req, res, next) => {
 }
 exports.post = (req, res, next) => {
     let restaurante = req.body;
-    if (verificaNulo(restaurante)) {
+    if (verificaNulo(restaurante) && (restaurante.senha != "" && typeof restaurante.senha != 'undefined')) {
         services.validaEmailRestaurante(req.body).then(email => {
             if (email > 0) {
                 res.status(500).json({ "message": "E-mail já cadastrado" });
@@ -67,10 +65,11 @@ exports.post = (req, res, next) => {
     }
 }
 exports.put = (req, res, next) => { //request, responde e next
-    if (req.params.id != null) { //verificando o parâmetro da requisição
+    let restaurante = req.body;
+    if (req.userId != null) { //verificando o parâmetro da requisição
         if (verificaNulo(restaurante)) {
             if (req.body.email != null) {
-                services.validaCnpjRestaurante(req.body).then(cnpj => {
+                services.validaCnpjRestaurante(restaurante).then(cnpj => {
                     if (cnpj == 1) {
                         services.atualiza(req).then(result => {
                                 res.status(200).json(result);
@@ -93,7 +92,7 @@ exports.put = (req, res, next) => { //request, responde e next
     }
 }
 exports.delete = (req, res, next) => { //request, responde e next   
-    if (req.params.ident != null) { //verificando o parâmetro da requisição
+    if (req.userId != null) { //verificando o parâmetro da requisição
         services.delete(req).then(result => {
                 res.status(200).json(result);
             })

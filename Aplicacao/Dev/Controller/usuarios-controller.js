@@ -37,7 +37,7 @@ exports.get = (req, res, next) => {
 }
 exports.post = (req, res, next) => {
     let usuario = req.body;
-    console.log(verificaNulo(usuario))
+    console.log(verificaNulo(usuario) && (typeof usuario.senha != 'undefined' && usuario.senha != ""))
     if (verificaNulo(usuario)) {
         services_usuarios.ValidarEmail(usuario).then(email => {
             if (typeof email[0] != "undefined") {

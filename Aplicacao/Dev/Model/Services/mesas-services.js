@@ -1,8 +1,8 @@
 'use-strict'
 const repository_mesas = require('../Repository/mesas-repository');
 
-exports.all = function() {
-    return repository_mesas.all().then(result => {
+exports.all = function(req) {
+    return repository_mesas.all(req).then(result => {
             return {
                 "message": result,
                 "result": true

@@ -13,8 +13,8 @@ function verificaNulo(mesa) {
     }
 }
 exports.get = (req, res, next) => {
-    if (req.userAccess == 1) {
-        services_mesas.all().then(function(mesas) {
+    if (req.userAccess == 0) {
+        services_mesas.all(req).then(function(mesas) {
                 res.status(200).json(mesas); //retorna o json com as mesas
             })
             .catch(error => {

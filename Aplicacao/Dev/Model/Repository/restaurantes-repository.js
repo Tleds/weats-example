@@ -1,5 +1,4 @@
 const restaurantes = require('../Entities/Restaurantes');
-const repository_enderecos = require('./enderecos-repository');
 
 exports.all = function() {
     return restaurantes.findAll({ raw: true });
@@ -16,17 +15,18 @@ exports.create = function Salvar(restaurante) {
         cnpj: restaurante.cnpj,
         email: restaurante.email,
         telefone: restaurante.telefone,
-        celular: restaurante.celular
+        celular: restaurante.celular,
+        senha: restaurante.senha
     });
 }
 exports.readById = function(id) {
-    return restaurantes.findByPk(id);
+    return restaurantes.findByPk(id, {attributes: ['id', 'nome', 'email', 'cnpj', 'telefone', 'celular']});
 }
 exports.update = function Atualizar(req) {
     let restaurante = req.body;
     return restaurantes.findOne({
         where: {
-            id: req.params.id
+            id: req.userId
         },
         raw: true
     }).then(id => {
@@ -47,6 +47,9 @@ exports.update = function Atualizar(req) {
 }
 exports.delete = function Deletar(req) {
     return restaurantes.destroy({
-        where: { id: req.params.ident }
+        where: { id: req.userId }
     });
+}
+exports.verifica_login = function(restaurante) {
+    return restaurantes.findOne({ where: { email: restaurante.email, senha: restaurante.senha }, attributes: ['id', 'id_access'] });
 }

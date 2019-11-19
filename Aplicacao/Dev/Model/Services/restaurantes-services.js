@@ -1,5 +1,7 @@
 'use-strict'
 const repository_restaurantes = require('../Repository/restaurantes-repository');
+const jwt = require('jsonwebtoken');
+
 exports.validaCnpjRestaurante = function(restaurante) {
     return repository_restaurantes.VerificaCNPJ(restaurante).then(result => {
         return result;
@@ -48,4 +50,21 @@ exports.delete = function(req) {
             "result": false
         };
     });
+}
+exports.verificaLogin = function(restaurante){
+    return repository_restaurantes.verifica_login(restaurante).then(result => {
+        if(result != null)
+        {
+            result = result.dataValues
+            let token = jwt.sign({ result }, process.env.SECRET, {
+                expiresIn: 1440 //24H
+            })
+            return { "token": token, "result":true};
+        }else{
+            return {"result":""};
+        }
+        })
+        .catch(error => {
+            return {"error":error, "result":false};
+        })
 }

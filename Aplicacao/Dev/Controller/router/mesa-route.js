@@ -5,7 +5,7 @@ const mesas_controller = require('../mesas-controller')
 const jwt = require('./jwt-authentication');
 
 //GET
-router.get('/', jwt.verifyJWT, mesas_controller.get)
+router.get('/:restaurante/:mesa', jwt.verifyJWT, mesas_controller.get)
     //POST
 router.post('/', mesas_controller.post)
     //PUT
