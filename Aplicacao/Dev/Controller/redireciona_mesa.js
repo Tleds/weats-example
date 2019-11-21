@@ -1,8 +1,6 @@
 'use-strict'
 const services_mesas = require('../Model/Services/mesas-services');
 
-
-
 function verificaNulo(mesa) {
     if (mesa.id_restaurante != "" &&
         mesa.descricao != "") {
@@ -27,8 +25,8 @@ exports.get = (req, res, next) => {
     }
 }
 exports.post = (req, res, next) => {
-    let dados = {"restaurante" : 1,"tipo" : 2,"local":1,"mesa":11};
-    services_mesas.GerarPdf(JSON.stringify(dados)).then(result=>{
+    let dados = 'http://18.229.164.73:3000/mesas/1/2';
+    services_mesas.GerarPdf(dados).then(result=>{
         if(result.result === true){
             res.status(200).json({"message":"Pdf Gerado com sucesso"});
         }

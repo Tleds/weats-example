@@ -1,7 +1,7 @@
 const restaurantes = require('../Entities/Restaurantes');
 
-exports.all = function() {
-    return restaurantes.findAll({ raw: true });
+exports.all = function(local) {
+    return restaurantes.findAll({where:{local : local}, raw: true });
 };
 exports.VerificaEmail = function(restaurante) {
     return restaurantes.count({ where: { email: restaurante.email }, raw: true });
@@ -16,7 +16,8 @@ exports.create = function Salvar(restaurante) {
         email: restaurante.email,
         telefone: restaurante.telefone,
         celular: restaurante.celular,
-        senha: restaurante.senha
+        senha: restaurante.senha,
+        local: restaurante.local
     });
 }
 exports.readById = function(id) {

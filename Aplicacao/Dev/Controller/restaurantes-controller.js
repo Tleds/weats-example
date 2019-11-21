@@ -18,17 +18,16 @@ function verificaNulo(restaurante) {
     }
 }
 
-exports.get = (req, res, next) => {
-    if (req.userAccess == 10) {
-        repository_restaurantes.readById(req.userId).then(function(user) {
-            res.json({ user: user }); //retorna o json com os usuários
+exports.getShopping = (req, res, next) => {
+    if (req.userAccess == 0 || req.userAccess == 10) {
+        repository_restaurantes.all(req.connection.local).then(restaurante => {
+            res.json({ restaurante: restaurante }); //retorna o json com os usuários
         });
     } else {
         res.status(404).json({ "auth": false, "message": "Acesso negado" });
     }
 }
 exports.getId = (req, res, next) => {
-    console.log(req.userAccess);
     if (req.userAccess == 10) {
         repository_restaurantes.readById(req.userId).then(restaurante => {
             res.json(restaurante); //retorna o json com os usuários

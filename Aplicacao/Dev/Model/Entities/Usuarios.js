@@ -22,6 +22,11 @@ const Usuario = db.sequelize.define('usuarios', {
     cpf: {
         type: db.Sequelize.STRING(11),
         allowNull: false
+    },
+    id_access: {
+        type: db.Sequelize.INTEGER,
+        allowNull:false,
+        defaultValue : 0
     }
 });
 

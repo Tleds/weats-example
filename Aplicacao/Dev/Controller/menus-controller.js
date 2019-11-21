@@ -24,7 +24,7 @@ function verificaNulo(menu) {
     }
 }
 exports.get = (req, res, next) => {
-    services_menus.all(req).then(result => {
+    services_menus.all(req.connection.restaurante).then(result => {
         res.status(200).json(result);
     }).catch(result => {
         res.status(404).json(result)

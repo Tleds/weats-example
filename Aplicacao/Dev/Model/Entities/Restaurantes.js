@@ -26,6 +26,15 @@ const Restaurante = db.sequelize.define('restaurantes', {
     celular: {
         type: db.Sequelize.STRING(100),
         allowNull: true
+    },
+    local: {
+        type: db.Sequelize.INTEGER,
+        allowNull:false
+    },
+    id_access: {
+        type: db.Sequelize.INTEGER,
+        allowNull:false,
+        defaultValue : 1
     }
 });
 /*db.sequelize.query("SET FOREIGN_KEY_CHECKS=0").then(() => {
