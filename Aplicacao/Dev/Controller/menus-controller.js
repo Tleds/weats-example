@@ -1,6 +1,5 @@
 'use-strict'
 const services_menus = require('../Model/Services/menus-services'); //O repository só vai ser usado para métodos simples que não possuem regras de negócio.
-const jwt = require('./router/jwt-authentication');
 
 function verificaNulo(menu) {
     if (menu.id_restaurante != "" &&
@@ -24,11 +23,16 @@ function verificaNulo(menu) {
     }
 }
 exports.get = (req, res, next) => {
-    services_menus.all(req.connection.restaurante).then(result => {
+    if(req.headers.id_restaurante !== "" && typeof req.headers.id_restaurante !== 'undefined')
+    {
+    services_menus.all(req.headers.id_restaurante).then(result => {
         res.status(200).json(result);
     }).catch(result => {
         res.status(404).json(result)
     })
+    } else{
+        res.status(500).json({"message":"restaurante não pode ser nulo", "result":false});
+    }
 }
 exports.post = (req, res, next) => {
     if (req.userAccess == 1 || req.userAccess == 10) {

@@ -7,7 +7,7 @@ exports.post = (req, res, next) => {
     if (!qr) return res.status(401).send({ auth: false, message: 'No QR Code provided.' });
     let dados = cp.dcp(qr);
     dados = JSON.parse(dados);
-    req.connection.restaurante = dados.restaurante;
+    req.headers.id_restaurante = dados.restaurante;
     req.connection.tipo = dados.tipo;
     req.connection.local = dados.local;
     req.connection.mesa = dados.mesa;

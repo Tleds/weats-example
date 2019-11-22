@@ -5,7 +5,7 @@ const menus_controller = require('../menus-controller');
 const jwt = require('./jwt-authentication');
 
 //GET
-router.get('/:restaurante', jwt.verifyJWT, menus_controller.get)
+router.get('/', jwt.verifyJWT, menus_controller.get)
     //POST
 router.post('/', jwt.verifyJWT, menus_controller.post)
     //PUT
