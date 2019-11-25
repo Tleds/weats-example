@@ -26,6 +26,7 @@ exports.update = function Atualizar(req) {
         },
         raw: true
     }).then(id => {
+        console.log(id);
         if (typeof id != "undefined") {
             menus.update({
                 id_restaurante: menu.id_restaurante,

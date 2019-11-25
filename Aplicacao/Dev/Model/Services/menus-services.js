@@ -1,6 +1,29 @@
 'use-strict'
 const repository_menus = require('../Repository/menus-repository');
 const repository_restaurantes = require('../Repository/restaurantes-repository');
+function divideMenu(dados){
+    var resultado = [];
+    var agrupamento = {};
+    console.log(dados);
+    for(var x in dados)
+    {
+        var item = dados[x].dataValues.sessao;
+        if(!agrupamento[item])
+        {
+            agrupamento[item] = [];
+            agrupamento[item].push({
+            "sessao" : dados[x].dataValues
+                });
+        }
+        else{
+            agrupamento[item].push({
+                "secao" : dados[x].dataValues
+                    });
+        }
+    }
+    console.log(agrupamento);
+    return agrupamento;
+}
 exports.validaRestaurante = function(menu) {
     return repository_restaurantes.readById(menu.id_restaurante).then(result => {
         if (result != null) {
@@ -12,8 +35,9 @@ exports.validaRestaurante = function(menu) {
 }
 exports.all = function(req) {
     return repository_menus.all(req).then(menu => {
+        
         return {
-            "message": menu,
+           "message": divideMenu(menu),
             "result": true
         };
     }).catch(error => {
