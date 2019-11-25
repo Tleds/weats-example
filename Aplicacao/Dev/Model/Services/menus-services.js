@@ -2,12 +2,12 @@
 const repository_menus = require('../Repository/menus-repository');
 const repository_restaurantes = require('../Repository/restaurantes-repository');
 function divideMenu(dados){
-
     var agrupamento = {};
     console.log(dados);
     for(var x in dados)
     {
         var item = dados[x].dataValues.sessao;
+
         if(!agrupamento[item])
         {
             agrupamento[item] = [];
@@ -35,9 +35,8 @@ exports.validaRestaurante = function(menu) {
 }
 exports.all = function(req) {
     return repository_menus.all(req).then(menu => {
-        
         return {
-           "message": divideMenu(menu),
+           "message": menu,
             "result": true
         };
     }).catch(error => {
