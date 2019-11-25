@@ -2,7 +2,7 @@
 const repository_menus = require('../Repository/menus-repository');
 const repository_restaurantes = require('../Repository/restaurantes-repository');
 function divideMenu(dados){
-    var resultado = [];
+
     var agrupamento = {};
     console.log(dados);
     for(var x in dados)
@@ -12,7 +12,7 @@ function divideMenu(dados){
         {
             agrupamento[item] = [];
             agrupamento[item].push({
-            "sessao" : dados[x].dataValues
+            "secao" : dados[x].dataValues
                 });
         }
         else{
