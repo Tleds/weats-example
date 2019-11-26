@@ -1,12 +1,12 @@
 'use-strict'
 const repository_menus = require('../Repository/menus-repository');
 const repository_restaurantes = require('../Repository/restaurantes-repository');
-function divideMenu(dados){
+/*function divideMenu(dados){
     var agrupamento = {};
     console.log(dados);
-    for(var x in dados)
+    for(var x in dados["message"])
     {
-        var item = dados[x].dataValues.sessao;
+        var item = dados[x].secao;
 
         if(!agrupamento[item])
         {
@@ -23,7 +23,7 @@ function divideMenu(dados){
     }
     console.log(agrupamento);
     return agrupamento;
-}
+}*/
 exports.validaRestaurante = function(menu) {
     return repository_restaurantes.readById(menu.id_restaurante).then(result => {
         if (result != null) {

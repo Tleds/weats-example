@@ -2,14 +2,14 @@
   "name": "weats",
   "version": "1.0.0",
   "description": "",
-  "private":true,
+  "private": true,
   "main": "app.js",
   "bin": {
     "Aplicacao": "server.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev":"nodemon ./bin/server.js"
+    "dev": "nodemon ./bin/server.js"
   },
   "dependencies": {
     "aws-sdk": "^2.568.0",
@@ -27,7 +27,7 @@
     "sequelize": "5.19.1"
   },
   "devDependencies": {
-    "nodemon": "^1.19.3"
+    "nodemon": "^1.19.4"
   },
   "keywords": [],
   "author": "",

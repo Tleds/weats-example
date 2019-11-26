@@ -15,7 +15,7 @@ const Menus = db.sequelize.define('menus', {
         type: db.Sequelize.STRING(100),
         allowNull: false
     },
-    sessao: {
+    secao: {
         type: db.Sequelize.STRING(100),
         allowNull: false
     },

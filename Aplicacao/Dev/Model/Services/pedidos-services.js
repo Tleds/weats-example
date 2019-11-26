@@ -3,7 +3,8 @@ const repository_usuario = require('../Repository/usuarios-repository');
 const repository_restaurantes = require('../Repository/restaurantes-repository');
 const repository_mesas = require('../Repository/mesas-repository');
 const repository_pedidos = require('../Repository/pedidos-repository');
-
+//Verificar a necessidade
+/*
 exports.validaUsuario = function(pedido) {
     repository_usuario.readById(pedido.id_usuario).then(result => {
         if (typeof result != "undefined") {
@@ -31,6 +32,7 @@ exports.validaMesa = function(pedido) {
         }
     });
 }
+*/
 exports.all = function(pedido) {
     return repository_pedidos.all().then(pedido => {
             return {

@@ -1,26 +1,8 @@
 'use-strict'
 
 const services_pagamentos = require('../Model/Services/pagamentos-services')
+const validate = require('./functions/validate-functions')
 
-function verificaNulo(pagamento) {
-    if (pagamento.id_forma_pagamento != "" &&
-        pagamento.id_usuario != "" &&
-        pagamento.id_restaurante != "" &&
-        pagamento.id_mesa != "" &&
-        pagamento.id_pedido != "" &&
-        pagamento.preco_final != "") {
-        if (typeof pagamento.id_forma_pagamento != "undefined" &&
-            typeof pagamento.id_usuario != "undefined" &&
-            typeof pagamento.id_restaurante != "undefined" &&
-            typeof pagamento.id_mesa != "undefined" &&
-            typeof pagamento.id_pedido != "undefined" &&
-            typeof pagamento.preco_final != "undefined") {
-            return true;
-        } else { return false; }
-    } else {
-        return false;
-    }
-}
 exports.get = (req, res, next) => {
     if (req.userAccess == 10) {
         services_pagamentos.all().then(result => {
@@ -33,7 +15,7 @@ exports.get = (req, res, next) => {
 exports.post = (req, res, next) => {
     if (req.userAccess == 0) {
         let pagamento = req.body;
-        if (verificaNulo(pagamento)) {
+        if (validate.verificaNuloPagamento(pagamento)) {
             services_pagamentos.create(pagamento).then(result => {
                     res.status(200).json(result);
                 })
@@ -51,7 +33,7 @@ exports.post = (req, res, next) => {
 exports.put = (req, res, next) => { //request, responde e next
     if (req.userAccess == 0) {
         if (req.params.id != "") { //verificando o parâmetro da requisição
-            if (verificaNulo(pagamento)) {
+            if (validate.verificaNuloPagamento(pagamento)) {
                 services_pagamentos.put(req).then(result => {
                     res.status(200).json(result);
                 }).catch(error => {

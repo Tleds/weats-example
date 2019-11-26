@@ -1,19 +1,7 @@
 'use-strict'
 const services_usuarios = require('../Model/Services/usuarios-services');
+const validate = require('./functions/validate-functions')
 
-function verificaNulo(usuario) {
-    if (usuario.nome != "" &&
-        usuario.email != "" &&
-        usuario.telefone != "" &&
-        usuario.cpf != "") {
-        if (typeof usuario.nome != 'undefined' &&
-            typeof usuario.email != 'undefined' &&
-            typeof usuario.telefone != 'undefined' &&
-            typeof usuario.cpf != 'undefined') {
-            return true;
-        }
-    } else { return false; }
-}
 exports.getId = (req, res, next) => {
     services_usuarios.ReadById(req.userId).then(user => {
             if(user.result === true){
@@ -37,8 +25,7 @@ exports.get = (req, res, next) => {
 }
 exports.post = (req, res, next) => {
     let usuario = req.body;
-    console.log(verificaNulo(usuario) && (typeof usuario.senha != 'undefined' && usuario.senha != ""))
-    if (verificaNulo(usuario)) {
+    if (validate.verificaNuloUsuario(usuario)) {
         services_usuarios.ValidarEmail(usuario).then(email => {
             if (typeof email[0] != "undefined") {
                 res.status(404).json({ "message": "E-mail já cadastrado" });
@@ -62,7 +49,7 @@ exports.post = (req, res, next) => {
 exports.put = (req, res, next) => { //request, responde e next
     let usuario = req.body;
     if (typeof req.userId != "undefined") { //verificando o parâmetro da requisição
-        if (verificaNulo(usuario)) {
+        if (validate.verificaNuloUsuario(usuario)) {
             if (services_usuarios.validarcpf(usuario.cpf)) {
                 services_usuarios.update(req).then(result => {
                     res.status(200).json(result);

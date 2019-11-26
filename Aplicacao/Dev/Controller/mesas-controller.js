@@ -1,19 +1,7 @@
 'use-strict'
 const services_mesas = require('../Model/Services/mesas-services');
+const validate = require('./functions/validate-functions')
 
-
-
-function verificaNulo(mesa) {
-    if (mesa.id_restaurante != "" &&
-        mesa.descricao != "") {
-        if (typeof mesa.id_restaurante != "undefined" &&
-            typeof mesa.descricao != "undefined") {
-            return true;
-        } else { return false; }
-    } else {
-        return false;
-    }
-}
 exports.get = (req, res, next) => {
     if (req.userAccess == 0 || req.userAccess == 1 || req.userAccess == 10) {
         services_mesas.all(req).then(function(mesas) {
@@ -44,7 +32,7 @@ exports.post = (req, res, next) => {
     }*/
     /*if (req.userAccess == 1 || req.userAccess == 10) {
         let mesa = req.body;
-        if (verificaNulo(mesa)) {
+        if (validate.verificaNuloMesa(mesa)) {
             services_mesas.create(mesa).then(result => {
                 res.status(200).json(result);
             }).catch(error => {
@@ -60,7 +48,7 @@ exports.post = (req, res, next) => {
 exports.put = (req, res, next) => { //request, responde e next
     if (req.userAccess == 1 || req.userAccess == 10) {
         if (typeof req.params.id != "undefined") { //verificando o parâmetro da requisição
-            if (verificaNulo(mesa)) {
+            if (validate.verificaNuloMesa(mesa)) {
                 services_mesas.update(req).then(result => {
                     res.status(200).json(result);
                 }).catch(error => {

@@ -1,11 +1,12 @@
 'use-strict'
-const repository_usuarios = require('../Repository/usuarios-repository');
+/*const repository_usuarios = require('../Repository/usuarios-repository');
 const repository_restaurantes = require('../Repository/restaurantes-repository');
 const repository_mesas = require('../Repository/mesas-repository');
 const repository_pedidos = require('../Repository/pedidos-repository');
-const repository_formas_pagamento = require('../Repository/formas_pagamento-repository');
-const repository_pagamentos = require('../Repository/pagamentos-repository')
-
+const repository_formas_pagamento = require('../Repository/formas_pagamento-repository');*/
+const repository_pagamentos = require('../Repository/pagamentos-repository');
+//Verificar a necessidade
+/*
 exports.validaUsuario = function(pagamento) {
     repository_usuarios.readById(pagamento.id_usuario).then(result => {
         if (typeof result != "undefined") {
@@ -50,7 +51,7 @@ exports.validaFormaPagamento = function(pagamento) {
             return false;
         }
     });
-}
+}*/
 exports.create = function(pagamento) {
     return repository_pagamentos.create(pagamento).then(() => {
         return {

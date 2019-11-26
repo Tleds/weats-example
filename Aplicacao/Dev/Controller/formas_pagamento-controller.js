@@ -1,26 +1,14 @@
 'use-strict'
 const services_forma_pagamento = require('../Model/Services/formas_pagamento-services');
+const validate = require('../Controller/functions/validate-functions')
 
-function verificaNulo(forma_pagamento) {
-    if (forma_pagamento.descricao != "" &&
-        forma_pagamento.tipo_forma_pagamento != "" &&
-        forma_pagamento.bandeira != "") {
-        if (typeof forma_pagamento.descricao != "undefined" &&
-            typeof forma_pagamento.tipo_forma_pagamento != "undefined" &&
-            typeof forma_pagamento.bandeira != "undefined") {
-            return true;
-        } else { return false; }
-    } else {
-        return false;
-    }
-}
 exports.get = (req, res, next) => {
     services_forma_pagamento.all().then(result => {
         res.status(200).json(result); //retorna o json com os usuários
     });
 }
 exports.post = (req, res, next) => {
-    if (verificaNulo(req.body)) {
+    if (validate.verificaNulofp(req.body)) {
         services_forma_pagamento.create(req.body).then(result => {
             res.status(200).json(result);
         }).catch(error => {
@@ -32,7 +20,7 @@ exports.post = (req, res, next) => {
 }
 exports.put = (req, res, next) => { //request, responde e next
     if (typeof req.params.id != "undefined") { //verificando o parâmetro da requisição
-        if (verificaNulo(req.body)) {
+        if (validate.verificaNulofp(req.body)) {
             services_forma_pagamento.update(req).then(result => {
                 res.status(200).json(result);
             }).catch(error => {

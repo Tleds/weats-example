@@ -9,7 +9,7 @@ exports.create = function Salvar(menu) {
     return menus.create({
         id_restaurante: menu.id_restaurante,
         produto: menu.produto,
-        sessao: menu.sessao,
+        secao: menu.secao,
         preco: menu.preco,
         descricao_produto: menu.descricao_produto,
         tipo_produto: menu.tipo_produto,
@@ -31,7 +31,7 @@ exports.update = function Atualizar(req) {
             menus.update({
                 id_restaurante: menu.id_restaurante,
                 produto: menu.produto,
-                sessao: menu.sessao,
+                secao: menu.secao,
                 preco: menu.preco,
                 descricao_produto: menu.descricao_produto,
                 tipo_produto: menu.tipo_produto,
