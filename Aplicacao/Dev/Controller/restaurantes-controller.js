@@ -5,7 +5,7 @@ const validate = require('./functions/validate-functions');
 
 exports.getShopping = (req, res, next) => {
     if (req.userAccess == 0 || req.userAccess == 10) {
-        repository_restaurantes.all(req.connection.local).then(restaurante => {
+        repository_restaurantes.all(req.headers.local).then(restaurante => {
             res.json({ "id_mesa":req.headers.id_mesa, restaurante: restaurante }); //retorna o json com os usuários
         });
     } else {
