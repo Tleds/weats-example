@@ -6,13 +6,16 @@ exports.get = (req, res, next) => {
     if(req.headers.id_restaurante !== "" && typeof req.headers.id_restaurante !== 'undefined')
     {
     services_menus.all(req.headers.id_restaurante).then(result => {
-        console.log(result);
+        result = {
+            "id_mesa":req.headers.id_mesa,
+            result
+        }
         res.status(200).json(result);
     }).catch(result => {
-        res.status(404).json(result)
+        res.status(500).json(result)
     })
     } else{
-        res.status(500).json({"message":"restaurante não pode ser nulo", "result":false});
+        res.status(400).json({"message":"restaurante não pode ser nulo", "result":false});
     }
 }
 exports.post = (req, res, next) => {
@@ -24,17 +27,17 @@ exports.post = (req, res, next) => {
                     services_menus.create(menu).then(result => {
                         res.status(200).json(result);
                     }).catch(error => {
-                        res.status(404).json(error);
+                        res.status(500).json(error);
                     })
                 } else if (restaurante == false) {
-                    res.status(500).json({ "message": "O restaurante não existe" });
+                    res.status(400).json({ "message": "O restaurante não existe" });
                 }
             })
         } else {
-            res.status(500).json({ "message": "Erro : O atributo não pode ser nullo" });
+            res.status(400).json({ "message": "Erro : O atributo não pode ser nullo" });
         }
     } else {
-        res.status(500).json({ "auth": false, "message": "Acesso negado" });
+        res.status(403).json({ "auth": false, "message": "Acesso negado" });
     }
 }
 exports.put = (req, res, next) => { //request, responde e next
@@ -46,16 +49,16 @@ exports.put = (req, res, next) => { //request, responde e next
                         res.status(200).json(result);
                     })
                     .catch(error => {
-                        res.status(404).json(error);
+                        res.status(500).json(error);
                     })
             } else {
-                res.status(500).json({ "message": "Erro : O atributo não pode ser nullo" });
+                res.status(400).json({ "message": "Erro : O atributo não pode ser nullo" });
             }
         } else {
-            res.status(500).json({ "message": "Identificador inválido" });
+            res.status(400).json({ "message": "Identificador inválido" });
         }
     } else {
-        res.status(500).json({ "auth": false, "message": "Acesso negado" });
+        res.status(403).json({ "auth": false, "message": "Acesso negado" });
     }
 }
 exports.delete = (req, res, next) => { //request, responde e next   
@@ -65,12 +68,12 @@ exports.delete = (req, res, next) => { //request, responde e next
                     res.status(200).json(result);
                 })
                 .catch(error => {
-                    res.status(404).json(error);
+                    res.status(500).json(error);
                 })
         } else {
-            res.status(404).json({ "message": "Identificador inválido" });
+            res.status(400).json({ "message": "Identificador inválido" });
         }
     } else {
-        res.status(500).json({ "auth": false, "message": "Acesso negado" });
+        res.status(403).json({ "auth": false, "message": "Acesso negado" });
     }
 }
