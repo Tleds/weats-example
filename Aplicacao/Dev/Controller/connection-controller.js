@@ -10,7 +10,7 @@ exports.post = (req, res, next) => {
     req.headers.id_restaurante = dados.restaurante;
     req.headers.tipo = dados.tipo;
     req.headers.local = dados.local;
-    req.headers.mesa = dados.mesa;
+    req.headers.id_mesa = dados.mesa;
     if(dados.local == 0){
         menus.get(req,res,next);
     }
