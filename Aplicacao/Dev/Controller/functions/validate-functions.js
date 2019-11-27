@@ -11,6 +11,21 @@ exports.verificaNulofp = function verificaNulo(forma_pagamento) {
         return false;
     }
 }
+exports.verificaNuloRestaurantes = function verificaNuloRestaurantes(restaurante) {
+    if (restaurante.nome != "" &&
+        restaurante.cnpj != "" &&
+        restaurante.email != "" &&
+        restaurante.telefone != "") {
+        if (typeof restaurante.nome != "undefined" &&
+            typeof restaurante.cnpj != "undefined" &&
+            typeof restaurante.email != "undefined" &&
+            typeof restaurante.telefone != "undefined") {
+            return true;
+        } else { return false; }
+    } else {
+        return false;
+    }
+}
 exports.verificaNuloLoginRest = function verificaNuloLoginRest(login) {
     if (login.email != "" &&
         login.senha != "") {
@@ -84,7 +99,7 @@ exports.verificaNuloPagamento = function verificaNuloPagamento(pagamento) {
         return false;
     }
 }
-exportsverificaNuloPedido = function verificaNuloPedido(pedido) {
+exports.verificaNuloPedido = function verificaNuloPedido(pedido) {
     if (pedido.id_restaurante != "" &&
         pedido.id_mesa != "" &&
         pedido.id_usuario != "" &&
@@ -110,11 +125,11 @@ exportsverificaNuloPedido = function verificaNuloPedido(pedido) {
 exports.verificaNuloUsuario = function verificaNuloUsuario(usuario) {
     if (usuario.nome != "" &&
         usuario.email != "" &&
-        usuario.telefone != "" &&
+        //usuario.telefone != "" &&
         usuario.cpf != "") {
         if (typeof usuario.nome != 'undefined' &&
             typeof usuario.email != 'undefined' &&
-            typeof usuario.telefone != 'undefined' &&
+            //typeof usuario.telefone != 'undefined' &&
             typeof usuario.cpf != 'undefined') {
             return true;
         }
