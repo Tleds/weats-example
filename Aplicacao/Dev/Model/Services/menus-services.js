@@ -34,13 +34,16 @@ exports.validaRestaurante = function(menu) {
     });
 }
 exports.all = function(req) {
+    let id_mesa = req.headers.id_mesa;
     return repository_menus.all(req).then(menu => {
         return {
+            "id_mesa":id_mesa,
            "message": menu,
             "result": true
         };
     }).catch(error => {
         return {
+            "id_mesa":id_mesa,
             "message": error,
             "result": false
         };

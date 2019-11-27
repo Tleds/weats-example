@@ -11,6 +11,6 @@ router.post('/', jwt.verifyJWT, menus_controller.post)
     //PUT
 router.put('/:menu', jwt.verifyJWT, menus_controller.put)
     //DELETE
-router.delete('/:restaurante', jwt.verifyJWT, menus_controller.delete)
+router.delete('/:ident', jwt.verifyJWT, menus_controller.delete)
 
 module.exports = router;

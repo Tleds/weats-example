@@ -3,19 +3,15 @@ const services_menus = require('../Model/Services/menus-services'); //O reposito
 const validate = require('./functions/validate-functions')
 
 exports.get = (req, res, next) => {
-    if(req.headers.id_restaurante !== "" && typeof req.headers.id_restaurante !== 'undefined')
+    if(req.headers.id_restaurante !== "" && typeof req.headers.id_restaurante !== 'undefined' && req.headers.id_mesa !== "" && typeof req.headers.id_mesa !== 'undefined')
     {
-    services_menus.all(req.headers.id_restaurante).then(result => {
-        result = {
-            "id_mesa":req.headers.id_mesa,
-            result
-        }
+    services_menus.all(req).then(result => {
         res.status(200).json(result);
     }).catch(result => {
         res.status(500).json(result)
     })
     } else{
-        res.status(400).json({"message":"restaurante não pode ser nulo", "result":false});
+        res.status(400).json({"message":"restaurante e mesa não podem ser nulos", "result":false});
     }
 }
 exports.post = (req, res, next) => {
