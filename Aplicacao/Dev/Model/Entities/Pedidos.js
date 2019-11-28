@@ -34,17 +34,23 @@ const Pedido = db.sequelize.define('pedidos', {
         type: db.Sequelize.STRING(50),
         allowNull: false
     },
-    descricao_produto: {
-        type: db.Sequelize.STRING(255),
-        allowNull: false
-    },
-    tipo_produto: {
-        type: db.Sequelize.STRING(50),
-        allowNull: false
-    },
     quantidade: {
         type: db.Sequelize.INTEGER,
         allowNull: false
+    },
+    observacao: {
+        type: db.Sequelize.TEXT,
+        allowNull: true
+    },
+    id_status: {
+        type: db.Sequelize.INTEGER,
+        defaultValue : 1,
+        references: {
+            model: 'status_pedido',
+            key: 'id'
+        },
+        allowNull: false,
+        onDelete: 'cascade'
     },
     preco_pedido: {
         type: db.Sequelize.DECIMAL(10, 2),
