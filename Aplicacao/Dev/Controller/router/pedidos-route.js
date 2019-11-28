@@ -9,8 +9,8 @@ router.get('/', jwt.verifyJWT, pedidos_controller.get)
     //POST
 router.post('/', jwt.verifyJWT, pedidos_controller.post)
     //PUT
-router.put('/:id', jwt.verifyJWT, pedidos_controller.put)
+router.put('/', jwt.verifyJWT, pedidos_controller.put)
     //DELETE
-router.delete('/:ident', jwt.verifyJWT, pedidos_controller.delete)
+router.delete('/:identificador', jwt.verifyJWT, pedidos_controller.delete)
 
 module.exports = router;

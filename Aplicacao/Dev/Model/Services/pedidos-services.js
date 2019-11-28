@@ -1,7 +1,7 @@
 'use-strict'
-const repository_usuario = require('../Repository/usuarios-repository');
+/*const repository_usuario = require('../Repository/usuarios-repository');
 const repository_restaurantes = require('../Repository/restaurantes-repository');
-const repository_mesas = require('../Repository/mesas-repository');
+const repository_mesas = require('../Repository/mesas-repository');*/
 const repository_pedidos = require('../Repository/pedidos-repository');
 //Verificar a necessidade
 /*
@@ -48,7 +48,7 @@ exports.all = function(pedido) {
         })
 }
 exports.create = function(pedido) {
-    return repository_pedidos.create(pedido).then(result => {
+    return repository_pedidos.create(pedido).then(() => {
         return {
             "message": "Pedido cadastrado com sucesso",
             "result": true
@@ -60,8 +60,9 @@ exports.create = function(pedido) {
         };
     })
 }
-exports.update = function(req) {
-    return repository_pedidos.update(req).then(result => {
+exports.update = function(pedido) {
+    return repository_pedidos.update(pedido).then(result => {
+        if(!result){return {"message": "Pedido não encontrado","result": false};}
         return {
             "message": "Pedido alterado com sucesso",
             "result": true

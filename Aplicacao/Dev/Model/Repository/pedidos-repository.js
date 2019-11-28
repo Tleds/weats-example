@@ -16,33 +16,31 @@ exports.create = function Salvar(pedido) {
         preco_pedido: pedido.preco_pedido
     })
 }
-exports.update = function Atualizar(req) {
-    var pedido = req.body
+exports.update = function Atualizar(pedido) {
+    const {id_mesa,id_restaurante,produto,quantidade,preco_pedido,id_pedido,id_status,id_usuario} = pedido;
     return pedidos.findOne({
         where: {
-            id: req.params.id
+            id: id_pedido
         },
         raw: true
     }).then(id => {
-        if (typeof id != "undefined") {
-            pedidos.update({
-                id_restaurante: pedido.id_restaurante,
-                id_mesa: pedido.id_mesa,
-                id_usuario: pedido.id_usuario,
-                produto: pedido.produto,
-                descricao_produto: pedido.descricao_produto,
-                tipo_produto: pedido.tipo_produto,
-                quantidade: pedido.quantidade,
-                preco_pedido: pedido.preco_pedido,
-            }, {
-                where: { id: id.id }
-            });
-
-        }
+        if (!id) {return false;}
+        pedidos.update({
+            id_restaurante,
+            id_mesa,
+            id_usuario,
+            produto,
+            quantidade,
+            id_status,
+            preco_pedido,
+        }, {
+            where: { id: id.id }
+        });
+        return true;
     })
 }
 exports.delete = function Deletar(req) {
     return pedidos.destroy({
-        where: { id: req.params.ident }
+        where: { id: req.userId }
     })
 }

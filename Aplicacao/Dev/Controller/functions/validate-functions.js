@@ -104,16 +104,12 @@ exports.verificaNuloPedido = function verificaNuloPedido(pedido) {
         pedido.id_mesa != "" &&
         pedido.id_usuario != "" &&
         pedido.produto != "" &&
-        pedido.descricao_produto != "" &&
-        pedido.tipo_produto != "" &&
         pedido.quantidade != "" &&
         pedido.preco_pedido != "") {
         if (typeof pedido.id_restaurante != "undefined" &&
             typeof pedido.id_mesa != "undefined" &&
             typeof pedido.id_usuario != "undefined" &&
             typeof pedido.produto != "undefined" &&
-            typeof pedido.descricao_produto != "undefined" &&
-            typeof pedido.tipo_produto != "undefined" &&
             typeof pedido.quantidade != "undefined" &&
             typeof pedido.preco_pedido != "undefined") {
             return true;
@@ -125,11 +121,11 @@ exports.verificaNuloPedido = function verificaNuloPedido(pedido) {
 exports.verificaNuloUsuario = function verificaNuloUsuario(usuario) {
     if (usuario.nome != "" &&
         usuario.email != "" &&
-        //usuario.telefone != "" &&
+        usuario.telefone != "" &&
         usuario.cpf != "") {
         if (typeof usuario.nome != 'undefined' &&
             typeof usuario.email != 'undefined' &&
-            //typeof usuario.telefone != 'undefined' &&
+            typeof usuario.telefone != 'undefined' &&
             typeof usuario.cpf != 'undefined') {
             return true;
         }
