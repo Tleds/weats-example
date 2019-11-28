@@ -10,14 +10,13 @@ exports.create = function Salvar(pedido) {
         id_mesa: pedido.id_mesa,
         id_usuario: pedido.id_usuario,
         produto: pedido.produto,
-        descricao_produto: pedido.descricao_produto,
-        tipo_produto: pedido.tipo_produto,
         quantidade: pedido.quantidade,
-        preco_pedido: pedido.preco_pedido
+        preco_pedido: pedido.preco_pedido,
+        observacao : pedido.observacao
     })
 }
 exports.update = function Atualizar(pedido) {
-    const {id_mesa,id_restaurante,produto,quantidade,preco_pedido,id_pedido,id_status,id_usuario} = pedido;
+    const {id_mesa,id_restaurante,produto,quantidade,preco_pedido,id_pedido,id_status,id_usuario,observacao} = pedido;
     return pedidos.findOne({
         where: {
             id: id_pedido
@@ -33,6 +32,7 @@ exports.update = function Atualizar(pedido) {
             quantidade,
             id_status,
             preco_pedido,
+            observacao
         }, {
             where: { id: id.id }
         });
