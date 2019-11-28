@@ -11,6 +11,8 @@ exports.get = (req, res, next) => {
 }
 
 exports.post = (req, res, next) => {
+    console.log(req.body);
+    return;
     req.body.id_usuario = req.userId;
     let pedido = req.body;
     
