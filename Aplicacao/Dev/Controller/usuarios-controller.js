@@ -29,10 +29,10 @@ module.exports= {
         if(cpf == false) {return res.status(400).json({"message":"Cpf inválido","result":false}); return}
         
         let resposta = await services_usuarios.create(usuario);   
-        console.log(!resposta.result);     
-        if(!resposta.result){res.status(500).json({"message":"Erro ao cadastrar o usuário","result":false,resposta}); return}
+            
+        if(!resposta.result){res.status(500).json({resposta}); return}
 
-        res.status(200).json({"message":"Usuario cadastrado com sucesso","result":true, resposta})
+        res.status(200).json({"message":"Usuario cadastrado com sucesso","result":true})
         return
     },
     async put(req, res, next){ //request, responde e next

@@ -18,8 +18,7 @@ module.exports = {
     async create(usuario) {
         usuario.senha = await bc.hash(usuario.senha, 10);
         let resposta= await repository_usuarios.create(usuario);
-        if(!resposta.error) {return true;}
-        return {"result":false, "Error" : resposta.error};
+        return resposta;
     },
     async update(req) {
         let resposta = await repository_usuarios.update(req);

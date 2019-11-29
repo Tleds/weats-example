@@ -12,10 +12,11 @@ module.exports = {
     },
     async create(usuario) {
         const {nome,email,senha,telefone,cpf} = usuario;
-        return await usuarios.create({nome,email,senha,telefone,cpf})
+        let resposta = await usuarios.create({nome,email,senha,telefone,cpf})
         .catch(e=>{
-            return {"message":"Erro ao cadastrar o usuário","error":e}
+            return {"message":e, "result":false}
         });
+        return {"message":resposta,"result":true}
     },
     async validaEmailUsuario(usuario) {
         const {email}=usuario;
