@@ -2,7 +2,6 @@
 const services_usuarios = require('../Model/Services/usuarios-services');
 const validate = require('./functions/validate-functions')
 
-
 module.exports= {
     async getId(req, res, next){
         let dados = await services_usuarios.ReadById(req.userId);
@@ -39,8 +38,11 @@ module.exports= {
     async put(req, res, next){ //request, responde e next
         let usuario = req.body;
         if (!req.userId) {res.status(400).json({ "message": "Identificador inválido" }); return}
+        
         if (!validate.verificaNuloUsuario(usuario)) {res.status(500).json({ "message": "Erro : O atributo não pode ser nulo" }); return}
-        if (await services_usuarios.validarcpf(usuario.cpf)) {res.status(400).json({ "message": "CPF inválido" }); return}
+        
+        if (services_usuarios.validarcpf(usuario.cpf)) {res.status(400).json({ "message": "CPF inválido" }); return}
+        
         let alt = await services_usuarios.update(req);
         if(!alt.result){res.status(500).json(alt); return}
         res.status(200).json({"message":"Usuário alterado com sucesso", "result":true});

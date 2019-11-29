@@ -8,16 +8,16 @@ exports.post = (req, res, next) => {
                 res.status(200).json(result);
             }
             if(result.result === '' && result.message === undefined){
-                res.status(500).json({ "message": "Login ou senha inválidos", "result":false});
+                res.status(403).json({ "message": "Login ou senha inválidos", "result":false});
             }
             if((result.result == false && result.error !== undefined))
             {
                 res.status(500).json(result)
             } 
         }).catch(error => {
-            res.status(404).json({ "message": error });
+            res.status(500).json({ "message": error });
         });
     } else {
-        res.status(500).json({ "message": "Erro - Atributos nullos" });
+        res.status(400).json({ "message": "Erro - Atributos nullos" });
     }
 }
