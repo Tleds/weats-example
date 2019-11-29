@@ -1,51 +1,63 @@
 const usuarios = require('../Entities/Usuarios');
+const bc = require('bcrypt');
 
-exports.all = function() {
-    return usuarios.findAll({ attributes: ['id', 'nome', 'email', 'telefone', 'cpf'], raw: true });
-};
-exports.ReadById = function(usuario) {
-    return usuarios.findByPk(usuario, {attributes: ['id', 'nome', 'email', 'telefone', 'cpf']});
-};
-exports.create = function Salvar(usuario) {
-    return usuarios.create({
-        nome: usuario.nome,
-        email: usuario.email,
-        senha: usuario.senha,
-        telefone: usuario.telefone,
-        cpf: usuario.cpf
-    });
-}
-exports.validaEmailUsuario = function verificaEmail(usuario) {
-    return usuarios.findAll({ where: { email: usuario.email }, raw: true });
-}
-exports.verifica_login = function(usuario) {
-    return usuarios.findOne({ where: { email: usuario.email, senha: usuario.senha }, attributes: ['id', 'id_access'] });
-}
-exports.update = function Atualizar(req) {
 
-    var usuario = req.body;
-    return usuarios.findOne({
-        where: {
-            id: req.userId
-        },
-        raw: true
-    }).then(id => {
-        if (typeof id != "undefined") {
-            usuarios.update({
-                nome: usuario.nome,
-                email: usuario.email,
-                telefone: usuario.telefone,
-                cpf: usuario.cpf
-            }, {
-                where: { id: id.id }
-            });
-        }
-
-    });
-
-}
-exports.delete = function Deletar(req) {
-    return usuarios.destroy({
-        where: { id: req.userId }
-    });
+module.exports = {
+    async all() {
+        let dados = await usuarios.findAll({ attributes: ['id', 'nome', 'email', 'telefone', 'cpf'], raw: true })
+        .catch(e=>{
+            return {"result":false, "message":e}
+        });
+        return {"result":true, "message":dados.dataValues}
+    },
+    async create(usuario) {
+        const {nome,email,senha,telefone,cpf} = usuario;
+        return await usuarios.create({nome,email,senha,telefone,cpf})
+        .catch(e=>{
+            return {"message":"Erro ao cadastrar o usuário","error":e}
+        });
+    },
+    async validaEmailUsuario(usuario) {
+        const {email}=usuario;
+        return await usuarios.findOne({ where: { email }, raw: true });
+    },
+    async verifica_login(usuario) {
+        const {email, senha} = usuario
+        
+        let comp = await usuarios.findOne({ where: { email }, attributes: ['id', 'id_access', 'senha'] });
+        if(!comp){return {"result":false}}
+        
+        let result = await bc.compare(senha,comp.senha);
+        if(!result){return {"result":false}}
+        
+        return {"result":true, "id":comp.id, "id_access":comp.id_access}
+    },
+    async update(req) {
+        const {nome, email, telefone, cpf} = req.body;
+        return usuarios.findOne({where: {id: req.userId},raw: true})
+        .then(id => {
+            if (id) {
+            usuarios.update({nome,email,telefone,cpf},{where: { id: id.id }});}
+        }).catch(e=>{
+            return {"message":"Erro ao atualizar o usuário","error":e}
+        });
+    },
+    async ReadById(id) {
+        let resposta = await usuarios.findByPk(id, {attributes: ['id', 'nome', 'email', 'telefone', 'cpf']})
+        .catch(e=>{
+            return {"result":false, "message":e}
+        })
+        if(!resposta){return {"result":false,"message":"Usuário não existe"}}
+        return {"result":true, "message":resposta.dataValues}
+    },
+    async delete(req) {
+        const {userId} = req;
+        let resposta = await usuarios.destroy({where: { id:userId }})
+        .catch(e=>{
+            return {"result":false,"message":e}
+        })
+        if(!resposta){return {"result":false,"message":"Usuário não existe"}}
+        
+        return {"result":true, "message":"Usuário deletado com sucesso"}
+    }
 }

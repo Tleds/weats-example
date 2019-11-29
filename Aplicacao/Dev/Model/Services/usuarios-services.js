@@ -1,85 +1,51 @@
 'use-strict'
 const repository_usuarios = require('../Repository/usuarios-repository');
 const jwt = require('jsonwebtoken');
+const validate = require('./functions/services-functions');
+const cp = require('../Repository/criptografia');
+const bc = require('bcrypt');
 
-exports.ValidarEmail = function validaemail(req) {
-    return repository_usuarios.validaEmailUsuario(req);
-}
-exports.verificalogin = function(usuario) {
-    return repository_usuarios.verifica_login(usuario).then(result => {
-        if(result != null)
-        {
-            result = result.dataValues
-            let token = jwt.sign({ result }, process.env.SECRET, {
-                expiresIn: 1440 //24H
-            })
-            return { "token": token, "result":true};
-        }else{
-            return {"result":""};
-        }
-        })
-        .catch(error => {
-            return {"error":error, "result":false};
-        })
-}
-exports.validarcpf = function(cpf) {
-    var Soma;
-    var Resto;
-    Soma = 0;
-    cpf = cpf.substring(0, 11);
-    if (cpf == "00000000000") return false;
-
-    for (i = 1; i <= 9; i++) Soma = Soma + parseInt(cpf.substring(i - 1, i)) * (11 - i);
-    Resto = (Soma * 10) % 11;
-
-    if ((Resto == 10) || (Resto == 11)) Resto = 0;
-    if (Resto != parseInt(cpf.substring(9, 10))) return false;
-
-    Soma = 0;
-    for (i = 1; i <= 10; i++) Soma = Soma + parseInt(cpf.substring(i - 1, i)) * (12 - i);
-    Resto = (Soma * 10) % 11;
-
-    if ((Resto == 10) || (Resto == 11)) Resto = 0;
-    if (Resto != parseInt(cpf.substring(10, 11))) return false;
-    return true;
-}
-exports.all = function() {
-    return repository_usuarios.all().then(user => {
-            return { "message": user, "result": true }
-        })
-        .catch(error => {
-            return { "message": error, "result": false }
-        })
-}
-exports.create = function(usuario) {
-    return repository_usuarios.create(usuario).then(() => {
-            return { "message": "Usuario cadastrado com sucesso", "result": true }
-        })
-        .catch(error => {
-            return { "message": error, "result": false }
-        })
-}
-exports.update = function(req) {
-    return repository_usuarios.update(req).then(() => {
-            return { "message": "Usuario alterado com sucesso", "result": true }
-        })
-        .catch(error => {
-            return { "message": error, "result": false }
-        })
-}
-exports.delete = function(req) {
-    return repository_usuarios.delete(req).then(() => {
-            return { "message": "Usuario deletado com sucesso", "result": true }
-        })
-        .catch(error => {
-            return { "message": error, "result": false }
-        })
-}
-exports.ReadById = function (usuario){
-    return repository_usuarios.ReadById(usuario).then(user => {
-            return { "message": user, "result": true }
-        })
-        .catch(error => {
-            return { "message": error, "result": false }
-        })
+module.exports = {
+    async validarcpf(cpf){
+        let resposta = await validate.validaCpf(cpf);
+        return resposta;
+    },
+    async ValidarEmail(req) {
+        let usuarios = await repository_usuarios.validaEmailUsuario(req);
+        if(!usuarios) {return true}
+        return false;
+    },
+    async create(usuario) {
+        usuario.senha = await bc.hash(usuario.senha, 10);
+        let resposta= await repository_usuarios.create(usuario);
+        if(!resposta.error) {return true;}
+        return {"result":false, "Error" : resposta.error};
+    },
+    async update(req) {
+        let resposta = await repository_usuarios.update(req);
+        if(!resposta.error) {return true}
+        return {"result":false, "Error" : resposta.error};
+    },
+    async verificalogin(usuario) {
+        let resultado = await repository_usuarios.verifica_login(usuario);
+        if(!resultado.result){return false}
+        result = {"id":resultado.id,"id_access":resultado.id_access};
+        let token = jwt.sign({ result }, process.env.SECRET, {expiresIn: 1440})//24H}
+        return { "token": token, "result":true};
+    },
+    async ReadById(usuario){
+        let resposta = await repository_usuarios.ReadById(usuario);
+        return resposta
+    },
+    async all() {
+        let resposta = await repository_usuarios.all();
+        return resposta
+    },
+    async delete(req) {
+        let resposta = await repository_usuarios.delete(req);
+        if(!resposta.result){return { "message": resposta, "result": false }}
+            
+        return { "message": "Usuario deletado com sucesso", "result": true }
+            
+    }
 }
