@@ -35,6 +35,14 @@ const Restaurante = db.sequelize.define('restaurantes', {
         type: db.Sequelize.INTEGER,
         allowNull:false,
         defaultValue : 1
+    },
+    imagem_restaurante:{
+        type:db.Sequelize.TEXT,
+        allowNull:true
+    },
+    avaliacao:{
+        type:db.Sequelize.STRING,
+        allowNull :true
     }
 });
 /*db.sequelize.query("SET FOREIGN_KEY_CHECKS=0").then(() => {

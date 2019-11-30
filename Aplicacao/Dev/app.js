@@ -18,6 +18,7 @@ const mesas = require('./Controller/router/mesas-route');
 const forma_pagamento = require('./Controller/router/forma_pagamento-route');
 const esqueci_senha = require('./Controller/router/esqueci-senha-route');
 const connection = require('./Controller/router/connection-route');
+const catalogo = require('./Controller/router/catalogo-route');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -34,5 +35,5 @@ app.use('/formas_pagamento', forma_pagamento);
 app.use('/esqueci_senha', esqueci_senha);
 app.use('/login_restaurante',login_restaurante);
 app.use('/connection',connection);
-
+app.use('/catalogo', catalogo);
 module.exports = app;
