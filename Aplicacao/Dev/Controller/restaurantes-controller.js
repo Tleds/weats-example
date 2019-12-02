@@ -45,7 +45,7 @@ module.exports = {
         
         if (!validate.verificaNuloRestaurantes(restaurante)) {res.status(400).json({ "message": "Erro : O atributo não pode ser nulo" });return}
         
-        let cnpj = await services_restaurantes.validaCnpjRestaurante(restaurante)
+        let cnpj = await services_restaurantes.validaCnpjRestaurante(restaurante.cnpj)
         if (!cnpj) {res.status(400).json({ "message": "CNPJ inválido" });return}
         
         let resposta = await services_restaurantes.atualiza(req);
