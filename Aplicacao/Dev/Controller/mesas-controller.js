@@ -8,10 +8,10 @@ exports.get = (req, res, next) => {
                 res.status(200).json(mesas); //retorna o json com as mesas
             })
             .catch(error => {
-                res.status(404).json(error); //retorna o json com as mesas
+                res.status(500).json(error); 
             })
     } else {
-        res.status(500).json({ "auth": false, "message": "Acesso negado" });
+        res.status(403).json({ "auth": false, "message": "Acesso negado" });
     }
 }
 exports.post = (req, res, next) => {
@@ -36,13 +36,13 @@ exports.post = (req, res, next) => {
             services_mesas.create(mesa).then(result => {
                 res.status(200).json(result);
             }).catch(error => {
-                res.status(404).json(error);
+                res.status(500).json(error);
             });
         } else {
-            res.status(500).json({ "message": "Erro : O atributo não pode ser nulo" });
+            res.status(400).json({ "message": "Erro : O atributo não pode ser nulo" });
         }
     } else {
-        res.status(500).json({ "auth": false, "message": "Acesso negado" });
+        res.status(403).json({ "auth": false, "message": "Acesso negado" });
     }*/
 }
 exports.put = (req, res, next) => { //request, responde e next
@@ -52,16 +52,16 @@ exports.put = (req, res, next) => { //request, responde e next
                 services_mesas.update(req).then(result => {
                     res.status(200).json(result);
                 }).catch(error => {
-                    res.status(404).json(error);
+                    res.status(500).json(error);
                 });
             } else {
-                res.status(404).json({ "message": "Erro : O atributo não pode ser nulo" });
+                res.status(400).json({ "message": "Erro : O atributo não pode ser nulo" });
             }
         } else {
-            res.status(404).json({ "message": "Identificador inválido" });
+            res.status(400).json({ "message": "Identificador inválido" });
         }
     } else {
-        res.status(500).json({ "auth": false, "message": "Acesso negado" });
+        res.status(403).json({ "auth": false, "message": "Acesso negado" });
     }
 }
 exports.delete = (req, res, next) => { //request, responde e next   
@@ -70,12 +70,12 @@ exports.delete = (req, res, next) => { //request, responde e next
             services_mesas.delete(req).then(result => {
                 res.status(200).json(result);
             }).catch(error => {
-                res.status(404).json(error);
+                res.status(500).json(error);
             });
         } else {
-            res.status(404).json({ "message": "Identificador inválido" });
+            res.status(400).json({ "message": "Identificador inválido" });
         }
     } else {
-        res.status(500).json({ "auth": false, "message": "Acesso negado" });
+        res.status(403).json({ "auth": false, "message": "Acesso negado" });
     }
 }

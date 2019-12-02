@@ -15,7 +15,7 @@ module.exports= {
         let dados = await services_usuarios.all();
         if(!dados.result) {res.status(500).json({dados}); return}
         
-        res.status(500).json(error);
+        res.status(200).json(dados);
         return
     },
     async post(req, res, next){

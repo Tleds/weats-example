@@ -10,6 +10,6 @@ router.post('/', formas_pagamento_controller.post)
     //PUT
 router.put('/:id', formas_pagamento_controller.put)
     //DELETE
-router.delete('/:ident', formas_pagamento_controller.delete)
+router.delete('/', formas_pagamento_controller.delete)
 
 module.exports = router;

@@ -1,9 +1,9 @@
 const menus = require('../Entities/Menus');
-const repository_restaurantes = require('./restaurantes-repository');
+
 
 exports.all = function(req) {
     const {id_restaurante} = req.headers;
-    return menus.findAll({where:{id_restaurante}},{ raw: true });
+    return menus.findAll({where:{id_restaurante}, raw: true ,attributes:['id',  'id_restaurante','produto','secao','preco','descricao_produto','tipo_produto','imagem_produto']});
 };
 
 exports.create = function Salvar(menu) {

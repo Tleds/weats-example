@@ -15,11 +15,13 @@ exports.verificaNuloRestaurantes = function verificaNuloRestaurantes(restaurante
     if (restaurante.nome != "" &&
         restaurante.cnpj != "" &&
         restaurante.email != "" &&
-        restaurante.telefone != "") {
+        restaurante.telefone != "" &&
+        restaurante.senha != "") {
         if (typeof restaurante.nome != "undefined" &&
             typeof restaurante.cnpj != "undefined" &&
             typeof restaurante.email != "undefined" &&
-            typeof restaurante.telefone != "undefined") {
+            typeof restaurante.telefone != "undefined" &&
+            typeof restaurante.senha != "undefined") {
             return true;
         } else { return false; }
     } else {

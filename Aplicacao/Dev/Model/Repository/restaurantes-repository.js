@@ -1,66 +1,80 @@
 const restaurantes = require('../Entities/Restaurantes');
-
+const bc = require('bcrypt');
 module.exports = {
     async all(local) {
-        return await restaurantes.findAll({where:{local : local}, raw: true });
+        let resposta =  await restaurantes.findAll({attributes: ['id', 'nome', 'email', 'cnpj', 'telefone', 'celular', 'avaliacao','imagem_restaurante'],where:{local : local}, raw: true })
+        .catch(e=>{
+            return {"message":e,"result":false}
+        });
+        if(!resposta){return {"message":"Restaurante não encontrado","result":false}}
+        return {"restaurantes":resposta, "result":true}
     },
     async Catalogo() {
         let resposta = await restaurantes.findAll({attributes: ['nome','telefone','imagem_restaurante', 'avaliacao']},{ raw: true })
         .catch(e=>{
-            return {"message":e,"result":false}
+            return {"message":e,"result":false,"status":500}
         })
-        console.log(resposta)
-        return {"message":resposta, "result":true}
+        return {"message":resposta, "result":true,"status":200}
     },
-    async VerificaEmail(restaurante) {
-        return restaurantes.count({ where: { email: restaurante.email }, raw: true });
+    async VerificaEmail(email) {
+        return await restaurantes.findOne({ where: { email: email }, raw: true });
+        
     },
-    async VerificaCNPJ(restaurante) {
-        return restaurantes.count({ where: { cnpj: restaurante.cnpj }, raw: true });
+    async VerificaCNPJ(cnpj) {
+        return await restaurantes.findOne({ where: { cnpj: cnpj }, raw: true });
     },
     async create(restaurante) {
-        return restaurantes.create({
-            nome: restaurante.nome,
-            cnpj: restaurante.cnpj,
-            email: restaurante.email,
-            telefone: restaurante.telefone,
-            celular: restaurante.celular,
-            senha: restaurante.senha,
-            local: restaurante.local
+        const {nome,cnpj,email,telefone,celular,senha,local,imagem_restaurante, avaliacao} = restaurante;
+        let resposta = await restaurantes.create({nome,cnpj,email,telefone,celular,senha,local,imagem_restaurante,avaliacao
+        })
+        .catch(e=>{
+            return {"message":e,"result":false}
         });
+        return {"message":"Restaurante criado com sucesso","result":true,"status":200}
     },
     async readById(id) {
-        return restaurantes.findByPk(id, {attributes: ['id', 'nome', 'email', 'cnpj', 'telefone', 'celular']});
+        let resposta = await restaurantes.findByPk(id, {attributes: ['id', 'nome', 'email', 'cnpj', 'telefone', 'celular']})
+        .catch(e=>{
+            return {"message":e,"result":false}
+        });
+        return {"message":resposta,"result":true}
     },
     async update(req) {
-        let restaurante = req.body;
-        return restaurantes.findOne({
-            where: {
-                id: req.userId
-            },
-            raw: true
-        }).then(id => {
-            if (typeof id != "undefined") {
-                restaurantes.update({
-                    nome: restaurante.nome,
-                    cnpj: restaurante.cnpj,
-                    email: restaurante.email,
-                    telefone: restaurante.telefone,
-                    celular: restaurante.celular
-                }, {
-                    where: { id: id.id }
-                });
-            }
-    
+        let {nome,cnpj,email,telefone,celular,local} = req.body;
+        let id_restaurante = await restaurantes.findOne({where: {id: req.userId},raw: true, attributes:['id']})
+        .catch(e=>{
+            return {"message":e,"result":false}
         });
-    
+        if (!id_restaurante.id) {return {"message":"Restaurante não existe","result":false}}
+        let resposta = await restaurantes.update({nome,cnpj,email,telefone,celular,local}, {where: { id: id_restaurante.id }})
+        .catch(e=>{
+            return {"message":e,"result":false}
+        });
+        
+        return {"message":"Restaurante atualizado com sucesso","result":true}
     },
     async delete(req) {
-        return restaurantes.destroy({
+        const {userId} = req;
+        let resposta = await restaurantes.destroy({
             where: { id: req.userId }
+        })
+        .catch(e=>{
+           return {"message":e,"result":false,"status":500} 
         });
+        return {"message":"Restaurante deletado com sucesso","result":true,"status":200}
     },
     async verifica_login(restaurante) {
-        return restaurantes.findOne({ where: { email: restaurante.email, senha: restaurante.senha }, attributes: ['id', 'id_access'] });
+        const {email,senha} = restaurante;
+        
+        let resposta = await restaurantes.findOne({ where: { email }, attributes: ['id', 'id_access','senha'] })
+        .catch(e=>{
+            return {"message":e,"result":false}
+        });
+        if(!resposta){return {"message":"Login ou senha inválidos","result":false}}
+        
+        let result = await bc.compare(senha,resposta.senha);                                                                                                                                                                               
+        if(!result){return {"message":"Login ou senha inválidos","result":false}}
+
+        return {"result":true,"id":resposta.id, "id_access":resposta.id_access}
     }
 }

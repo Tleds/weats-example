@@ -1,21 +1,23 @@
 'use-strict'
-const repository_restaurantes = require('../Model/Repository/restaurantes-repository'); //O repository só vai ser usado para métodos simples que não possuem regras de negócio.
-const services = require('../Model/Services/restaurantes-services');
+const services_restaurantes = require('../Model/Services/restaurantes-services');
 const validate = require('./functions/validate-functions');
 
 module.exports = {
+    //Vem da API de conexão
     async getShopping(req, res, next){
-        if (req.userAccess == 0 || req.userAccess == 10) {
-            repository_restaurantes.all(req.headers.local).then(restaurante => {
-                res.json({ "id_mesa":req.headers.id_mesa, restaurante: restaurante }); //retorna o json com os usuários
-            });
-        } else {
-            res.status(403).json({ "auth": false, "message": "Acesso negado" });
-        }
+        if (req.userAccess == 0 && req.userAccess == 10) {res.status(403).json({ "auth": false, "message": "Acesso negado" });}
+        
+        let resposta = await services_restaurantes.all(req.headers.local);
+        if(!resposta.result){res.status(500).json(resposta);return}
+
+        res.json({ "id_mesa":req.headers.id_mesa, "restaurantes":resposta.restaurantes }); //retorna o json com os usuários
+        return;
     },
+    //Vem da API de restaurantes
     async  getId(req, res, next){
-        if (req.userAccess != 0 || req.userAccess != 10) {res.status(403).json({ "auth": false, "message": "Acesso negado" });return}
-        let resposta = await repository_restaurantes.all(req.headers.local);
+        if (req.userAccess != 1 && req.userAccess != 10) {res.status(403).json({ "auth": false, "message": "Acesso negado" });return}
+        
+        let resposta = await services_restaurantes.ReadById(req.userId);
         if(!resposta.result){res.status(500).json(resposta);return}
 
         res.json(resposta); //retorna o json com os usuários
@@ -23,68 +25,42 @@ module.exports = {
     },
     async  post(req, res, next){
         let restaurante = req.body;
-        if (validate.verificaNuloRestaurantes(restaurante) && (restaurante.senha != "" && typeof restaurante.senha != 'undefined')) {
-            services.validaEmailRestaurante(req.body).then(email => {
-                if (email > 0) {
-                    res.status(500).json({ "message": "E-mail já cadastrado" });
-                }
-                if (email == 0) {
-                    services.validaCnpjRestaurante(req.body).then(cnpj =>{
-                        if (cnpj == 0) {
-                            services.create(req.body).then(result =>{
-                                    res.status(200).json(result);
-                                })
-                                .catch(error => {
-                                    res.status(404).json(error);
-                                })
-    
-                        } else {
-                            res.status(400).json({ "message": "CNPJ já cadastrado" });
-                        }
-                    });
-                }
-            });
-        } else {
-            res.status(400).json({ "message": "Erro : O atributo não pode ser nulo" });
-        }
+        if (!validate.verificaNuloRestaurantes(restaurante)) {res.status(400).json({ "message": "Erro : O atributo não pode ser nulo" });return}
+        
+        let email = await services_restaurantes.validaEmailRestaurante(restaurante.email);
+        if (!email) {res.status(500).json({ "message": "E-mail já cadastrado" });return}
+        
+        let cnpj = await services_restaurantes.validaCnpjRestaurante(restaurante.cnpj);
+        if (!cnpj) {res.status(400).json({ "message": "CNPJ já cadastrado" });return}
+
+        let resposta = await services_restaurantes.create(req.body);
+        if(resposta.result){res.status(500).json(resposta); return}
+        res.status(200).json(resposta);
+        return
     },
     async  put(req, res, next){ //request, responde e next
-        /*let restaurante = req.body;
-        if (req.userId != null) { //verificando o parâmetro da requisição
-            if (validate.verificaNuloRestaurantes(restaurante)) {
-                if (req.body.email != null) {
-                    services.validaCnpjRestaurante(restaurante).then(cnpj{
-                        if (cnpj == 1) {
-                            services.atualiza(req).then(result{
-                                    res.status(200).json(result);
-                                })
-                                .catch(error{
-                                    res.status(404).json(error);
-                                })
-                        } else {
-                            res.status(400).json({ "message": "CNPJ inválido" });
-                        }
-                    });
-                } else {
-                    res.status(400).json({ "message": "Email nulo" });
-                }
-            } else {
-                res.status(400).json({ "message": "Erro : O atributo não pode ser nulo" });
-            }
-        } else {
-            res.status(403).json({ "message": "Identificador inválido" });
-        }*/
+        let restaurante = req.body;
+        restaurante.senha = '0';
+        if (!req.userId) { res.status(403).json({ "message": "Identificador inválido","result":false });return}//verificando o parâmetro da requisição
+        
+        if (!validate.verificaNuloRestaurantes(restaurante)) {res.status(400).json({ "message": "Erro : O atributo não pode ser nulo" });return}
+        
+        let cnpj = await services_restaurantes.validaCnpjRestaurante(restaurante)
+        if (!cnpj) {res.status(400).json({ "message": "CNPJ inválido" });return}
+        
+        let resposta = await services_restaurantes.atualiza(req);
+        if(!resposta.result){res.status(500).json(resposta);return}
+        
+        res.status(200).json(resposta);
+        return;
     },
     async  delete(req, res, next){ //request, responde e next   
-        /*if (req.userId != null) { //verificando o parâmetro da requisição
-            services.delete(req).then(result{
-                    res.status(200).json(result);
-                })
-                .catch(error{
-                    res.status(404).json(error);
-                })
-        } else {
-            res.status(403).json({ "message": "Identificador inválido" });
-        }*/
+        if (!req.userId) {res.status(403).json({ "message": "Identificador inválido" });return}
+        
+        let resposta = await services_restaurantes.delete(req);
+        if(!resposta.result){res.status(500).json(resposta);return}
+                
+        res.status(500).json(resposta);
+        return
     }
 }

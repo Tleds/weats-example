@@ -16,7 +16,7 @@ module.exports = {
         return false;
     },
     async create(usuario) {
-        usuario.senha = await bc.hash(usuario.senha, 10);
+        usuario.senha = await bc.hash(usuario.senha, await bc.genSalt(10));
         let resposta= await repository_usuarios.create(usuario);
         return resposta;
     },

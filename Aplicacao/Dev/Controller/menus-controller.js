@@ -15,6 +15,7 @@ exports.get = (req, res, next) => {
     }
 }
 exports.post = (req, res, next) => {
+    
     if (req.userAccess == 1 || req.userAccess == 10) {
         let menu = req.body;
         if (validate.verificaNuloMenu(menu)) {
