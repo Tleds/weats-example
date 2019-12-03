@@ -11,6 +11,6 @@ router.post('/', jwt.verifyJWT, pedidos_controller.post)
     //PUT
 router.put('/', jwt.verifyJWT, pedidos_controller.put)
     //DELETE
-router.delete('/:identificador', jwt.verifyJWT, pedidos_controller.delete)
+router.delete('/', jwt.verifyJWT, pedidos_controller.delete)
 
 module.exports = router;

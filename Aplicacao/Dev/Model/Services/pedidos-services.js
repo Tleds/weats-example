@@ -5,7 +5,7 @@ const repository_mesas = require('../Repository/mesas-repository');*/
 const repository_pedidos = require('../Repository/pedidos-repository');
 //Verificar a necessidade
 /*
-exports.validaUsuario = function(pedido) {
+async  validaUsuario = function(pedido) {
     repository_usuario.readById(pedido.id_usuario).then(result => {
         if (typeof result != "undefined") {
             return true;
@@ -14,7 +14,7 @@ exports.validaUsuario = function(pedido) {
         }
     });
 }
-exports.validaRestaurante = function(menu) {
+async  validaRestaurante = function(menu) {
     repository_restaurantes.readById(menu.id_restaurante).then(result => {
         if (typeof result != "undefined") {
             return true;
@@ -23,7 +23,7 @@ exports.validaRestaurante = function(menu) {
         }
     });
 }
-exports.validaMesa = function(pedido) {
+async  validaMesa = function(pedido) {
     repository_mesas.readById(pedido.id_mesa).then(result => {
         if (typeof result != "undefined") {
             return true;
@@ -33,57 +33,21 @@ exports.validaMesa = function(pedido) {
     });
 }
 */
-exports.all = function(pedido) {
-    return repository_pedidos.all().then(pedido => {
-            return {
-                "message": pedido,
-                "result": true
-            };
-        })
-        .catch(error => {
-            return {
-                "message": error,
-                "result": false
-            };
-        })
-}
-exports.create = function(pedido) {
-    return repository_pedidos.create(pedido).then(() => {
-        return {
-            "message": "Pedido cadastrado com sucesso",
-            "result": true
-        };
-    }).catch(error => {
-        return {
-            "message": error,
-            "result": false
-        };
-    })
-}
-exports.update = function(pedido) {
-    return repository_pedidos.update(pedido).then(result => {
-        if(!result){return {"message": "Pedido não encontrado","result": false};}
-        return {
-            "message": "Pedido alterado com sucesso",
-            "result": true
-        };
-    }).catch(error => {
-        return {
-            "message": error,
-            "result": false
-        };
-    });
-}
-exports.delete = function(req) {
-    return repository_pedidos.delete(req).then(result => {
-        return {
-            "message": "Pedido deletado com sucesso",
-            "result": true
-        };
-    }).catch(error => {
-        return {
-            "message": error,
-            "result": false
-        };
-    });
+module.exports = {
+    async ReadById(id) {
+        let resposta = await repository_pedidos.ReadById(id);
+        return resposta;
+    },
+    async  create(pedido) {
+        let resposta = await repository_pedidos.create(pedido);
+        return resposta
+    },
+    async  update(pedido) {
+        let resposta = await repository_pedidos.update(pedido)
+        return resposta;
+    },
+    async delete(id_pedido) {
+        let resposta = await repository_pedidos.delete(id_pedido);
+        return resposta;
+    }
 }
