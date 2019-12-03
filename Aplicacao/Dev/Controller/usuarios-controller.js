@@ -21,12 +21,18 @@ module.exports= {
     async post(req, res, next){
         let usuario = req.body;
         if (!validate.verificaNuloUsuario(usuario)) {res.status(400).json({ "message": "Erro : O atributo não pode ser nulo" }); return}
-        
-        let email = await services_usuarios.ValidarEmail(usuario);
+        //Verifica se o email é válido
+        let email = validate.verificaEmail(usuario.email);
+        if(!email){res.status(400).json({ "message": "E-mail inválido","result":false });return}
+        //Verifica se o email já existe no banco de dados
+        email = await services_usuarios.ValidarEmail(usuario);
         if(email == false) {return res.status(400).json({"message":"Email já cadastrado", "result":false}) ;return}
-        
-        let cpf = await services_usuarios.validarcpf(usuario.cpf);
+        //Verifica se o CPF existe na base de dados
+        let cpf = await validate.verificaCpf(usuario.cpf);
         if(cpf == false) {return res.status(400).json({"message":"Cpf inválido","result":false}); return}
+        //Valida o CPF
+        cpf = await services_usuarios.validarcpf(usuario.cpf);
+        if(cpf == false) {return res.status(400).json({"message":"Cpf já cadastrado","result":false}); return}
         
         let resposta = await services_usuarios.create(usuario);   
             

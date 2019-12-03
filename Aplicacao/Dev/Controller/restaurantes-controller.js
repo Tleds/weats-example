@@ -26,12 +26,18 @@ module.exports = {
     async  post(req, res, next){
         let restaurante = req.body;
         if (!validate.verificaNuloRestaurantes(restaurante)) {res.status(400).json({ "message": "Erro : O atributo não pode ser nulo" });return}
-        
-        let email = await services_restaurantes.validaEmailRestaurante(restaurante.email);
-        if (!email) {res.status(500).json({ "message": "E-mail já cadastrado" });return}
-        
-        let cnpj = await services_restaurantes.validaCnpjRestaurante(restaurante.cnpj);
-        if (!cnpj) {res.status(400).json({ "message": "CNPJ já cadastrado" });return}
+        //Valida se o email confere
+        let email = validate.verificaEmail(restaurante.email);
+        if(!email){res.status(400).json({ "message": "E-mail inválido","result":false });return}
+        //Verifica se o email existe no banco de dados
+        email = await services_restaurantes.validaEmailRestaurante(restaurante.email);
+        if (!email) {res.status(400).json({ "message": "E-mail já cadastrado","result":false });return}
+        //Valida se o CNPJ confere
+        let cnpj = validate.verificaCNPJ(restaurante.cnpj);
+        if(!cnpj){res.status(400).json({ "message": "CNPJ inválido","result":false });return}
+        //Verifica se o CNPJ já está no banco de dados
+        cnpj = await services_restaurantes.validaCnpjRestaurante(restaurante.cnpj);
+        if (!cnpj) {res.status(400).json({ "message": "CNPJ já cadastrado","result":false });return}
 
         let resposta = await services_restaurantes.create(req.body);
         if(resposta.result){res.status(500).json(resposta); return}

@@ -7,8 +7,9 @@ const bc = require('bcrypt');
 
 module.exports = {
     async validarcpf(cpf){
-        let resposta = await validate.validaCpf(cpf);
-        return resposta;
+        let resposta = await repository_usuarios.validaCpf(cpf);
+        if(!resposta){return true}
+        return false;
     },
     async ValidarEmail(req) {
         let usuarios = await repository_usuarios.validaEmailUsuario(req);

@@ -43,6 +43,9 @@ module.exports = {
             return {"message":"Erro ao atualizar o usuário","error":e}
         });
     },
+    async validaCpf(cpf){
+        return usuarios.findOne({where:{cpf},raw:true});
+    },
     async ReadById(id) {
         let resposta = await usuarios.findByPk(id, {attributes: ['id', 'nome', 'email', 'telefone', 'cpf']})
         .catch(e=>{
