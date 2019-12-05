@@ -8,9 +8,8 @@ exports.post = (req, res, next) => {
     let dados = cp.dcp(qr);
     dados = JSON.parse(dados);
     req.headers.id_restaurante = dados.restaurante;
-    req.headers.tipo = dados.tipo;
     req.headers.local = dados.local;
-    req.headers.id_mesa = dados.mesa;
+    req.headers.id_mesa = dados.id_mesa;
     if(dados.local == 0){
         menus.get(req,res,next);
     }
