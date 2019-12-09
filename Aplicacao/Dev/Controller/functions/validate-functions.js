@@ -162,9 +162,11 @@ exports.verificaNuloMenu = function verificaNuloMenu(menu) {
 }
 exports.verificaNuloMesa = function verificaNuloMesa(mesa) {
     if (mesa.id_restaurante != "" &&
-        mesa.descricao != "") {
+        mesa.descricao != "" &&
+        mesa.local != "") {
         if (typeof mesa.id_restaurante != "undefined" &&
-            typeof mesa.descricao != "undefined") {
+            typeof mesa.descricao != "undefined" &&
+            typeof mesa.local != "undefined") {
             return true;
         } else { return false; }
     } else {
@@ -196,13 +198,15 @@ exports.verificaNuloPedido = function verificaNuloPedido(pedido) {
         pedido.id_usuario != "" &&
         pedido.produto != "" &&
         pedido.quantidade != "" &&
-        pedido.preco_pedido != "") {
+        pedido.preco_pedido != "" &&
+        pedido.senha != "") {
         if (typeof pedido.id_restaurante != "undefined" &&
             typeof pedido.id_mesa != "undefined" &&
             typeof pedido.id_usuario != "undefined" &&
             typeof pedido.produto != "undefined" &&
             typeof pedido.quantidade != "undefined" &&
-            typeof pedido.preco_pedido != "undefined") {
+            typeof pedido.preco_pedido != "undefined" &&
+            typeof pedido.senha != "undefined") {
             return true;
         } else { return false; }
     } else {

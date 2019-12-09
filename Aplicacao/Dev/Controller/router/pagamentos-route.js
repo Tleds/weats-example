@@ -11,6 +11,6 @@ router.post('/', jwt.verifyJWT, pagamentos_controller.post)
     //PUT
 router.put('/:id', jwt.verifyJWT, pagamentos_controller.put)
     //DELETE
-router.delete('/:ident', jwt.verifyJWT, pagamentos_controller.delete)
+router.delete('/:identificador', jwt.verifyJWT, pagamentos_controller.delete)
 
 module.exports = router;

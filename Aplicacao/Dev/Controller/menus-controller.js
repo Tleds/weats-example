@@ -3,7 +3,7 @@ const services_menus = require('../Model/Services/menus-services'); //O reposito
 const validate = require('./functions/validate-functions')
 
 exports.get = (req, res, next) => {
-    if(req.headers.id_restaurante !== "" && typeof req.headers.id_restaurante !== 'undefined' && req.headers.id_mesa !== "" && typeof req.headers.id_mesa !== 'undefined')
+    if(req.headers.id_restaurante !== "" && typeof req.headers.id_restaurante !== 'undefined' && req.headers.id_mesa !== "")
     {
     services_menus.all(req).then(result => {
         res.status(200).json(result);

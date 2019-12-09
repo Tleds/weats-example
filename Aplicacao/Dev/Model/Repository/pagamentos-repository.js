@@ -6,7 +6,12 @@ const repository_pedidos = require('./pedidos-repository');
 const repository_forma_pagamento = require('./formas_pagamento-repository');
 
 exports.all = function() {
-    return pagamentos.findAll({ raw: true });
+    let reposta = pagamentos.findAll({ raw: true })
+    .catch(e=>{
+        return {"message":e,"result":false};
+    });
+    if(!resposta){return }
+    return {"message":resposta, "result":true};
 };
 
 exports.create = function Salvar(pagamento) {

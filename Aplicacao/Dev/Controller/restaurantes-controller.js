@@ -5,6 +5,7 @@ const validate = require('./functions/validate-functions');
 module.exports = {
     //Vem da API de conexão
     async getShopping(req, res, next){
+        
         if (req.userAccess == 0 && req.userAccess == 10) {res.status(403).json({ "auth": false, "message": "Acesso negado" });}
         
         let resposta = await services_restaurantes.all(req.headers.local);

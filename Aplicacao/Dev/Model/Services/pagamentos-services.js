@@ -7,7 +7,7 @@ const repository_formas_pagamento = require('../Repository/formas_pagamento-repo
 const repository_pagamentos = require('../Repository/pagamentos-repository');
 //Verificar a necessidade
 /*
-exports.validaUsuario = function(pagamento) {
+async validaUsuario = function(pagamento) {
     repository_usuarios.readById(pagamento.id_usuario).then(result => {
         if (typeof result != "undefined") {
             return true;
@@ -16,7 +16,7 @@ exports.validaUsuario = function(pagamento) {
         }
     });
 }
-exports.validaRestaurante = function(pagamento) {
+async validaRestaurante = function(pagamento) {
     repository_restaurantes.readById(pagamento.id_restaurante).then(result => {
         if (typeof result != "undefined") {
             return true;
@@ -25,7 +25,7 @@ exports.validaRestaurante = function(pagamento) {
         }
     });
 }
-exports.validaMesa = function(pagamento) {
+async validaMesa = function(pagamento) {
     repository_mesas.readById(pagamento.id_mesa).then(result => {
         if (typeof result != "undefined") {
             return true;
@@ -34,7 +34,7 @@ exports.validaMesa = function(pagamento) {
         }
     });
 }
-exports.validaPedido = function(pagamento) {
+async validaPedido = function(pagamento) {
     repository_pedidos.readById(pagamento.id_pedido).then(result => {
         if (typeof result != "undefined") {
             return true;
@@ -43,7 +43,7 @@ exports.validaPedido = function(pagamento) {
         }
     });
 }
-exports.validaFormaPagamento = function(pagamento) {
+async validaFormaPagamento = function(pagamento) {
     repository_formas_pagamento.readById(pagamento.id_forma_pagamento).then(result => {
         if (typeof result != "undefined") {
             return true;
@@ -52,58 +52,21 @@ exports.validaFormaPagamento = function(pagamento) {
         }
     });
 }*/
-exports.create = function(pagamento) {
-    return repository_pagamentos.create(pagamento).then(() => {
-        return {
-            "message": "Pagamento cadastrado com sucesso",
-            "result": true
-        };
-    }).catch(error => {
-        return {
-            "message": error,
-            "result": false
-        };
-    })
-}
-exports.all = function() {
-    return repository_pagamentos.all().then(result => {
-            return {
-                "message": result,
-                "result": true
-            };
-        })
-        .catch(error => {
-            return {
-                "message": error,
-                "result": false
-            };
-        })
-}
-exports.put = function(req) {
-    return repository_pagamentos.update(req).then(result => {
-            return {
-                "message": "Pagamento alterado com sucesso",
-                "result": true
-            };
-        })
-        .catch(error => {
-            return {
-                "message": error,
-                "result": false
-            };
-        })
-}
-exports.delete = function(req) {
-    return repository_pagamentos.delete(req).then(result => {
-            return {
-                "message": "Pagamento deletado com sucesso",
-                "result": true
-            };
-        })
-        .catch(error => {
-            return {
-                "message": error,
-                "result": false
-            };
-        })
+module.exports = {
+    async create(pagamento) {
+        let resposta = await repository_pagamentos.create(pagamento);
+        return resposta;
+    },
+    async all(id) {
+        let resposta = await repository_pagamentos.all();
+        return resposta;
+    },
+    async put(req) {
+        let resposta = await repository_pagamentos.update(req);
+        return resposta;
+    },
+    async delete(req) {
+        let resposta = await repository_pagamentos.delete(req);
+        return resposta;
+    }
 }

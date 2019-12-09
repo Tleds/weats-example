@@ -1,6 +1,7 @@
 const crypto = require('crypto');
 const algorithm = 'aes-192-cbc';
 const password = 'keepitsecret';
+
 exports.cp = function encryptText(dados){
     // Use the async `crypto.scrypt()` instead.
     const key = crypto.scryptSync(password, 'salt', 24);

@@ -2,80 +2,60 @@
 const services_mesas = require('../Model/Services/mesas-services');
 const validate = require('./functions/validate-functions')
 
-exports.get = (req, res, next) => {
-    if (req.userAccess == 0 || req.userAccess == 1 || req.userAccess == 10) {
-        services_mesas.all(req).then(function(mesas) {
-                res.status(200).json(mesas); //retorna o json com as mesas
-            })
-            .catch(error => {
-                res.status(500).json(error); 
-            })
-    } else {
-        res.status(403).json({ "auth": false, "message": "Acesso negado" });
-    }
-}
-exports.post = (req, res, next) => {
-    let dados = {"restaurante" : 1,"tipo" : 2,"local":1,"mesa":11};
-    services_mesas.GerarPdf(JSON.stringify(dados)).then(result=>{
-        if(result.result === true){
-            res.status(200).json({"message":"Pdf Gerado com sucesso"});
-        }
-        if(result.result === false){
-            res.status(500).json({"Erro":"Erro ao gerar o pdf"});
-        }
-    })
-    /*
-    if(resposta.result === true){
-        res.status(200).json({"message":"Pdf gerado com sucesso", resposta});
-    } else{
-        res.status(500).json({"Error":"Erro ao gerar o pdf",resposta});
-    }*/
-    /*if (req.userAccess == 1 || req.userAccess == 10) {
+module.exports = {
+
+    async get(req, res, next){
+        if (req.userAccess != 1 && req.userAccess != 10) 
+        {res.status(403).json({ "auth": false, "message": "Acesso negado" });return}
+        
+        let resposta = await services_mesas.all(req.userId);
+        if(!resposta.result){res.status(500).json(resposta);return}
+        
+        res.status(200).json(resposta);
+        return
+    },
+    async post(req, res, next){
         let mesa = req.body;
-        if (validate.verificaNuloMesa(mesa)) {
-            services_mesas.create(mesa).then(result => {
-                res.status(200).json(result);
-            }).catch(error => {
-                res.status(500).json(error);
-            });
-        } else {
-            res.status(400).json({ "message": "Erro : O atributo não pode ser nulo" });
-        }
-    } else {
-        res.status(403).json({ "auth": false, "message": "Acesso negado" });
-    }*/
-}
-exports.put = (req, res, next) => { //request, responde e next
-    if (req.userAccess == 1 || req.userAccess == 10) {
-        if (typeof req.params.id != "undefined") { //verificando o parâmetro da requisição
-            if (validate.verificaNuloMesa(mesa)) {
-                services_mesas.update(req).then(result => {
-                    res.status(200).json(result);
-                }).catch(error => {
-                    res.status(500).json(error);
-                });
-            } else {
-                res.status(400).json({ "message": "Erro : O atributo não pode ser nulo" });
-            }
-        } else {
-            res.status(400).json({ "message": "Identificador inválido" });
-        }
-    } else {
-        res.status(403).json({ "auth": false, "message": "Acesso negado" });
-    }
-}
-exports.delete = (req, res, next) => { //request, responde e next   
-    if (req.userAccess == 1 || req.userAccess == 10) {
-        if (typeof req.params.ident != "undefined") { //verificando o parâmetro da requisição
-            services_mesas.delete(req).then(result => {
-                res.status(200).json(result);
-            }).catch(error => {
-                res.status(500).json(error);
-            });
-        } else {
-            res.status(400).json({ "message": "Identificador inválido" });
-        }
-    } else {
-        res.status(403).json({ "auth": false, "message": "Acesso negado" });
+        if (!validate.verificaNuloMesa(mesa)) {res.status(400).json({ "message": "Erro : O atributo não pode ser nulo" });return}
+        
+        if (req.userAccess != 1 && req.userAccess != 10) {res.status(403).json({ "auth": false, "message": "Acesso negado" });return}
+        //Cadastra a mesa no banco de dados
+        let resposta = await services_mesas.create(mesa);
+        if(!resposta.result){res.status(500).json(resposta);return}
+        mesa.id_mesa = resposta.id_mesa
+        const {id_restaurante,local, id_mesa} = mesa;
+        let dados = {"restaurante" : id_restaurante,"local":local,"id_mesa":id_mesa};
+        //Gera o QrCode da mesa
+        resposta = await services_mesas.GerarPdf(JSON.stringify(dados));
+        if(!resposta.result){res.status(500).json({"Erro":"Erro ao gerar o pdf"});return}
+        
+        res.status(200).json({"message":"Códigos gerados com sucesso","result":true});
+        return
+       
+    },
+    async put(req, res, next){ //request, responde e next
+        let mesa = req.body;
+        if (req.userAccess != 1 && req.userAccess != 10) {res.status(403).json({ "auth": false, "message": "Acesso negado" });return}
+        if (req.userId) {res.status(400).json({ "message": "Identificador inválido" });return}
+        
+        mesa.id_restaurante = req.userId;
+        if (!validate.verificaNuloMesa(mesa) && !mesa.id_mesa) {res.status(400).json({ "message": "Erro : O atributo não pode ser nulo" });return}
+        
+        let resposta = await services_mesas.update(mesa);
+        if(resposta.result){res.status(500).json(resposta);return}
+        
+        res.status(200).json(resposta);
+        return;
+    },
+    async delete(req, res, next){ //request, responde e next  
+        const {id_mesa} = req.body; 
+        if (req.userAccess != 1 && req.userAccess != 10) {res.status(403).json({ "auth": false, "message": "Acesso negado" });return}
+        if (!id_mesa && !req.userId) {res.status(400).json({ "message": "Identificador inválido" });return}
+        
+        let resposta = await services_mesas.delete(id_mesa);
+        if(resposta.result){res.status(500).json(resposta);return}
+        
+        res.status(200).json(resposta);
+        return            
     }
 }
