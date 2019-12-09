@@ -19,7 +19,7 @@ module.exports = {
         
         if (!validate.verificaNuloPedido(pedido)) {res.status(400).json({ "message": "Erro : O atributo não pode ser nulo","result":false });return}
         
-        let resposta = await services_pedidos.create(req.body);
+        let resposta = await services_pedidos.create(pedido);
         if(!resposta.result){res.status(500).json(resposta);return}
         
         res.status(200).json(resposta);
