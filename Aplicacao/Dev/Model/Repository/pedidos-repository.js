@@ -12,7 +12,7 @@ module.exports = {
         return {"message":resposta, "result":true}
     },
     async create(pedido) {
-        const {id_restaurante, id_mesa, id_usuario, produto, quantidade, preco_pedido, observacao, senha_pedido} = pedido;
+        const {id_restaurante, id_mesa, id_usuario, produto, quantidade, preco_pedido, observacao, senha} = pedido;
         let resultado =  pedidos.create({
             id_restaurante,
             id_mesa,
@@ -21,7 +21,7 @@ module.exports = {
             quantidade,
             preco_pedido,
             observacao,
-            senha_pedido
+            senha
         })
         .catch(e=>{
             return {"message":e,"result":false}
