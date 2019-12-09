@@ -56,7 +56,7 @@ const Pedido = db.sequelize.define('pedidos', {
         type: db.Sequelize.DECIMAL(10, 2),
         allowNull: false
     },
-    senha_pedido: {
+    senha: {
         type: db.Sequelize.STRING(10),
         allowNull:false
     }
