@@ -40,7 +40,7 @@ module.exports = {
     },
     async  create(pedido) {
         let resposta = await repository_pedidos.create(pedido);
-        return resposta
+        return resposta;
     },
     async  update(pedido) {
         let resposta = await repository_pedidos.update(pedido)

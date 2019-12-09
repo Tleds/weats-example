@@ -15,7 +15,6 @@ module.exports = {
         req.body.id_usuario = req.userId;
         let pedido = req.body;
         console.log(pedido);
-        return;
         if (req.userAccess != 0) {res.status(403).json({ "auth": true, "message": "Acesso negado","result":false });return}
         
         if (!validate.verificaNuloPedido(pedido)) {res.status(400).json({ "message": "Erro : O atributo não pode ser nulo","result":false });return}

@@ -55,6 +55,10 @@ const Pedido = db.sequelize.define('pedidos', {
     preco_pedido: {
         type: db.Sequelize.DECIMAL(10, 2),
         allowNull: false
+    },
+    senha_pedido: {
+        type: db.Sequelize.STRING(10),
+        allowNull:false
     }
 });
 
