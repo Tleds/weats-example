@@ -3,7 +3,7 @@ const pedidos = require('../Entities/Pedidos');
 module.exports = {
     async ReadById(id) {
         let resposta = await pedidos.findAll({ where:{id_usuario:id},raw: true, attributes:
-        ['id','id_restaurante','id_mesa','id_usuario','produto','quantidade','observacao','id_status','preco_pedido'] })
+        ['id','id_restaurante','id_mesa','id_usuario','produto','quantidade','observacao','id_status','preco_pedido','senha'] })
         .catch(e=>{
             return {"message":e,"result":false}
         })
