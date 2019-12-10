@@ -25,7 +25,7 @@ module.exports = {
     },
     async create(restaurante) {
         const {nome,cnpj,email,telefone,celular,senha,local,imagem_restaurante, avaliacao} = restaurante;
-        let resposta = await restaurantes.create({nome,cnpj,email,telefone,celular,senha,local,imagem_restaurante,avaliacao
+        let resposta = await restaurantes.create({nome,cnpj,email,telefone,celular,senha,id_local : local,imagem_restaurante,avaliacao
         })
         .catch(e=>{
             return {"message":e,"result":false}
@@ -46,7 +46,7 @@ module.exports = {
             return {"message":e,"result":false}
         });
         if (!id_restaurante.id) {return {"message":"Restaurante não existe","result":false}}
-        let resposta = await restaurantes.update({nome,cnpj,email,telefone,celular,local}, {where: { id: id_restaurante.id }})
+        let resposta = await restaurantes.update({nome,cnpj,email,telefone,celular,id_local:local}, {where: { id: id_restaurante.id }})
         .catch(e=>{
             return {"message":e,"result":false}
         });

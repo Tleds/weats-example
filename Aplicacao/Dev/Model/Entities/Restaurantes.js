@@ -27,9 +27,14 @@ const Restaurante = db.sequelize.define('restaurantes', {
         type: db.Sequelize.STRING(100),
         allowNull: true
     },
-    local: {
+    id_local: {
         type: db.Sequelize.INTEGER,
-        allowNull:false
+        references: {
+            model: 'locals',
+            key: 'id'
+        },
+        allowNull: false,
+        onDelete: 'cascade'
     },
     id_access: {
         type: db.Sequelize.INTEGER,
