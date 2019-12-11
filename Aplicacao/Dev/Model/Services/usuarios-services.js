@@ -30,7 +30,7 @@ module.exports = {
         let resultado = await repository_usuarios.verifica_login(usuario);
         if(!resultado.result){return false}
         result = {"id":resultado.id,"id_access":resultado.id_access};
-        let token = jwt.sign({ result }, process.env.SECRET, {expiresIn: 1440})//24H}
+        let token = jwt.sign({ result }, process.env.SECRET, {expiresIn: '365d'})//24H}
         return { "token": token, "result":true};
     },
     async ReadById(usuario){
