@@ -20,9 +20,13 @@ exports.dcp = function decryptText(dados){
     const iv = Buffer.alloc(16, 0); // Initialization vector.
     
     const decipher = crypto.createDecipheriv(algorithm, key, iv);
-    
-    // Encrypted using same algorithm, key and iv.
+        // Encrypted using same algorithm, key and iv.
+    try{
     let decrypted = decipher.update(dados, 'hex', 'utf8');
-    decrypted += decipher.final('utf8');
+    decrypted += decipher.final('utf8')
+    
     return decrypted;
+    } catch(e){
+        return false;
+    }
 }

@@ -4,8 +4,9 @@ const menus = require('./menus-controller')
 
 exports.post = (req, res, next) => {
     var qr = req.headers['c-code-qr'];
-    if (!qr) return res.status(401).send({ auth: false, message: 'No QR Code provided.' });
+    if (!qr) {return res.status(401).send({ "auth": false, "message": 'No QR Code provided.' });}
     let dados = cp.dcp(qr);
+    if(!dados){return res.status(403).send({ "auth": false, "message": 'Código inválido' });}
     dados = JSON.parse(dados);
     req.headers.id_restaurante = dados.restaurante;
     req.headers.local = dados.local;
