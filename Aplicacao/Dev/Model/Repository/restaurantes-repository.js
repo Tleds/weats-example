@@ -1,11 +1,13 @@
-const restaurantes = require('../Entities/Restaurantes');
+const restaurantes = require('../database/models/Restaurantes');
+require('../database/index');
 const bc = require('bcrypt');
 module.exports = {
     async all(local) {
-        let resposta =  await restaurantes.findAll({attributes: ['id', 'nome', 'email', 'cnpj', 'telefone', 'celular', 'avaliacao','imagem_restaurante'],where:{id_local : local}, raw: true })
+        let resposta =  await restaurantes.findAll({attributes: ['id','id_local', 'nome', 'email', 'cnpj', 'telefone', 'celular', 'avaliacao','imagem_restaurante'],where:{id_local : local}, raw: true })
         .catch(e=>{
             return {"message":e,"result":false}
         });
+        console.log(resposta);
         if(!resposta){return {"message":"Restaurante não encontrado","result":false}}
         return {"restaurantes":resposta, "result":true}
     },
