@@ -47,7 +47,9 @@ module.exports= {
         
         if (!validate.verificaNuloUsuario(usuario)) {res.status(500).json({ "message": "Erro : O atributo não pode ser nulo" }); return}
         
-        if (services_usuarios.validarcpf(usuario.cpf)) {res.status(400).json({ "message": "CPF inválido" }); return}
+        
+        if (await validate.verificaCpf(usuario.cpf)) {res.status(400).json({ "message": "CPF inválido" }); return}
+        // if (services_usuarios.validarcpf(usuario.cpf)) {res.status(400).json({ "message": "CPF inválido" }); return}
         
         let alt = await services_usuarios.update(req);
         if(!alt.result){res.status(500).json(alt); return}
