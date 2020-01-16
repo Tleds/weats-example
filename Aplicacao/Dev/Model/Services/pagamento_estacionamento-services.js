@@ -4,7 +4,7 @@ const repository_restaurantes = require('../Repository/restaurantes-repository')
 const repository_mesas = require('../Repository/mesas-repository');
 const repository_pedidos = require('../Repository/pedidos-repository');
 const repository_formas_pagamento = require('../Repository/formas_pagamento-repository');*/
-const repository_pagamentos = require('../Repository/pagamentos-repository');
+const repository_pagamentos = require('../Repository/pagamento_estacionamento-repository');
 //Verificar a necessidade
 /*
 async validaUsuario = function(pagamento) {

@@ -1,4 +1,5 @@
-const mesas = require('../Entities/Mesas');
+const mesas = require('../database/models/Mesas');
+require('../database/index');
 
 module.exports = {
     async all(id) {

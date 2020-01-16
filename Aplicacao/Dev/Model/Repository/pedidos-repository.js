@@ -1,4 +1,5 @@
-const pedidos = require('../Entities/Pedidos');
+const pedidos = require('../database/models/Pedidos');
+require('../database/index');
 
 module.exports = {
     async ReadById(id) {

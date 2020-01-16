@@ -9,8 +9,8 @@ router.get('/', jwt.verifyJWT, menus_controller.get)
     //POST
 router.post('/', jwt.verifyJWT, menus_controller.post)
     //PUT
-router.put('/:menu', jwt.verifyJWT, menus_controller.put)
+router.put('/', jwt.verifyJWT, menus_controller.put)
     //DELETE
-router.delete('/:ident', jwt.verifyJWT, menus_controller.delete)
+router.delete('/', jwt.verifyJWT, menus_controller.delete)
 
 module.exports = router;

@@ -1,6 +1,7 @@
-const usuarios = require('../Entities/Usuarios');
+const usuarios = require('../database/models/Usuarios');
+//const usuarios = require('../Entities/Usuarios');
 const bc = require('bcrypt');
-
+require('../database/index');
 
 module.exports = {
     async all() {
@@ -25,9 +26,12 @@ module.exports = {
     async verifica_login(usuario) {
         const {email, senha} = usuario
         
-        let comp = await usuarios.findOne({ where: { email }, attributes: ['id', 'id_access', 'senha'] });
+        let comp = await usuarios.findOne({ where: { email }, attributes: ['id', 'id_access', 'senha'] })
+        .catch(e=>{
+            console.log(e);
+            return {"message":e,'result':false}
+        })
         if(!comp){return {"result":false}}
-        
         let result = await bc.compare(senha,comp.senha);
         if(!result){return {"result":false}}
         

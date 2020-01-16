@@ -7,10 +7,12 @@ exports.post = (req, res, next) => {
     if (!qr) {return res.status(401).send({ "auth": false, "message": 'No QR Code provided.' });}
     let dados = cp.dcp(qr);
     if(!dados){return res.status(403).send({ "auth": false, "message": 'Código inválido' });}
+    
     dados = JSON.parse(dados);
     req.headers.id_restaurante = dados.restaurante;
     req.headers.local = dados.local;
     req.headers.id_mesa = dados.id_mesa;
+    
     if(dados.local == 0){
         menus.get(req,res,next);
     }
