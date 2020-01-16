@@ -5,7 +5,7 @@ module.exports = {
     async all(){
       let resposta = await promocoes.findAll({raw:true,
         attributes:['id','id_restaurante','id_local','data_inicio','data_fim','cupom','descricao','titulo_promocao']
-        ,include:['Promocoes']})
+        })
       .catch(e=>{
         return {"message":e,"result":false}
       });
