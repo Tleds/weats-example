@@ -3,9 +3,15 @@ require('../database/index');
 
 module.exports = {
     async all(){
-      let resposta = await promocoes.findAll({raw:true,
-        attributes:['id','id_restaurante','id_local','data_inicio','data_fim','cupom','descricao','titulo_promocao']
-        })
+      // let resposta = await promocoes.findAll({raw:true,
+      //   attributes:['id','id_restaurante','id_local','data_inicio','data_fim','cupom','descricao','titulo_promocao']
+      //   ,include:['restaurantes','locals']})
+      let resposta = await promocoes.sequelize.query('SELECT PR.id,PR.titulo_promocao,'
+      +'PR.descricao,PR.data_inicio,PR.data_fim,'
+      +'RE.imagem_restaurante,RE.nome,lo.nome from promocoes as PR '
+      +'INNER JOIN restaurantes as RE ON PR.id_restaurante = RE.id '
+      +'INNER JOIN locals as lo ON PR.id_local = lo.id;',
+      { type: promocoes.sequelize.QueryTypes.SELECT})
       .catch(e=>{
         return {"message":e,"result":false}
       });
