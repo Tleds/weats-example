@@ -27,6 +27,8 @@ const catalogo = require('./Controller/router/catalogo-route');
 const avaliacao_restaurante = require('./Controller/router/avaliacao_restaurante-route');
 const avaliacao_produto = require('./Controller/router/avaliacao_produto-route');
 const promocoes = require('./Controller/router/promocoes-route');
+const notificacao = require('./Controller/router/notificacao-route');
+const lista_pedidos_restaurante = require('./Controller/router/lista_pedidos-route');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -49,6 +51,8 @@ app.use('/catalogo', catalogo);
 app.use('/avaliacao_restaurante',avaliacao_restaurante);
 app.use('/avaliacao_produto',avaliacao_produto);
 app.use('/promocoes',promocoes);
+app.use('/notificacao',notificacao);
+app.use('/lista_pedidos',lista_pedidos_restaurante);
 
 app.listen(PORT,HOST);
 
