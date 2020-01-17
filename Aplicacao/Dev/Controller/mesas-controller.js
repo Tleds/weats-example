@@ -16,7 +16,7 @@ module.exports = {
     },
     async post(req, res, next){
         let mesa = req.body;
-        if (!validate.verificaNuloMesa(mesa)) {res.status(400).json({ "message": "Erro : O atributo não pode ser nulo" });return}
+        if (!validate.verificaNuloMesa(mesa)) {res.status(400).json({ "message": "Erro : O atributo não pode ser nulo","result":false });return}
         
         if (req.userAccess != 1 && req.userAccess != 10) {res.status(403).json({ "auth": false, "message": "Acesso negado" });return}
         //Cadastra a mesa no banco de dados
@@ -26,7 +26,7 @@ module.exports = {
         const {id_restaurante,local, id_mesa} = mesa;
         let dados = {"restaurante" : id_restaurante,"local":local,"id_mesa":id_mesa};
         //Gera o QrCode da mesa
-        resposta = await services_mesas.GerarPdf(JSON.stringify(dados));
+        resposta = await services_mesas.GerarPdf(dados);
         if(!resposta.result){res.status(500).json({"Erro":"Erro ao gerar o pdf"});return}
         
         res.status(200).json({"message":"Códigos gerados com sucesso","result":true});

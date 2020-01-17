@@ -34,8 +34,11 @@ promocoes.init(connection);
 
 Enderecos.associate(connection.models);
 Restaurantes.associate(connection.models);
+Mesas.associate(connection.models);
+Pedidos.associate(connection.models);
 avaliacao_restaurantes.associate(connection.models);
 avaliacao_produtos.associate(connection.models);
+Locals.associate(connection.models);
 promocoes.associate(connection.models);
 
 module.exports = connection;

@@ -23,10 +23,10 @@ module.exports = {
         return resposta;
     },
     async GerarPdf(dados){
-        dados = ct.cp(dados);
-        console.log(dados);
+        let restaurante = dados.restaurante;
+        dados = ct.cp(JSON.stringify(dados));
         let result = await qr_code.toDataURL(dados);
-        let resposta = await services_functions.GerarPdf(result);
+        let resposta = await services_functions.GerarPdf(result,restaurante);
         return resposta;
     }
 }

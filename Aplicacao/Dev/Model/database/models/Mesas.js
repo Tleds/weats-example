@@ -10,6 +10,9 @@ class mesas extends Model {
             sequelize
         })
     }
+    static associate(models){
+        this.hasMany(models.pedidos, { foreignKey: 'id_mesa', as: 'mesas' })
+    }
 }
     
 module.exports = mesas
