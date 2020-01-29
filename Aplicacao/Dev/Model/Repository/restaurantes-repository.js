@@ -12,7 +12,7 @@ module.exports = {
         return {"restaurantes":resposta, "result":true}
     },
     async Catalogo() {
-        let resposta = await restaurantes.findAll({attributes: ['nome','telefone','imagem_restaurante', 'avaliacao']},{ raw: true })
+        let resposta = await restaurantes.findAll({attributes: ['nome','id_local','telefone','imagem_restaurante', 'avaliacao']},{ raw: true })
         .catch(e=>{
             return {"message":e,"result":false,"status":500}
         })
