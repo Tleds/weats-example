@@ -1,10 +1,16 @@
-const cp = require('./Model/Repository/criptografia');
+const pedidos = require('./Model/database/models/Pedidos');
+// const pedidos = require('./Model/Entities/Pedidos');
+require('./Model/database/index');
 
-/*let a = cp.dcp('dfe69b30adfba6ea727b5822e58302b03fafe231569f6af8fe759aabe7f9e2a5b3d4443f7e2d8d53d236fa07437c3f39');
-console.log(a);*/
+pedidos.create({
+  id_restaurante:1,
+  id_mesa:29,
+  id_usuario:2,
+  id_status:1,
+  produto:'Coca-cola',
+  quantidade:1,
+  preco_pedido:10.00,
+  observacao:'',
+  senha:14123
+})
 
-require('dotenv').config({
-  path: process.env.NODE_ENV == 'teste' ? '.env.test' : '.env'
-});
-console.log(process.env.NODE_ENV)
-console.log(process.env.DB_HOST)

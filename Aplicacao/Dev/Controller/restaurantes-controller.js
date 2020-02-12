@@ -55,7 +55,7 @@ module.exports = {
         let cnpj = await services_restaurantes.validaCnpjRestaurante(restaurante.cnpj)
         if (!cnpj) {res.status(400).json({ "message": "CNPJ inválido" });return}
         
-        let resposta = await services_restaurantes.atualiza(req);
+        let resposta = await services_restaurantes.update(req);
         if(!resposta.result){res.status(500).json(resposta);return}
         
         res.status(200).json(resposta);

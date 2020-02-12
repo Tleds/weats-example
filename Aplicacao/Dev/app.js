@@ -7,7 +7,14 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = 3000;
 const HOST = '0.0.0.0';
+const http = require('http');
+const { setupWebSocket } = require('./websocket');
+const server = http.Server(app);
 const compression = require('compression');
+const cors = require('cors');
+
+//Load real time server
+setupWebSocket(server);
 
 //Carregar as rotas
 const user = require('./Controller/router/usuarios-route');
@@ -29,10 +36,14 @@ const avaliacao_produto = require('./Controller/router/avaliacao_produto-route')
 const promocoes = require('./Controller/router/promocoes-route');
 const notificacao = require('./Controller/router/notificacao-route');
 const lista_pedidos_restaurante = require('./Controller/router/lista_pedidos-route');
+const lojas = require('./Controller/router/lojas-route');
+const menus_loja = require('./Controller/router/menus_loja-route');
+const shoppings = require('./Controller/router/shoppings-route');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(compression());
+app.use(cors());
 
 app.use('/usuarios', user);
 app.use('/login', login);
@@ -53,7 +64,10 @@ app.use('/avaliacao_produto',avaliacao_produto);
 app.use('/promocoes',promocoes);
 app.use('/notificacao',notificacao);
 app.use('/lista_pedidos',lista_pedidos_restaurante);
+app.use('/lojas',lojas);
+app.use('/menus_loja',menus_loja);
+app.use('/shoppings',shoppings);
 
-app.listen(PORT,HOST);
+server.listen(PORT,HOST);
 
 module.exports = app;

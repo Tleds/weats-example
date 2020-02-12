@@ -15,7 +15,7 @@ class promocoes extends Model {
     }
     static associate(models){
       this.belongsTo(models.restaurantes, { foreignKey: 'id_restaurante'})
-      this.belongsTo(models.locals, { foreignKey: 'id_local'})
+      this.belongsTo(models.shoppings, { foreignKey: 'id_local'})
 
     }
 }

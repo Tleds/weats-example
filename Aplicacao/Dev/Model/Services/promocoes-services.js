@@ -1,8 +1,9 @@
 'use-strict'
 const repository_promocoes = require('../Repository/promocoes-repository');
+const utiils = require('./functions/services-functions');
 
 module.exports = {
-    async all(){
+    async all(localizacao){
         let resposta = await repository_promocoes.all();
         return resposta;
     },

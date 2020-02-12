@@ -10,7 +10,7 @@ module.exports = {
   dialect:process.env.DB_DIALECT || 'mysql',
   storage: './__tests__/database.sqlite',
   operatorAliases: false,
-  logging:false,
+  logging:console.log,
   define:{
     timestamps:true,
     freezeTableName: true

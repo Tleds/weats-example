@@ -31,7 +31,7 @@ module.exports = {
         let resposta = await repository_restaurantes.create(restaurante);
         return resposta;
     },
-    async atualiza(req) {
+    async update(req) {
         let resposta = await repository_restaurantes.update(req);
         return resposta;
     },
