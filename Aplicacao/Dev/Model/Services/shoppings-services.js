@@ -8,6 +8,7 @@ module.exports = {
         let resposta = await services_shoppings.all();
         console.log(localizacao.Lat)
         JSON.parse(localizacao);
+        console.log(localizacao.Lat)
         if(!localizacao)
         {return resposta}
 
