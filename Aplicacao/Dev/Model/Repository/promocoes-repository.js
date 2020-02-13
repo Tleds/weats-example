@@ -2,16 +2,18 @@ const promocoes = require('../database/models/Promocoes');
 require('../database/index');
 
 module.exports = {
-    async all(){
+    async all(id){
+      
       // let resposta = await promocoes.findAll({raw:true,
       //   attributes:['id','id_restaurante','id_local','data_inicio','data_fim','cupom','descricao','titulo_promocao']
       //   ,include:['restaurantes','locals']})
       let resposta = await promocoes.sequelize.query('SELECT PR.id,PR.titulo_promocao,'
       +'PR.descricao,PR.data_inicio,PR.data_fim,'
+      +'so.latitude,so.longitude,'
       +'RE.imagem_restaurante,RE.nome as nome_restaurante,so.nome as nome_local from promocoes as PR '
-      +'so.latitude,so.longitude'
       +'INNER JOIN restaurantes as RE ON PR.id_restaurante = RE.id '
-      +'INNER JOIN shoppings as so ON PR.id_local = so.id;',
+      +'INNER JOIN shoppings as so ON PR.id_local = so.id '
+      +`WHERE so.id = ${id};`,
       { type: promocoes.sequelize.QueryTypes.SELECT})
       .catch(e=>{
         return {"message":e,"result":false}
