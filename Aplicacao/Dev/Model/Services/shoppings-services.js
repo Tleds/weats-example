@@ -7,7 +7,7 @@ module.exports = {
         let json_final = [];
         let resposta = await services_shoppings.all();
         
-        if(!localizacao.Lat && !localizacao.Long)
+        if(!localizacao)
         {return resposta}
 
         if (!resposta.result){return resposta};
