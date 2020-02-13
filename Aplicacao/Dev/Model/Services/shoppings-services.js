@@ -6,13 +6,12 @@ module.exports = {
     async all(localizacao){
         let json_final = [];
         let resposta = await services_shoppings.all();
-        console.log(localizacao)
+        console.log(localizacao.Lat)
         if(!localizacao)
         {return resposta}
 
         if (!resposta.result){return resposta};
 
-        JSON.parse(localizacao);
         //Calculando a distância
         resposta.message.forEach(item => {
             let coordenadas_shopping = {
