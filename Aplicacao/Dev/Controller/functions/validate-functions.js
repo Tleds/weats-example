@@ -194,14 +194,12 @@ exports.verificaNuloPagamento = function verificaNuloPagamento(pagamento) {
 }
 exports.verificaNuloPedido = function verificaNuloPedido(pedido) {
     if (pedido.id_restaurante != "" &&
-        pedido.id_mesa != "" &&
         pedido.id_usuario != "" &&
         pedido.produto != "" &&
         pedido.quantidade != "" &&
         pedido.preco_pedido != "" &&
         pedido.senha != "") {
         if (typeof pedido.id_restaurante != "undefined" &&
-            typeof pedido.id_mesa != "undefined" &&
             typeof pedido.id_usuario != "undefined" &&
             typeof pedido.produto != "undefined" &&
             typeof pedido.quantidade != "undefined" &&

@@ -8,9 +8,10 @@ module.exports = {
       //   ,include:['restaurantes','locals']})
       let resposta = await promocoes.sequelize.query('SELECT PR.id,PR.titulo_promocao,'
       +'PR.descricao,PR.data_inicio,PR.data_fim,'
-      +'RE.imagem_restaurante,RE.nome as nome_restaurante,lo.nome as nome_local from promocoes as PR '
+      +'RE.imagem_restaurante,RE.nome as nome_restaurante,so.nome as nome_local from promocoes as PR '
+      +'so.latitude,so.longitude'
       +'INNER JOIN restaurantes as RE ON PR.id_restaurante = RE.id '
-      +'INNER JOIN locals as lo ON PR.id_local = lo.id;',
+      +'INNER JOIN shoppings as so ON PR.id_local = so.id;',
       { type: promocoes.sequelize.QueryTypes.SELECT})
       .catch(e=>{
         return {"message":e,"result":false}

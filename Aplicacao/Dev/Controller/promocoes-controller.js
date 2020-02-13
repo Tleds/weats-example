@@ -5,7 +5,8 @@ const validate = require('./functions/validate-functions');
 
 module.exports = {
     async get (req, res, next){
-      let resposta = await services_promocoes.all();
+      let localizacao = req.headers.localizacao;
+      let resposta = await services_promocoes.all(localizacao);
       
       return res.json(resposta);
     },    

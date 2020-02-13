@@ -5,12 +5,12 @@ const promocoes_controller = require('../promocoes-controller');
 const jwt = require('./jwt-authentication');
 
 //GET
-router.get('/', promocoes_controller.get)
+router.get('/', jwt.verifyJWT, promocoes_controller.get)
     //POST
-router.post('/', /*jwt.verifyJWT,*/ promocoes_controller.post)
+router.post('/', jwt.verifyJWT, promocoes_controller.post)
     //PUT
-router.put('/:id', /*jwt.verifyJWT,*/ promocoes_controller.put)
+router.put('/:id', jwt.verifyJWT, promocoes_controller.put)
     //DELETE
-router.delete('/:id', /*jwt.verifyJWT,*/ promocoes_controller.delete)
+router.delete('/:id', jwt.verifyJWT, promocoes_controller.delete)
 
 module.exports = router;
