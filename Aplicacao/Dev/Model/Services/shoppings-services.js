@@ -9,7 +9,7 @@ module.exports = {
         
         if(!localizacao)
         {return resposta}
-
+        console.log(localizacao);
         if (!resposta.result){return resposta};
 
         //Calculando a distância
