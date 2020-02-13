@@ -5,8 +5,10 @@ const validate = require('./functions/validate-functions');
 module.exports = {
     //Vem da API de restaurantes
     async  get(req, res, next){
-        console.log(req.headers.localizacao)
-        let resposta = await services_shoppings.all(req.headers.localizacao);
+        console.log(req.headers.latitude)
+        console.log(req.headers.longitude)
+        let resposta = await services_shoppings.all(
+            {"Lat":req.headers.latitude,"Long":req.headers.longitude});
         
         if(!resposta.result){res.status(500).json(resposta)}
 
