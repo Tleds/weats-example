@@ -9,7 +9,6 @@ module.exports = {
         
         if(!localizacao)
         {return resposta}
-        console.log(localizacao);
         if (!resposta.result){return resposta};
 
         //Calculando a distância
@@ -23,6 +22,7 @@ module.exports = {
                 'id': item.id,
                 'nome':item.nome,
                 'distancia':Math.round(distance),
+                'imagem_shopping':item.imagem_shopping,
             })
         });
         //Ordenando o array
