@@ -10,11 +10,7 @@ module.exports = {
     },
     async all(req) {
         let resposta = await repository_menus.all(req);
-        return {
-            "id_mesa":req.headers.id_mesa,
-            "message":resposta.message,
-            "result": resposta.result
-        };
+        return resposta;
         
     },
     async create(menu) {

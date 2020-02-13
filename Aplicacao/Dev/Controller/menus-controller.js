@@ -4,8 +4,8 @@ const validate = require('./functions/validate-functions')
 
 module.exports = {
     async get(req, res, next){
-        if(!req.headers.id_restaurante || !req.headers.id_mesa)
-        {res.status(400).json({"message":"restaurante e mesa não podem ser nulos", "result":false});return}
+        if(!req.headers.id_restaurante)
+        {res.status(400).json({"message":"Restaurante não pode ser nulo", "result":false});return}
         let resposta = await services_menus.all(req);
         if(!resposta.result){res.status(500).json(resposta);return}
         
