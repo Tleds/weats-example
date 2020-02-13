@@ -6,6 +6,10 @@ const bc = require('bcrypt');
 module.exports = {
     async all(local){
         let resposta = await repository_restaurantes.all(local);
+        
+        resposta.restaurantes.sort(function (a,b){
+            return a.avaliacao > b.avaliacao ? -1 : a.avaliacao < b.avaliacao ? 1 : 0;
+        })
         return resposta;
     },
     async ReadById(restaurante){

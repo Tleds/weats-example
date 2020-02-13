@@ -8,7 +8,7 @@ module.exports = {
         
         if (req.userAccess == 0 && req.userAccess == 10) {res.status(403).json({ "auth": false, "message": "Acesso negado" });}
         
-        let resposta = await services_restaurantes.all(req.headers.local);
+        let resposta = await services_restaurantes.all(req.params.id_shopping);
         if(!resposta.result){res.status(500).json(resposta);return}
 
         res.json({ "id_mesa":req.headers.id_mesa, "restaurantes":resposta.restaurantes }); //retorna o json com os usuários

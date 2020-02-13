@@ -11,9 +11,8 @@ module.exports = {
         return {"message":resposta, "result":true}
     },
     async create(shopping) {
-        const {nome,cnpj,email,telefone,celular,senha,local,imagem_restaurante, avaliacao} = restaurante;
-        let resposta = await shoppings.create({nome,cnpj,email,telefone,celular,senha,id_local : local,imagem_restaurante,avaliacao
-        })
+        const {nome, latitude,longitude} = restaurante;
+        let resposta = await shoppings.create({nome, latitude,longitude})
         .catch(e=>{
             return {"message":e,"result":false}
         });

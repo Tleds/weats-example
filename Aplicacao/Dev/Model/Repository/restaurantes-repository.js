@@ -7,7 +7,6 @@ module.exports = {
         .catch(e=>{
             return {"message":e,"result":false}
         });
-        console.log(resposta);
         if(!resposta){return {"message":"Restaurante não encontrado","result":false}}
         return {"restaurantes":resposta, "result":true}
     },

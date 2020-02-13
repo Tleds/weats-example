@@ -14,7 +14,7 @@ exports.GerarPdf = function Pdf(str, restaurante) {
  
 exports.getDistance = function getDistanceFromLatLonInKm(centerCoordinates, pointCoordinates){
         let unit = "K";
-        const {latitude: lat1, longitude:lon1 } = centerCoordinates;
+        const {Lat: lat1, Long:lon1 } = centerCoordinates;
         const {latitude: lat2, longitude:lon2 } = pointCoordinates;
 
         let radlat1 = Math.PI * lat1/180

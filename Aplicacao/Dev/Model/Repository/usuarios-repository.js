@@ -25,14 +25,13 @@ module.exports = {
     },
     async verifica_login(usuario) {
         const {email, senha} = usuario
-        
         let comp = await usuarios.findOne({ where: { email }, attributes: ['id', 'id_access', 'senha'] })
         .catch(e=>{
-            console.log(e);
             return {"message":e,'result':false}
         })
         if(!comp){return {"result":false}}
-        let result = await bc.compare(senha,comp.senha);
+        
+        let result = await bc.compare(String(senha),String(comp.senha));
         if(!result){return {"result":false}}
         
         return {"result":true, "id":comp.id, "id_access":comp.id_access}

@@ -5,6 +5,8 @@ const restaurantes_controller = require('../restaurantes-controller')
 const jwt = require('./jwt-authentication');
 
 //GET
+router.get('/:id_shopping', jwt.verifyJWT, restaurantes_controller.getShopping)
+//GET
 router.get('/', jwt.verifyJWT, restaurantes_controller.getId)
     //POST
 router.post('/', restaurantes_controller.post)

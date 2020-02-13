@@ -4,11 +4,10 @@ const utils = require('./functions/services-functions');
 
 module.exports = {
     async all(localizacao){
-
         let json_final = [];
-        let resposta = await services_shoppings.all(localizacao);
-
-        if(!localizacao.latitude && !localizacao.longitude)
+        let resposta = await services_shoppings.all();
+        localizacao = JSON.parse(localizacao)
+        if(!localizacao.Lat && !localizacao.Long)
         {return resposta}
 
         if (!resposta.result){return resposta};
@@ -32,7 +31,7 @@ module.exports = {
         resposta.message = json_final;
         return resposta;
     },
-    async create(restaurante) {
+    async create(shopping) {
         let resposta = await services_shoppings.create(restaurante);
         return resposta;
     },
