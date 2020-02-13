@@ -3,7 +3,7 @@ require('../database/index');
 
 module.exports = {
     async all(local) {
-        let resposta =  await shoppings.findAll({attributes: ['id','nome','latitude','longitude'], raw: true })
+        let resposta =  await shoppings.findAll({attributes: ['id','nome','latitude','longitude','imagem_shopping'], raw: true })
         .catch(e=>{
             return {"message":e,"result":false}
         });
@@ -12,7 +12,7 @@ module.exports = {
     },
     async create(shopping) {
         const {nome, latitude,longitude} = restaurante;
-        let resposta = await shoppings.create({nome, latitude,longitude})
+        let resposta = await shoppings.create({nome,imagem_shopping, latitude,longitude})
         .catch(e=>{
             return {"message":e,"result":false}
         });
