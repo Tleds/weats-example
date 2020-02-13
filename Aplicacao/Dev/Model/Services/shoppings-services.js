@@ -6,7 +6,7 @@ module.exports = {
     async all(localizacao){
         let json_final = [];
         let resposta = await services_shoppings.all();
-        localizacao = JSON.parse(localizacao)
+        
         if(!localizacao.Lat && !localizacao.Long)
         {return resposta}
 
