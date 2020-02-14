@@ -5,8 +5,6 @@ require("dotenv").config({
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const PORT = 3000;
-const HOST = '0.0.0.0';
 const http = require('http');
 const { setupWebSocket } = require('./websocket');
 const server = http.Server(app);
@@ -68,6 +66,6 @@ app.use('/lojas',lojas);
 app.use('/menus_loja',menus_loja);
 app.use('/shoppings',shoppings);
 
-server.listen(PORT,HOST);
+server.listen(process.env.PORT,process.env.HOST);
 
 module.exports = app;
