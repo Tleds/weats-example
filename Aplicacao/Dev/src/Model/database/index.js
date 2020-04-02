@@ -1,0 +1,62 @@
+const Sequelize = require('sequelize');
+const config = require('./config/database');
+
+const Users = require('./models/Users');
+const Addresses = require('./models/Addresses');
+const Payment_methods = require('./models/Payment_methods');
+const Shoppings = require('./models/Shoppings');
+const Menus = require('./models/Menus');
+const Tables = require('./models/Tables');
+const Shop_payments = require('./models/Shop_payments');
+const Parking_payments = require('./models/Parking_payments');
+const Solicitations = require('./models/Solicitations');
+const Solicitation_status = require('./models/Solicitation_status');
+const Shops_rating = require('./models/Shop_ratings');
+const Products_rating = require('./models/Product_ratings');
+const Promotions = require('./models/Promotions');
+const Shops = require('./models/Shops');
+const Products_classification = require('./models/Products_classification');
+const Products = require('./models/Products');
+const Solicitation_items = require('./models/Solicitation_items');
+const ShopFiles = require('./models/Shop_Files');
+const ShoppingFiles = require('./models/Shopping_Files');
+const ShopTypes = require('./models/Shop_types');
+
+const connection = new Sequelize(config);
+
+Users.init(connection);
+Shops.init(connection);
+Shoppings.init(connection);
+Solicitations.init(connection);
+Parking_payments.init(connection);
+Products.init(connection);
+Addresses.init(connection);
+Payment_methods.init(connection);
+Menus.init(connection);
+Tables.init(connection);
+Shop_payments.init(connection);
+Solicitation_status.init(connection);
+Shops_rating.init(connection);
+Products_rating.init(connection);
+Promotions.init(connection);
+Solicitation_items.init(connection);
+ShopFiles.init(connection);
+ShoppingFiles.init(connection);
+Products_classification.init(connection);
+ShopTypes.init(connection);
+
+Shops.associate(connection.models);
+Shoppings.associate(connection.models);
+Addresses.associate(connection.models);
+Tables.associate(connection.models);
+Solicitations.associate(connection.models);
+Shops_rating.associate(connection.models);
+Products_rating.associate(connection.models);
+Promotions.associate(connection.models);
+Products_classification.associate(connection.models);
+Products.associate(connection.models);
+Solicitation_items.associate(connection.models);
+ShopFiles.associate(connection.models);
+ShoppingFiles.associate(connection.models);
+
+module.exports = connection;

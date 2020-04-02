@@ -1,8 +1,0 @@
-{
-    "Template": {
-        "TemplateName": "Teste",
-        "SubjectPart": "Teste email for node",
-        "TextPart": "Teste email body",
-        "HtmlPart": "<html>\r\n\r\n<head>\r\n    <title>Teste<\/title>\r\n<\/head>\r\n\r\n<body>\r\n    <h1>Teste Email Node<\/h1>\r\n    <p>Teste Email Node Js<\/p>\r\n<\/body>\r\n\r\n<\/html>"
-    }
-}
