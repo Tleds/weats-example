@@ -122,7 +122,7 @@ describe('Testando usuários', () => {
           'x-access-token': await user.generateToken(),
         });
       await expect(response.status).toBe(200);
-      await done();
+      done();
     });
     it('Atualiza sem token', async () => {
       await database.cleanDatabase();

@@ -2,6 +2,8 @@
 
 const jwt = require('jsonwebtoken');
 const repository_users = require('../Repository/users-repository');
+const repository_shop_payments = require('../Repository/shop_payments-repository');
+const repository__payment_methods = require('../Repository/payment_methods-repository');
 
 module.exports = {
   async all() {
@@ -13,23 +15,21 @@ module.exports = {
     return response;
   },
   async showShopPayments(id_user) {
-    const response = await repository_users.showShopPayments(id);
+    const response = await repository_shop_payments.showUserShopPayments(
+      id_user
+    );
     return response;
   },
   async showParkingPayments(id_user) {
-    const response = await repository_users.showParkingPayments(id);
+    const response = await repository_users.showParkingPayments(id_user);
     return response;
   },
   async showProductRatings(id_user) {
-    const response = await repository_users.showProductRatings(id);
+    const response = await repository_users.showProductRatings(id_user);
     return response;
   },
   async showShopRatings(id_user) {
-    const response = await repository_users.showShopRatings(id);
-    return response;
-  },
-  async showPaymentMethods(id_user) {
-    const response = await repository_users.showPaymentMethods(id);
+    const response = await repository_users.showShopRatings(id_user);
     return response;
   },
   async create(user) {

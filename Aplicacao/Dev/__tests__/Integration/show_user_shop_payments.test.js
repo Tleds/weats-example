@@ -1,23 +1,24 @@
 require('../../src/Model/database/index');
 const request = require('supertest');
-const Users = require('../../src/Model/database/models/Users');
-const session_user = require('../utils/getUserSession');
+const User = require('../../src/Model/database/models/Users');
+const factory = require('../factories');
 const app = require('../../src/app');
+const database = require('../utils/truncate');
 
-afterAll(() => {
-  Users.truncate();
-});
 describe('Recuperar', () => {
-  it('Recupera com token', async () => {
-    const response = await (await request(app).get('/users/shop_payments')).set(
-      {
-        'x-access-token': session_user.token,
-      }
-    );
-    expect(response.status).toBe(200);
+  it('Recupera com token', async (done) => {
+    await database.cleanDatabase();
+    let user = await factory.create('User');
+    user = await User.findByPk(user.id);
+    const response = await request(app).get('/users/shop_payments').set({
+      'x-access-token': user.generateToken(),
+    });
+    await expect(response.status).toBe(200);
+    done();
   });
-  it('Recupera sem token', async () => {
+  it('Recupera sem token', async (done) => {
     const response = await request(app).get('/users/shop_payments');
-    expect(response.status).toBe(401);
+    await expect(response.status).toBe(401);
+    done();
   });
 });
