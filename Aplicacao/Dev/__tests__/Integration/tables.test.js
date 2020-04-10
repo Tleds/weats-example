@@ -9,19 +9,13 @@ const app = require('../../src/app');
 describe('Recuperar', () => {
   it('Recupera com token', async (done) => {
     await database.cleanDatabase();
-    const shopping = await factory.create('Shopping');
-
-    const shop_type = await factory.create('Shop_type');
-
-    let shop = await factory.create('Shop', {
-      id_shopping: shopping.id,
-      id_shop_type: shop_type.id,
-    });
-
+    let shop = await factory.create('Shop');
     shop = await Shop.findByPk(shop.id, { attributes: ['id', 'id_access'] });
-    const response = await request(app).get(`/tables/${shop.id}`).set({
-      'x-access-token': shop.generateToken(),
-    });
+    const response = await request(app)
+      .get(`/tables/${shop.id}`)
+      .set({
+        'x-access-token': await shop.generateToken(),
+      });
     expect(response.status).toBe(200);
     await done();
   });
