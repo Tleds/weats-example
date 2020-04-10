@@ -92,7 +92,6 @@ module.exports = {
     });
     return { message: response, result: true, status: 200 };
   },
-  async showShopRating(id_shop) {},
   async readById(id) {
     const response = await Shops.findByPk(id, { raw: true }).catch((e) => {
       return { message: e, result: false, status: 500 };
@@ -127,7 +126,7 @@ module.exports = {
       country,
     } = address;
 
-    await Shops.create({
+    const response = await Shops.create({
       id_shopping,
       id_shop_type,
       cnpj,
@@ -140,7 +139,8 @@ module.exports = {
       return { message: e, result: false, status: 500 };
     });
 
-    Addresses.create({
+    await Addresses.create({
+      id_shop: response.id,
       street,
       number,
       complement,
@@ -259,5 +259,23 @@ module.exports = {
       return { message: e, result: false, status: 500 };
     });
     return { message: 'Shop deleted', result: true, status: 200 };
+  },
+  async validaZipCode(zip_code) {
+    const response = await Addresses.findOne({
+      raw: true,
+      where: { zip_code },
+      attributes: ['zip_code'],
+    }).catch((e) => {
+      return { message: e, result: false, status: 500 };
+    });
+    if (response) {
+      return {
+        message: 'Zip code already registered',
+        result: false,
+        status: 400,
+      };
+    }
+
+    return { message: 'Valid zip code', result: true, status: 200 };
   },
 };

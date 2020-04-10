@@ -43,18 +43,23 @@ class Shops extends Model {
   }
 
   static associate(models) {
-    // this.hasMany(models.Menus, { foreignKey: 'id_shop', as: 'menus' });
     this.belongsTo(models.Shop_types, {
       foreignKey: 'id_shop_type',
       as: 'shop_types',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
     });
     this.belongsTo(models.Shoppings, {
       foreignKey: 'id_shopping',
       as: 'shoppings',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
     });
     this.belongsTo(models.ShopFiles, {
       foreignKey: 'id_image',
       as: 'shop_files',
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
     });
   }
 }

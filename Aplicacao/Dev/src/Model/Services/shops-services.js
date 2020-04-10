@@ -1,4 +1,5 @@
-const bc = require('bcrypt');
+const request = require('request');
+const { promisify } = require('util');
 const repository_shop = require('../Repository/shops-repository');
 
 module.exports = {
@@ -10,8 +11,27 @@ module.exports = {
     const response = await repository_shop.readById(id);
     return response;
   },
+  async validaCep(cep) {
+    let response = promisify(request.get);
+    try {
+      response = await response(`https://viacep.com.br/ws/${cep}/json/`);
+      return JSON.parse(response.body);
+    } catch (e) {
+      return e;
+    }
+  },
   async create(shop) {
-    let response = await repository_shop.validaEmail(shop.email);
+    let response = await this.validaCep(shop.address.zip_code);
+    if (response.erro) {
+      return { message: 'Invalid Cep', status: 400, result: false };
+    }
+    if (shop.id_shop_type == 2) {
+      response = await repository_shop.validaZipCode(shop.email);
+      if (!response.result) {
+        return response;
+      }
+    }
+    response = await repository_shop.validaEmail(shop.email);
     if (!response.result) {
       return response;
     }
