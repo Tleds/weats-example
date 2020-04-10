@@ -13,14 +13,12 @@ const show_user_solicitations_controller = require('./Controller/show_user_solic
 const show_shop_ratings_controller = require('./Controller/show_user_shop_ratings-controller');
 const show_shop_payments_controller = require('./Controller/show_user_shop_payments-controller');
 const show_product_ratings_controller = require('./Controller/show_user_product_ratings-controller');
-const show_user_payment_controller = require('./Controller/show_user_payment_methods-controller');
 const show_parking_payments_controller = require('./Controller/show_user_parking_payments-controller');
 const show_promotions_controller = require('./Controller/show_shopping_promotions-controller');
 const show_tables_controller = require('./Controller/show_shop_tables-controller');
 const show_shop_solicitations_controller = require('./Controller/show_shop_solicitations-controller');
 const show_shop_rating_controller = require('./Controller/show_shop_rating-controller');
 const show_catalog_controller = require('./Controller/show_shop_catalog-controller');
-const show_accept_payment = require('./Controller/show_shop_accept_payment_methods-controller');
 const shops_controller = require('./Controller/shops-controller');
 const shops_rating_controller = require('./Controller/shops_rating-controller');
 const shoppings_controller = require('./Controller/shoppings-controller');
@@ -43,9 +41,11 @@ const {
   checkUser,
   checkUpdateUser,
   checkShop,
+  checkUpdateShop,
   checkParkingPayment,
   checkShopping,
   checkShopPayment,
+  checkUpdateShopPayment,
   checkSolicitation,
   checkPaymentMethod,
   checkProductRating,
@@ -129,14 +129,6 @@ router.get(
   show_product_ratings_controller.showProductRatings
 );
 
-// Show user payment methods
-router.get(
-  '/users/payment_methods',
-  verifyJWT,
-  checkPermissionsUser,
-  show_user_payment_controller.showPaymentMethods
-);
-
 // Show user parking payments
 router.get(
   '/users/parking_payments',
@@ -184,22 +176,9 @@ router.get(
   show_catalog_controller.showCatalog
 );
 
-// Show accept payment methods
-router.get(
-  '/shops/accept_payment_methods/:id_shop',
-  verifyJWT,
-  checkPermissionsShop,
-  show_accept_payment.showAcceptPaymentMethods
-);
-
 // Show shops
 // avaliar
-router.get(
-  '/:id_shopping/shops',
-  verifyJWT,
-  checkPermissionsShop,
-  shops_controller.all
-);
+router.get('/:id_shopping/shops', verifyJWT, shops_controller.all);
 router.get(
   '/shops',
   verifyJWT,
@@ -209,7 +188,7 @@ router.get(
 router.post('/shops', checkShop, checkCNPJ, shops_controller.create);
 router.put(
   '/shops',
-  checkShop,
+  checkUpdateShop,
   checkCNPJ,
   verifyJWT,
   checkPermissionsShop,
@@ -245,7 +224,7 @@ router.put('/shoppings', checkShopping, shoppings_controller.update);
 router.delete('/shoppings', shoppings_controller.delete);
 
 // Shop payments
-router.get('/shop_payments', verifyJWT, shop_payments_controller.all);
+router.get('/shop_payments/:id', verifyJWT, shop_payments_controller.readById);
 router.post(
   '/shop_payments',
   verifyJWT,
@@ -255,7 +234,7 @@ router.post(
 router.put(
   '/shop_payments',
   verifyJWT,
-  checkShopPayment,
+  checkUpdateShopPayment,
   shop_payments_controller.update
 );
 router.delete('/shop_payments', verifyJWT, shop_payments_controller.delete);
@@ -312,7 +291,11 @@ router.put(
   checkPaymentMethod,
   payment_methods_controller.update
 );
-router.delete('/payment_methods', verifyJWT, payment_methods_controller.delete);
+router.delete(
+  '/payment_methods/:id',
+  verifyJWT,
+  payment_methods_controller.delete
+);
 
 // Parking payments
 router.get(
