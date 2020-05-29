@@ -7,13 +7,20 @@ const Shop_type = require('../src/Model/database/models/Shop_types');
 const Shopping = require('../src/Model/database/models/Shoppings');
 const Payment_method = require('../src/Model/database/models/Payment_methods');
 const Solicitation = require('../src/Model/database/models/Solicitations');
+const SolicitationItems = require('../src/Model/database/models/Solicitation_items');
 const Shop_payment = require('../src/Model/database/models/Shop_payments');
 
+factory.define('SolicitationItems', SolicitationItems, {
+  id_solicitation: 1,
+  id_product: 1,
+  amount: 4,
+  observation: 'Com gelo',
+  price: 10,
+});
 factory.define('Shop_payment', Shop_payment, {
   id_shop: 1,
   id_payment_method: 2,
   id_user: 1,
-  id_table: 1,
   id_solicitation: 1,
   final_price: 23.58,
 });
