@@ -7,25 +7,23 @@ const User = require('../../src/Model/database/models/Users');
 const app = require('../../src/app');
 
 describe('Recuperar', () => {
-  it('Recupera com token', async (done) => {
+  it('Recupera com token', async () => {
     await database.cleanDatabase();
     let user = await factory.create('User');
     user = await User.findByPk(user.id);
     const response = await request(app).get('/payment_methods/').set({
       'x-access-token': user.generateToken(),
     });
-    await expect(response.status).toBe(200);
-    done();
+    expect(response.status).toBe(200);
   });
-  it('Recupera sem token', async (done) => {
+  it('Recupera sem token', async () => {
     await database.cleanDatabase();
     const response = await request(app).get('/payment_methods/');
-    await expect(response.status).toBe(401);
-    done();
+    expect(response.status).toBe(401);
   });
 });
 describe('Gravar', () => {
-  it('Grava com atributos vazios', async (done) => {
+  it('Grava com atributos vazios', async () => {
     await database.cleanDatabase();
     let user = await factory.create('User');
     user = await User.findByPk(user.id);
@@ -39,10 +37,9 @@ describe('Gravar', () => {
         id_payment_method_type: 1,
         id_card_flag: null,
       });
-    await expect(response.status).toBe(400);
-    done();
+    expect(response.status).toBe(400);
   });
-  it('Grava com atributos válidos', async (done) => {
+  it('Grava com atributos válidos', async () => {
     await database.cleanDatabase();
     let user = await factory.create('User');
     user = await User.findByPk(user.id);
@@ -56,22 +53,20 @@ describe('Gravar', () => {
         id_payment_method_type: 1,
         id_card_flag: 2,
       });
-    await expect(response.status).toBe(200);
-    done();
+    expect(response.status).toBe(200);
   });
-  it('Grava sem token', async (done) => {
+  it('Grava sem token', async () => {
     await database.cleanDatabase();
     const response = await request(app).post('/payment_methods').send({
       description: 'teste1',
       id_payment_method_type: 1,
       id_card_flag: 2,
     });
-    await expect(response.status).toBe(401);
-    done();
+    expect(response.status).toBe(401);
   });
 });
 describe('Atualizar', () => {
-  it('Atualiza com atributos vazios', async (done) => {
+  it('Atualiza com atributos vazios', async () => {
     await database.cleanDatabase();
     let user = await factory.create('User');
     user = await User.findByPk(user.id);
@@ -87,10 +82,9 @@ describe('Atualizar', () => {
       .set({
         'x-access-token': user.generateToken(),
       });
-    await expect(response.status).toBe(400);
-    done();
+    expect(response.status).toBe(400);
   });
-  it('Atualiza com atributos válidos', async (done) => {
+  it('Atualiza com atributos válidos', async () => {
     await database.cleanDatabase();
     let user = await factory.create('User');
     user = await User.findByPk(user.id);
@@ -106,10 +100,9 @@ describe('Atualizar', () => {
       .set({
         'x-access-token': user.generateToken(),
       });
-    await expect(response.status).toBe(200);
-    done();
+    expect(response.status).toBe(200);
   });
-  it('Atualiza sem token', async (done) => {
+  it('Atualiza sem token', async () => {
     await database.cleanDatabase();
     const payment_method = await factory.create('Payment_method');
     const response = await request(app).put('/payment_methods').send({
@@ -118,12 +111,11 @@ describe('Atualizar', () => {
       id_payment_method_type: 1,
       id_card_flag: 2,
     });
-    await expect(response.status).toBe(401);
-    done();
+    expect(response.status).toBe(401);
   });
 });
 describe('Deletar', () => {
-  it('Deleta', async (done) => {
+  it('Deleta', async () => {
     await database.cleanDatabase();
     let user = await factory.create('User');
     user = await User.findByPk(user.id);
@@ -133,27 +125,24 @@ describe('Deletar', () => {
       .set({
         'x-access-token': user.generateToken(),
       });
-    await expect(response.status).toBe(200);
-    done();
+    expect(response.status).toBe(200);
   });
-  it('Deleta sem identificador', async (done) => {
+  it('Deleta sem identificador', async () => {
     await database.cleanDatabase();
     let user = await factory.create('User');
     user = await User.findByPk(user.id);
     const response = await request(app).delete('/payment_methods').set({
       'x-access-token': user.generateToken(),
     });
-    await expect(response.status).toBe(404);
-    done();
+    expect(response.status).toBe(404);
   });
-  it('Deleta com identificador inexistente', async (done) => {
+  it('Deleta com identificador inexistente', async () => {
     await database.cleanDatabase();
     let user = await factory.create('User');
     user = await User.findByPk(user.id);
     const response = await request(app).delete('/payment_methods/50').set({
       'x-access-token': user.generateToken(),
     });
-    await expect(response.status).toBe(400);
-    done();
+    expect(response.status).toBe(400);
   });
 });
