@@ -157,8 +157,12 @@ module.exports = {
   },
   async checkShop(req, res, next) {
     const schema = yup.object().shape({
-      id_shopping: yup.number().required(),
       id_shop_type: yup.number().required(),
+      id_shopping: yup
+        .number()
+        .when('id_shop_type', (id_shop_type, field) =>
+          id_shop_type == 1 ? field.required() : field
+        ),
       cnpj: yup.string().max(14).required(),
       name: yup.string().max(100).required(),
       email: yup.string().max(100).email().required(),
@@ -187,9 +191,30 @@ module.exports = {
       id: yup.number().required(),
       id_shopping: yup.number().required(),
       id_shop_type: yup.number().required(),
-      cnpj: yup.string().max(14).required(),
+      old_cnpj: yup.string().max(14),
+      cnpj: yup
+        .string()
+        .max(14)
+        .when('old_cnpj', (old_cnpj, field) =>
+          old_cnpj ? field.required() : field
+        ),
       name: yup.string().max(100).required(),
-      email: yup.string().max(100).email().required(),
+      old_email: yup.string().max(100).email(),
+      email: yup
+        .string()
+        .max(100)
+        .email()
+        .when('old_email', (old_email, field) =>
+          old_email ? field.required() : field
+        ),
+      old_password: yup.string().min(6).max(100),
+      password: yup
+        .string()
+        .min(6)
+        .max(100)
+        .when('old_password', (old_password, field) =>
+          old_password ? field.required() : field
+        ),
       telephone: yup.string().max(15).required(),
       cellphone: yup.string().max(15),
       id_image: yup.number(),
@@ -264,13 +289,24 @@ module.exports = {
     return next();
   },
   async checkShopPayment(req, res, next) {
-    const schema = yup.object.shape({
+    const schema = yup.object().shape({
       id_payment_method: yup.number().required(),
       id_user: yup.number().required(),
       id_shop: yup.number().required(),
       id_table: yup.number(),
       id_solicitation: yup.number().required(),
-      final_price: yup.number().max(10).required(),
+      final_price: yup.number().required(),
+    });
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ message: 'Invalid shop payment' });
+    }
+    return next();
+  },
+  async checkUpdateShopPayment(req, res, next) {
+    const schema = yup.object().shape({
+      id: yup.number().required(),
+      id_payment_method: yup.number().required(),
+      final_price: yup.number().required(),
     });
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ message: 'Invalid shop payment' });
@@ -279,12 +315,44 @@ module.exports = {
   },
   async checkSolicitation(req, res, next) {
     const schema = yup.object().shape({
-      id_shop: yup.number().required(),
-      id_user: yup.number().required(),
-      id_table: yup.number(),
-      id_solicitation_status: yup.number().required(),
-      price: yup.number().max(10).required(),
+      id_shop: yup.number().integer().required(),
+      id_user: yup.number().integer().required(),
+      id_table: yup.number().integer(),
+      id_solicitation_status: yup.number().integer().required(),
+      price: yup.number().required(),
       solicitation_password: yup.string().max(100).required(),
+      solicition_items: yup.array(
+        yup.object({
+          id_product: yup.number().integer().required(),
+          amount: yup.number().integer().min(1).required(),
+          observation: yup.string(),
+          price: yup.number().required(),
+        })
+      ),
+    });
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ message: 'Invalid solicitation' });
+    }
+    return next();
+  },
+  async checkUpdateSolicitation(req, res, next) {
+    const schema = yup.object().shape({
+      id: yup.number().integer().required(),
+      id_shop: yup.number().integer().required(),
+      id_user: yup.number().integer().required(),
+      id_table: yup.number().integer(),
+      id_solicitation_status: yup.number().integer().required(),
+      price: yup.number().required(),
+      solicitation_password: yup.string().max(100).required(),
+      solicition_items: yup.array(
+        yup.object({
+          id: yup.number().integer().required(),
+          id_product: yup.number().integer().required(),
+          amount: yup.number().integer().min(1).required(),
+          observation: yup.string(),
+          price: yup.number().required(),
+        })
+      ),
     });
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ message: 'Invalid solicitation' });
@@ -306,8 +374,33 @@ module.exports = {
   },
   async checkUpdateUser(req, res, next) {
     const schema = yup.object().shape({
-      name: yup.string().min(4).max(100).required(),
-      telephone: yup.string().min(10).max(15),
+      name: yup.string().max(100).required(),
+      old_email: yup.string().min(6).max(100).email(),
+      email: yup
+        .string()
+        .min(6)
+        .max(100)
+        .email()
+        .when('old_email', (old_email, field) =>
+          old_email ? field.required() : field
+        ),
+      old_cpf: yup.string().max(11),
+      cpf: yup
+        .string()
+        .max(11)
+        .when('old_cnpj', (old_cnpj, field) =>
+          old_cnpj ? field.required() : field
+        ),
+      old_password: yup.string().min(6).max(100),
+      password: yup
+        .string()
+        .min(6)
+        .max(100)
+        .when('old_password', (old_password, field) =>
+          old_password ? field.required() : field
+        ),
+      telephone: yup.string().max(15),
+      cellphone: yup.string().max(15),
     });
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ message: 'Invalid user' });
