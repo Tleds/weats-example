@@ -1,5 +1,6 @@
 const Solicitations = require('../database/models/Solicitations');
-const SolicitationItems = require('../database/models/Solicitation_items');
+const solicitation_item_repository = require('./solicitation_items-repository');
+
 require('../database/index');
 
 module.exports = {
@@ -53,14 +54,10 @@ module.exports = {
     });
 
     await solicitation_items.map(async (item) => {
-      await SolicitationItems.create({
-        id_product: item.id_product,
-        amount: item.amount,
-        observation: item.observation,
-        price: item.price,
-      }).catch((e) => {
-        return { message: e, result: false, status: 500 };
-      });
+      const response = await solicitation_item_repository.create(item);
+      if (response.status === 500) {
+        return response;
+      }
     });
 
     return { message: 'Solicitation created', result: true, status: 200 };
@@ -102,17 +99,10 @@ module.exports = {
     });
 
     await solicitation_items.map(async (item) => {
-      await SolicitationItems.update(
-        {
-          id_product: item.id_product,
-          amount: item.amount,
-          observation: item.observation,
-          price: item.price,
-        },
-        { where: { id: item.id } }
-      ).catch((e) => {
-        return { message: e, result: false, status: 500 };
-      });
+      const solicitation_item = await solicitation_item_repository.update(item);
+      if (solicitation_item.status === 500) {
+        return response;
+      }
     });
 
     return { message: 'Solicitation updated', result: true, status: 200 };
@@ -141,13 +131,8 @@ module.exports = {
     }).catch((e) => {
       return { message: e, result: false, status: 500 };
     });
-
-    await SolicitationItems.destroy({
-      where: { id_solicitation: id },
-    }).catch((e) => {
-      return { message: e, result: false, status: 500 };
-    });
-
+    const id_solicitation = id;
+    await solicitation_item_repository.delete(id_solicitation);
     return { message: 'Solicitation deleted', result: true, status: 200 };
   },
 };
