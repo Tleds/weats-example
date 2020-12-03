@@ -47,11 +47,13 @@ const {
   checkShopPayment,
   checkUpdateShopPayment,
   checkSolicitation,
+  checkUpdateSolicitation,
   checkPaymentMethod,
   checkProductRating,
   checkTable,
   checkLogin,
-  checkMenu,
+  checkCreateMenu,
+  checkUpdateMenu,
   checkShopRating,
   checkPromotion,
   checkPermissionsUser,
@@ -82,7 +84,7 @@ router.put('/tables', verifyJWT, checkTable, tables_controller.update);
 router.delete('/tables/:id', verifyJWT, tables_controller.delete);
 
 // Solicitations
-router.get('/solicitations', verifyJWT, solicitations_controller.readById);
+router.get('/solicitations/:id', verifyJWT, solicitations_controller.readById);
 router.post(
   '/solicitations',
   verifyJWT,
@@ -92,10 +94,10 @@ router.post(
 router.put(
   '/solicitations',
   verifyJWT,
-  checkSolicitation,
+  checkUpdateSolicitation,
   solicitations_controller.update
 );
-router.delete('/solicitations', verifyJWT, solicitations_controller.delete);
+router.delete('/solicitations/:id', verifyJWT, solicitations_controller.delete);
 
 // Show user solicitations
 router.get(
@@ -332,23 +334,23 @@ router.put('/notifications', verifyJWT, notification_controller.put);
 router.delete('/notifications', verifyJWT, notification_controller.delete);
 
 // Menus
-router.get('/menus', verifyJWT, menus_controller.all);
+router.get('/menus/:id_shop', verifyJWT, menus_controller.all);
 router.post(
   '/menus',
   verifyJWT,
   checkPermissionsShop,
-  checkMenu,
+  checkCreateMenu,
   menus_controller.create
 );
 router.put(
   '/menus',
   verifyJWT,
   checkPermissionsShop,
-  checkMenu,
+  checkUpdateMenu,
   menus_controller.update
 );
 router.delete(
-  '/menus',
+  '/menus/:id',
   verifyJWT,
   checkPermissionsShop,
   menus_controller.delete

@@ -6,7 +6,7 @@ module.exports = {
   // automock: false,
 
   // Stop running tests after `n` failures
-  bail: false,
+  // bail: false,
 
   // Respect "browser" field in package.json when resolving modules
   // browser: false,
@@ -21,14 +21,14 @@ module.exports = {
   // collectCoverage: true,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  // collectCoverageFrom: [
-  //   'src/**',
-  //   '!src/Models/database/migrations',
-  //   '!src/Views',
-  // ],
+  collectCoverageFrom: [
+    'src/**',
+    '!src/Models/database/migrations',
+    '!src/Views',
+  ],
 
   // The directory where Jest should output its coverage files
-  // coverageDirectory: '__tests__/coverage',
+  coverageDirectory: '__tests__/coverage',
 
   // An array of regexp pattern strings used to skip coverage collection
   // coveragePathIgnorePatterns: [

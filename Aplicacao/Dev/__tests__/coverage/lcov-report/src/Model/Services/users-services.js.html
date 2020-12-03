@@ -22,9 +22,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">8.11% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>3/37</span>
+                <span class='fraction'>0/37</span>
             </div>
         
             
@@ -38,14 +38,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/12</span>
+                <span class='fraction'>0/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">8.11% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>3/37</span>
+                <span class='fraction'>0/37</span>
             </div>
         
             
@@ -132,10 +132,12 @@
 <a name='L74'></a><a href='#L74'>74</a>
 <a name='L75'></a><a href='#L75'>75</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -146,10 +148,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -206,10 +206,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use-strict';
 &nbsp;
-const jwt = require('jsonwebtoken');
-const repository_users = require('../Repository/users-repository');
+const jwt = <span class="cstat-no" title="statement not covered" >require('jsonwebtoken');</span>
+const repository_users = <span class="cstat-no" title="statement not covered" >require('../Repository/users-repository');</span>
+const repository_shop_payments = <span class="cstat-no" title="statement not covered" >require('../Repository/shop_payments-repository');</span>
+const repository__payment_methods = <span class="cstat-no" title="statement not covered" >require('../Repository/payment_methods-repository');</span>
 &nbsp;
-module.exports = {
+<span class="cstat-no" title="statement not covered" >module.exports = {</span>
 <span class="fstat-no" title="function not covered" >  as</span>ync all() {
     const response = <span class="cstat-no" title="statement not covered" >await repository_users.all();</span>
 <span class="cstat-no" title="statement not covered" >    return response;</span>
@@ -219,23 +221,21 @@ module.exports = {
 <span class="cstat-no" title="statement not covered" >    return response;</span>
   },
 <span class="fstat-no" title="function not covered" >  as</span>ync showShopPayments(id_user) {
-    const response = <span class="cstat-no" title="statement not covered" >await repository_users.showShopPayments(id);</span>
+    const response = <span class="cstat-no" title="statement not covered" >await repository_shop_payments.showUserShopPayments(</span>
+      id_user
+    );
 <span class="cstat-no" title="statement not covered" >    return response;</span>
   },
 <span class="fstat-no" title="function not covered" >  as</span>ync showParkingPayments(id_user) {
-    const response = <span class="cstat-no" title="statement not covered" >await repository_users.showParkingPayments(id);</span>
+    const response = <span class="cstat-no" title="statement not covered" >await repository_users.showParkingPayments(id_user);</span>
 <span class="cstat-no" title="statement not covered" >    return response;</span>
   },
 <span class="fstat-no" title="function not covered" >  as</span>ync showProductRatings(id_user) {
-    const response = <span class="cstat-no" title="statement not covered" >await repository_users.showProductRatings(id);</span>
+    const response = <span class="cstat-no" title="statement not covered" >await repository_users.showProductRatings(id_user);</span>
 <span class="cstat-no" title="statement not covered" >    return response;</span>
   },
 <span class="fstat-no" title="function not covered" >  as</span>ync showShopRatings(id_user) {
-    const response = <span class="cstat-no" title="statement not covered" >await repository_users.showShopRatings(id);</span>
-<span class="cstat-no" title="statement not covered" >    return response;</span>
-  },
-<span class="fstat-no" title="function not covered" >  as</span>ync showPaymentMethods(id_user) {
-    const response = <span class="cstat-no" title="statement not covered" >await repository_users.showPaymentMethods(id);</span>
+    const response = <span class="cstat-no" title="statement not covered" >await repository_users.showShopRatings(id_user);</span>
 <span class="cstat-no" title="statement not covered" >    return response;</span>
   },
 <span class="fstat-no" title="function not covered" >  as</span>ync create(user) {
@@ -285,7 +285,7 @@ module.exports = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Mar 31 2020 19:11:40 GMT-0300 (Brasilia Standard Time)
+                at Wed May 27 2020 17:52:08 GMT-0300 (Brasilia Standard Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

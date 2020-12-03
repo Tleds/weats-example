@@ -10,10 +10,6 @@ module.exports = {
     const response = await repository_users.all();
     return response;
   },
-  async showSolicitations(id_user) {
-    const response = await repository_users.showSolicitations(id_user);
-    return response;
-  },
   async showShopPayments(id_user) {
     const response = await repository_shop_payments.showUserShopPayments(
       id_user

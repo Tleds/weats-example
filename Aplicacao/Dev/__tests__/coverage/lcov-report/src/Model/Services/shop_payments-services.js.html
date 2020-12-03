@@ -22,9 +22,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/10</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -43,9 +43,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/10</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -76,10 +76,13 @@
 <a name='L18'></a><a href='#L18'>18</a>
 <a name='L19'></a><a href='#L19'>19</a>
 <a name='L20'></a><a href='#L20'>20</a>
-<a name='L21'></a><a href='#L21'>21</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -96,34 +99,37 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use-strict'
-const repository_shop_payments = require('../Repository/shop_payments-repository')
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use-strict';
 &nbsp;
-module.exports = {
-<span class="fstat-no" title="function not covered" >    as</span>ync all() {
-        let response = <span class="cstat-no" title="statement not covered" >await repository_shop_payments.all()</span>
-<span class="cstat-no" title="statement not covered" >        return response</span>
-    },
-<span class="fstat-no" title="function not covered" >    as</span>ync create(shop_payment) {
-        let response = <span class="cstat-no" title="statement not covered" >await repository_shop_payments.create(shop_payment)</span>
-<span class="cstat-no" title="statement not covered" >        return response</span>
-    },
-<span class="fstat-no" title="function not covered" >    as</span>ync put(shop_payment) {
-        let response = <span class="cstat-no" title="statement not covered" >await repository_shop_payments.update(shop_payment)</span>
-<span class="cstat-no" title="statement not covered" >        return response</span>
-    },
-<span class="fstat-no" title="function not covered" >    as</span>ync delete(id) {
-        let response = <span class="cstat-no" title="statement not covered" >await repository_shop_payments.delete(id)</span>
-<span class="cstat-no" title="statement not covered" >        return response</span>
-    }
-}</pre></td></tr></table></pre>
+const repository_shop_payments = <span class="cstat-no" title="statement not covered" >require('../Repository/shop_payments-repository');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >module.exports = {</span>
+<span class="fstat-no" title="function not covered" >  as</span>ync readById(id) {
+    const response = <span class="cstat-no" title="statement not covered" >await repository_shop_payments.readById(id);</span>
+<span class="cstat-no" title="statement not covered" >    return response;</span>
+  },
+<span class="fstat-no" title="function not covered" >  as</span>ync create(shop_payment) {
+    const response = <span class="cstat-no" title="statement not covered" >await repository_shop_payments.create(shop_payment);</span>
+<span class="cstat-no" title="statement not covered" >    return response;</span>
+  },
+<span class="fstat-no" title="function not covered" >  as</span>ync put(shop_payment) {
+    const response = <span class="cstat-no" title="statement not covered" >await repository_shop_payments.update(shop_payment);</span>
+<span class="cstat-no" title="statement not covered" >    return response;</span>
+  },
+<span class="fstat-no" title="function not covered" >  as</span>ync delete(id) {
+    const response = <span class="cstat-no" title="statement not covered" >await repository_shop_payments.delete(id);</span>
+<span class="cstat-no" title="statement not covered" >    return response;</span>
+  },
+};
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Mar 31 2020 19:11:40 GMT-0300 (Brasilia Standard Time)
+                at Wed May 27 2020 17:52:08 GMT-0300 (Brasilia Standard Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

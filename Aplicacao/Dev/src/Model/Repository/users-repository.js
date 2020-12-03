@@ -1,10 +1,4 @@
 const Users = require('../database/models/Users');
-const Solicitations = require('../database/models/Solicitations');
-const Shop_payments = require('../database/models/Shop_payments');
-const Parking_payments = require('../database/models/Parking_payments');
-const Products_rating = require('../database/models/Product_ratings');
-const Shops_rating = require('../database/models/Shop_ratings');
-const Payment_methods = require('../database/models/Payment_methods');
 require('../database/index');
 
 module.exports = {
@@ -36,7 +30,6 @@ module.exports = {
         return { message: e, result: false, status: 500 };
       }
     );
-    console.log(response);
     if (!response) {
       return { message: 'E-mail not found', result: true, status: 200 };
     }

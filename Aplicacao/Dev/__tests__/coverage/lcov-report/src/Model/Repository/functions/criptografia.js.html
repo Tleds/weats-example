@@ -22,9 +22,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">26.32% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/19</span>
+                <span class='fraction'>0/19</span>
             </div>
         
             
@@ -43,9 +43,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">26.32% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/19</span>
+                <span class='fraction'>0/19</span>
             </div>
         
             
@@ -87,22 +87,20 @@
 <a name='L29'></a><a href='#L29'>29</a>
 <a name='L30'></a><a href='#L30'>30</a>
 <a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -111,6 +109,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -118,11 +118,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const crypto = require('crypto')
-const algorithm = 'aes-192-cbc'
-const password = 'keepitsecret'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const crypto = <span class="cstat-no" title="statement not covered" >require('crypto')</span>
+const algorithm = <span class="cstat-no" title="statement not covered" >'aes-192-cbc'</span>
+const password = <span class="cstat-no" title="statement not covered" >'keepitsecret'</span>
 &nbsp;
-exports.cp = function <span class="fstat-no" title="function not covered" >encryptText(</span>dados){
+<span class="cstat-no" title="statement not covered" >exports.cp = function <span class="fstat-no" title="function not covered" >encryptText(</span>dados){</span>
     // Use the async `crypto.scrypt()` instead.
     const key = <span class="cstat-no" title="statement not covered" >crypto.scryptSync(password, 'salt', 24)</span>
     // Use `crypto.randomBytes` to generate a random iv instead of the static iv
@@ -133,7 +133,7 @@ exports.cp = function <span class="fstat-no" title="function not covered" >encry
 <span class="cstat-no" title="statement not covered" >    encrypted += cipher.final('hex')</span>
 <span class="cstat-no" title="statement not covered" >    return encrypted</span>
 }
-exports.dcp = function <span class="fstat-no" title="function not covered" >decryptText(</span>dados){
+<span class="cstat-no" title="statement not covered" >exports.dcp = function <span class="fstat-no" title="function not covered" >decryptText(</span>dados){</span>
     // Use the async `crypto.scrypt()` instead.
     const key = <span class="cstat-no" title="statement not covered" >crypto.scryptSync(password, 'salt', 24)</span>
     // The IV is usually passed along with the ciphertext.
@@ -156,7 +156,7 @@ exports.dcp = function <span class="fstat-no" title="function not covered" >decr
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Mar 31 2020 19:11:40 GMT-0300 (Brasilia Standard Time)
+                at Wed May 27 2020 17:52:08 GMT-0300 (Brasilia Standard Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -1,4 +1,3 @@
-const jwt = require('jsonwebtoken');
 const Users = require('../Model/database/models/Users');
 
 class SessionUserController {

@@ -245,9 +245,38 @@ module.exports = {
     }
     return next();
   },
-  async checkMenu(req, res, next) {
+  async checkCreateMenu(req, res, next) {
     const schema = yup.object().shape({
       id_shop: yup.number().required(),
+      products: yup.array(
+        yup.object({
+          name: yup.string().min(3).max(100).required(),
+          price: yup.number().required(),
+          description: yup.string().required(),
+          id_image: yup.number().integer(),
+          id_classification: yup.number().integer().required(),
+        })
+      ),
+    });
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ message: 'Invalid menu' });
+    }
+    return next();
+  },
+  async checkUpdateMenu(req, res, next) {
+    const schema = yup.object().shape({
+      id: yup.number().integer().required(),
+      id_shop: yup.number().required(),
+      products: yup.array(
+        yup.object({
+          id: yup.number().integer().required(),
+          name: yup.string().min(3).max(100).required(),
+          price: yup.number().required(),
+          description: yup.string().required(),
+          id_image: yup.number().integer(),
+          id_classification: yup.number().integer().required(),
+        })
+      ),
     });
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ message: 'Invalid menu' });

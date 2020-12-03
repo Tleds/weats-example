@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "private": true,
-  "main": "src/app.js",
+  "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
-    "pretest": "NODE_ENV=test sequelize db:migrate",
+    "postmigrate": "sequelize db:seed:all",
+    "migrate": "sequelize db:migrate",
+    "pretest": "NODE_ENV=test yarn migrate",
     "dev": "nodemon src/server.js --ignore __testes__",
     "posttest": "NODE_ENV=test sequelize db:migrate:undo:all",
-    "test": "NODE_ENV=test jest"
+    "test": "NODE_ENV=test jest --runInBand --silent --noStackTrace"
   },
   "dependencies": {
     "aws-sdk": "^2.568.0",
@@ -32,11 +34,13 @@
     "nodemailer": "^6.3.1",
     "pm2": "^4.1.2",
     "qrcode": "1.4.4",
+    "request": "^2.88.2",
     "sequelize": "^5.19.1",
     "socket.io": "^2.3.0",
     "yup": "^0.28.3"
   },
   "devDependencies": {
+    "@types/jest": "^25.2.3",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-config-prettier": "^6.10.1",

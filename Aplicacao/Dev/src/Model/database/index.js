@@ -24,9 +24,7 @@ const ShopTypes = require('./models/Shop_types');
 
 const connection = new Sequelize(config);
 
-Users.init(connection);
-Shops.init(connection);
-Shoppings.init(connection);
+Shop_payments.init(connection);
 Solicitations.init(connection);
 Parking_payments.init(connection);
 Products.init(connection);
@@ -34,7 +32,6 @@ Addresses.init(connection);
 Payment_methods.init(connection);
 Menus.init(connection);
 Tables.init(connection);
-Shop_payments.init(connection);
 Solicitation_status.init(connection);
 Shops_rating.init(connection);
 Products_rating.init(connection);
@@ -44,6 +41,9 @@ ShopFiles.init(connection);
 ShoppingFiles.init(connection);
 Products_classification.init(connection);
 ShopTypes.init(connection);
+Users.init(connection);
+Shops.init(connection);
+Shoppings.init(connection);
 
 Shops.associate(connection.models);
 Shoppings.associate(connection.models);
@@ -51,6 +51,7 @@ Addresses.associate(connection.models);
 Tables.associate(connection.models);
 Solicitations.associate(connection.models);
 Shops_rating.associate(connection.models);
+Shop_payments.associate(connection.models);
 Products_rating.associate(connection.models);
 Promotions.associate(connection.models);
 Products_classification.associate(connection.models);

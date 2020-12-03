@@ -9,7 +9,19 @@ const Payment_method = require('../src/Model/database/models/Payment_methods');
 const Solicitation = require('../src/Model/database/models/Solicitations');
 const SolicitationItems = require('../src/Model/database/models/Solicitation_items');
 const Shop_payment = require('../src/Model/database/models/Shop_payments');
+const Menu = require('../src/Model/database/models/Menus');
+const Product = require('../src/Model/database/models/Products');
 
+factory.define('Menu', Menu, {
+  id_shop: 1,
+});
+factory.define('Product', Product, {
+  name: 'Teste',
+  price: 10.0,
+  description: 'teste descrição',
+  id_image: 5,
+  id_classification: 1,
+});
 factory.define('SolicitationItems', SolicitationItems, {
   id_solicitation: 1,
   id_product: 1,

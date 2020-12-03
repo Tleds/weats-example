@@ -8,7 +8,7 @@ const app = require('../../src/app');
 
 describe('Testando usuários', () => {
   describe('Recuperar', () => {
-    it('Recupera com token', async (done) => {
+    it('Recupera com token', async () => {
       await database.cleanDatabase();
       let user = await factory.create('User');
       user = await User.findByPk(user.id);
@@ -17,18 +17,16 @@ describe('Testando usuários', () => {
         .set({
           'x-access-token': await user.generateToken(),
         });
-      await expect(response.status).toBe(200);
-      await done();
+      expect(response.status).toBe(200);
     });
-    it('Recupera sem token', async (done) => {
+    it('Recupera sem token', async () => {
       await database.cleanDatabase();
       const response = await request(app).get('/users');
-      await expect(response.status).toBe(401);
-      await done();
+      expect(response.status).toBe(401);
     });
   });
   describe('Gravar', () => {
-    it('Grava com atributos vazios', async (done) => {
+    it('Grava com atributos vazios', async () => {
       await database.cleanDatabase();
       const response = await request(app).post('/users').send({
         name: 'usuário1 teste',
@@ -38,10 +36,9 @@ describe('Testando usuários', () => {
         cellphone: '31912345678',
         cpf: '23819316000',
       });
-      await expect(response.status).toBe(400);
-      await done();
+      expect(response.status).toBe(400);
     });
-    it('Grava com email inválido', async (done) => {
+    it('Grava com email inválido', async () => {
       await database.cleanDatabase();
       const response = await request(app).post('/users').send({
         name: faker.internet.userName(),
@@ -51,8 +48,7 @@ describe('Testando usuários', () => {
         cellphone: '31912345678',
         cpf: faker.br.cpf(),
       });
-      await expect(response.status).toBe(400);
-      await done();
+      expect(response.status).toBe(400);
     });
     it('Grava com cpf inválido', async () => {
       await database.cleanDatabase();
@@ -92,7 +88,7 @@ describe('Testando usuários', () => {
     });
   });
   describe('Atualizar', () => {
-    it('Atualiza com atributos vazios', async (done) => {
+    it('Atualiza com atributos vazios', async () => {
       await database.cleanDatabase();
       let user = await factory.create('User');
       user = await User.findByPk(user.id);
@@ -105,10 +101,9 @@ describe('Testando usuários', () => {
         .set({
           'x-access-token': await user.generateToken(),
         });
-      await expect(response.status).toBe(400);
-      await done();
+      expect(response.status).toBe(400);
     });
-    it('Atualiza com atributos válidos', async (done) => {
+    it('Atualiza com atributos válidos', async () => {
       await database.cleanDatabase();
       let user = await factory.create('User');
       user = await User.findByPk(user.id);
@@ -121,8 +116,7 @@ describe('Testando usuários', () => {
         .set({
           'x-access-token': await user.generateToken(),
         });
-      await expect(response.status).toBe(200);
-      done();
+      expect(response.status).toBe(200);
     });
     it('Atualiza sem token', async () => {
       await database.cleanDatabase();
@@ -134,20 +128,18 @@ describe('Testando usuários', () => {
     });
   });
   describe('Deletar', () => {
-    it('Deleta', async (done) => {
+    it('Deleta', async () => {
       await database.cleanDatabase();
       let user = await factory.create('User');
       user = await User.findByPk(user.id);
       const response = await request(app).delete('/users').set({
         'x-access-token': user.generateToken(),
       });
-      await expect(response.status).toBe(200);
-      await done();
+      expect(response.status).toBe(200);
     });
-    it('Deleta sem identificador', async (done) => {
+    it('Deleta sem identificador', async () => {
       const response = await request(app).delete('/users');
-      await expect(response.status).toBe(401);
-      await done();
+      expect(response.status).toBe(401);
     });
   });
 });
